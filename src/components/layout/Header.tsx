@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import AnnouncementBar from './AnnouncementBar';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
+import ScrollAnnouncementModal from './ScrollAnnouncementModal';
 import { navigationData } from '@/data/navigation';
 
 interface HeaderProps {
@@ -129,6 +130,15 @@ export default function Header({
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
+
+      {/* Scroll Announcement Modal */}
+      {showAnnouncement && (
+        <ScrollAnnouncementModal
+          message={announcementText}
+          ctaText={announcementLinkText}
+          ctaLink={announcementLink}
+        />
+      )}
 
       {/* Spacer to prevent content from going under fixed header */}
       <div className={showAnnouncement ? 'h-[120px]' : 'h-[72px]'} />
