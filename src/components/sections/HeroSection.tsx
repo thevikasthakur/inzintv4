@@ -40,7 +40,7 @@ export default function HeroSection() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
-                Trusted by Fortune 500 Companies
+                Founded by Developers in 2020
               </span>
             </motion.div>
 
@@ -50,9 +50,9 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
             >
-              Transform Your Business with{' '}
+              AI-Driven Software{' '}
               <span className="bg-gradient-to-r from-primary-500 to-purple-600 bg-clip-text text-transparent">
-                Digital Innovation
+                Built with Startup Speed and Enterprise Rigor
               </span>
             </motion.h1>
 
@@ -62,8 +62,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg md:text-xl text-gray-600 leading-relaxed"
             >
-              We build award-winning mobile apps, websites, and digital products that
-              drive business growth and create exceptional user experiences.
+              We ship production-ready software: AI voice systems, high-performance web/mobile apps, and cloud backends that scale. Small senior squads, documented decisions, measurable outcomes.
             </motion.p>
 
             <motion.div
@@ -73,11 +72,11 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <button className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 flex items-center justify-center gap-2">
-                Start Your Project
+                Book Discovery Call
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 rounded-full font-semibold border-2 border-gray-200 hover:border-gray-300 transition-all duration-300">
-                View Our Work
+                View Portfolio
               </button>
             </motion.div>
 

@@ -10,7 +10,7 @@ const testimonials = [
     client: 'Sarah Johnson',
     role: 'CEO, TechCorp',
     company: 'TechCorp Inc.',
-    quote: 'Working with Appinventiv transformed our business. Their team delivered a world-class mobile app that exceeded all expectations.',
+    quote: 'Working with Inzint transformed our business. Their engineering-first approach delivered a production-ready app that exceeded all expectations.',
     videoUrl: '/testimonials/video1.mp4',
     thumbnail: '/testimonials/thumb1.jpg',
     rating: 5,

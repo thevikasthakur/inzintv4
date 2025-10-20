@@ -11,43 +11,43 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Appinventiv | App Development & Digital Transformation Company USA",
-    template: "%s | Appinventiv"
+    default: "Inzint | AI-Driven Software Development | India",
+    template: "%s | Inzint"
   },
-  description: "Appinventiv is a global mobile app development company with offices in the US, UAE & UK. We offer innovative digital solutions to startups, enterprises and government clients across industries.",
+  description: "Inzint is an engineering-first software consultancy founded in 2020. We build AI voice/reception systems, high-performance web/mobile apps, and cloud backends that scale. Small senior squads, documented decisions, measurable outcomes.",
   keywords: [
-    "mobile app development",
-    "digital transformation",
-    "AI development",
-    "cloud services",
-    "blockchain",
-    "IoT solutions",
-    "software development",
-    "enterprise solutions"
+    "AI software development company India",
+    "Next.js and Node.js development agency",
+    "AWS serverless consultants",
+    "AI voice bot for businesses",
+    "Custom logistics & healthcare software",
+    "React Native mobile app development",
+    "NestJS backend development",
+    "AI MVP development"
   ],
-  authors: [{ name: "Appinventiv" }],
-  creator: "Appinventiv",
-  publisher: "Appinventiv",
+  authors: [{ name: "Inzint Private Limited" }],
+  creator: "Inzint",
+  publisher: "Inzint",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://appinventiv.com"),
+  metadataBase: new URL("https://inzint.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Appinventiv | App Development & Digital Transformation Company USA",
-    description: "Appinventiv is a global mobile app development company with offices in the US, UAE & UK. We offer innovative digital solutions to startups, enterprises and government clients across industries.",
-    url: "https://appinventiv.com",
-    siteName: "Appinventiv",
+    title: "Inzint | AI-Driven Software Development | India",
+    description: "Founder-led engineering team building production-ready software: AI voice bots, web/mobile apps, and cloud backends. From rapid prototypes to enterprise solutions.",
+    url: "https://inzint.com",
+    siteName: "Inzint",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Appinventiv - Digital Transformation Company",
+        alt: "Inzint - AI-Driven Software Development",
       },
     ],
     locale: "en_US",
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Appinventiv | App Development & Digital Transformation Company USA",
-    description: "Appinventiv is a global mobile app development company with offices in the US, UAE & UK.",
-    creator: "@appinventiv",
+    title: "Inzint | AI-Driven Software Development",
+    description: "Engineering-first team building AI voice bots, web/mobile apps, and cloud backends. India-based, serving globally.",
+    creator: "@inzint",
     images: ["/twitter-image.png"],
   },
   robots: {

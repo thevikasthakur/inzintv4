@@ -12,7 +12,7 @@ interface AnnouncementBarProps {
 }
 
 export default function AnnouncementBar({
-  text = 'We are ranked as the #1 AI Development Company by Clutch 2024',
+  text = 'Were ranked as the #1 AI Development Company by Clutch 2024',
   link = '/awards',
   linkText = 'Learn More',
 }: AnnouncementBarProps) {

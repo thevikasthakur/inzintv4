@@ -1,7 +1,7 @@
 /**
  * Homepage Sections
  *
- * This file exports all the main sections for the Appinventiv clone homepage.
+ * This file exports all the main sections for the Inzint website homepage.
  * Import these components to build your homepage layout.
  *
  * @example

@@ -133,22 +133,22 @@ export default function MobileMenu({
 
                 <div className="space-y-2 text-sm text-gray-600">
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+919289909174"
                     className="flex items-center gap-2 hover:text-primary-600"
                   >
                     <Phone className="h-4 w-4" />
-                    +1 (234) 567-890
+                    +91 928 990 9174
                   </a>
                   <a
-                    href="mailto:info@appinventiv.com"
+                    href="mailto:hello@inzint.com"
                     className="flex items-center gap-2 hover:text-primary-600"
                   >
                     <Mail className="h-4 w-4" />
-                    info@appinventiv.com
+                    hello@inzint.com
                   </a>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
-                    New York, USA
+                    Noida, India
                   </div>
                 </div>
               </div>

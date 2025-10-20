@@ -9,8 +9,8 @@ import type {
 
 export const navigationData: NavItem[] = [
   {
-    id: 'inventiv-ai',
-    label: 'InventivAI',
+    id: 'inzint-ai',
+    label: 'InzintAI',
     submenu: {
       type: 'tabs',
       tabs: [
@@ -157,10 +157,10 @@ export const navigationData: NavItem[] = [
               description: 'Join our growing team',
             },
             {
-              id: 'life-at-appinventiv',
-              label: 'Life at Appinventiv',
-              href: '/life-at-appinventiv',
-              description: 'Discover our culture and values',
+              id: 'how-we-work',
+              label: 'How We Work',
+              href: '/how-we-work',
+              description: 'Our agile process and engineering culture',
             },
           ],
         },

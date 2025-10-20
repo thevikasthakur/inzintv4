@@ -248,15 +248,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-primary-600" />
-                  <span>+1 (646) 585-0501</span>
+                  <span>+91 928 990 9174</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-primary-600" />
-                  <span>sales@appinventiv.com</span>
+                  <span>hello@inzint.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-primary-600" />
-                  <span>New York, USA</span>
+                  <span>Noida, India</span>
                 </div>
               </div>
             </div>

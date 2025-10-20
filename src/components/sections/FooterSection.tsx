@@ -20,77 +20,77 @@ import Link from 'next/link';
 const offices = [
   {
     id: 1,
-    city: 'New York',
-    country: 'USA',
-    address: '1201 6th Avenue, New York, NY 10020',
-    phone: '+1 (646) 585-2380',
-    email: 'us@appinventiv.com',
+    city: 'Noida',
+    country: 'India',
+    address: 'B-111, Sector 65, Noida, National Capital Region, India',
+    phone: '+91 928 990 9174',
+    email: 'contact@inzint.com',
   },
   {
     id: 2,
-    city: 'London',
-    country: 'UK',
-    address: '10 Eastcheap, London EC3M 1AJ',
-    phone: '+44 20 3807 1873',
-    email: 'uk@appinventiv.com',
+    city: 'Muscat',
+    country: 'Oman',
+    address: '31, Building 13, 6125 Way, Muscat, Oman',
+    phone: '(+968) 7272 4832',
+    email: 'contact@inzint.om',
   },
   {
     id: 3,
-    city: 'Dubai',
-    country: 'UAE',
-    address: 'Dubai Silicon Oasis, DDP Building A2',
-    phone: '+971 50 276 9709',
-    email: 'uae@appinventiv.com',
+    city: 'Sydney',
+    country: 'Australia',
+    address: '7 Danks Street, Waterloo, NSW 2017, Australia',
+    phone: '+61 481 835 357',
+    email: 'contact@inzint.com',
   },
   {
     id: 4,
-    city: 'Singapore',
-    country: 'Singapore',
-    address: '1 Raffles Place, #40-02, Singapore 048616',
-    phone: '+65 3157 0607',
-    email: 'sg@appinventiv.com',
+    city: 'St. Louis',
+    country: 'USA',
+    address: '12379 Cross Creek Cove, St. Louis, MO 63141, USA',
+    phone: '+1 (253) 523-2373',
+    email: 'contact@inzint.com',
   },
 ];
 
 const services = [
+  'AI Rapid Prototype',
+  'AI MVP Development',
+  'AI Voice Bot (VoxReception)',
+  'Full Privacy Chatbot',
+  'Web/Mobile MVP',
   'Mobile App Development',
-  'Web Development',
-  'AI & ML Solutions',
-  'Blockchain Development',
-  'IoT Solutions',
-  'Cloud Services',
-  'UI/UX Design',
-  'DevOps Services',
+  'Custom ERP & CRM',
+  'Cloud & DevOps',
 ];
 
 const company = [
-  'About Us',
-  'Our Team',
+  'About Inzint',
+  'Founders',
+  'How We Work',
   'Careers',
-  'Case Studies',
-  'Blog',
-  'Press',
-  'Partners',
+  'Portfolio',
+  'Upwork Track Record',
+  'Tech Stack',
   'Contact',
 ];
 
 const industries = [
   'Healthcare',
-  'Finance',
-  'E-commerce',
-  'Education',
+  'Logistics & Warehousing',
+  'Hospitality',
+  'Education & Training',
+  'Banking & Fintech',
+  'E-Commerce & Retail',
   'Real Estate',
-  'Logistics',
-  'Entertainment',
-  'Travel',
+  'Events & Sports',
 ];
 
 const resources = [
-  'Documentation',
-  'API Reference',
-  'Tutorials',
-  'Webinars',
-  'White Papers',
+  'VoxReception',
+  'PeopleParity',
+  'Pomo Cards',
+  'BoardBlend',
+  'Pricing',
   'Case Studies',
   'FAQs',
   'Support',
@@ -121,10 +121,11 @@ export default function FooterSection() {
               viewport={{ once: true }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-white mb-4">Appinventiv</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Inzint</h3>
                 <p className="text-gray-400 leading-relaxed mb-6">
-                  A leading digital product engineering company transforming businesses with innovative
-                  technology solutions. We build apps that scale and drive real business value.
+                  Engineering-first software consultancy founded in 2020. We ship production-ready software:
+                  AI voice bots, web/mobile apps, and cloud backends that scale. Small senior squads,
+                  documented decisions, measurable outcomes.
                 </p>
               </div>
 
@@ -132,11 +133,11 @@ export default function FooterSection() {
               <div className="flex flex-wrap gap-4 mb-6">
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10">
                   <Award className="w-5 h-5 text-primary-400" />
-                  <span className="text-sm">ISO Certified</span>
+                  <span className="text-sm">Founded 2020</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10">
                   <Globe className="w-5 h-5 text-primary-400" />
-                  <span className="text-sm">50+ Countries</span>
+                  <span className="text-sm">India → Global</span>
                 </div>
               </div>
 
@@ -333,7 +334,7 @@ export default function FooterSection() {
               viewport={{ once: true }}
               className="text-sm text-gray-400"
             >
-              © {currentYear} Appinventiv. All rights reserved.
+              © {currentYear} Inzint Private Limited. All rights reserved.
             </motion.div>
 
             <motion.div

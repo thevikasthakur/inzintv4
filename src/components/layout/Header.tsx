@@ -16,9 +16,9 @@ interface HeaderProps {
 
 export default function Header({
   showAnnouncement = true,
-  announcementText = 'We are ranked as the #1 AI Development Company by Clutch 2024',
-  announcementLink = '/awards',
-  announcementLinkText = 'Learn More',
+  announcementText = 'Code’s still hot. The website is writing itself. We just watch. — ',
+  announcementLink = '/website-status',
+  announcementLinkText = 'track it live',
 }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);

@@ -8,8 +8,8 @@ const faqs = [
   {
     id: 1,
     category: 'General',
-    question: 'What services does Appinventiv offer?',
-    answer: 'We offer comprehensive digital solutions including mobile app development, web development, AI/ML solutions, blockchain development, IoT solutions, cloud services, and UI/UX design. Our end-to-end services cover everything from strategy and consulting to development, deployment, and ongoing support.',
+    question: 'What services does Inzint offer?',
+    answer: 'We offer AI-driven software development including AI rapid prototypes, AI MVP development, AI voice bots (VoxReception), full privacy chatbots, web/mobile MVP development, custom ERP/CRM systems, and cloud/DevOps services. Our end-to-end services cover everything from strategy and consulting to development, deployment, and ongoing support.',
   },
   {
     id: 2,
