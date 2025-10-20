@@ -1,0 +1,14 @@
+<svg id="General_Cards_Rugby" data-name="General/Cards/Rugby" xmlns="http://www.w3.org/2000/svg" width="85" height="121" viewBox="0 0 85 121">
+  <g id="rugby_card" data-name="rugby card">
+    <g id="Group">
+      <rect id="Background" width="85" height="121" rx="10" fill="#dbd0e7"/>
+      <g id="Icons_Rugby" data-name="Icons/Rugby" transform="translate(10 10)">
+        <g id="rugby" transform="translate(3 4)">
+          <path id="Shape" d="M6.874,15.381h0L0,8.515A12.359,12.359,0,0,1,3.128,3.1,12.636,12.636,0,0,1,8.572,0l6.816,6.818a12.389,12.389,0,0,1-3.1,5.433,12.708,12.708,0,0,1-5.408,3.129Zm-.283-5.8h0l1.477,1.478.785-.785L7.376,8.8,8.809,7.363l1.478,1.478.785-.784L9.593,6.578,10.7,5.469l-.784-.784L8.809,5.794,7.331,4.315,6.547,5.1,8.024,6.578,6.592,8.012,5.113,6.533l-.784.784L5.808,8.8,4.7,9.9l.784.784L6.591,9.58Z" transform="translate(1.169 0.443)" fill="#8a24ff"/>
+          <path id="Combined_Shape" data-name="Combined Shape" d="M1.039,15.217a4.667,4.667,0,0,1-1.024-3.3A10.077,10.077,0,0,1,.1,10.7l5.483,5.483a9.856,9.856,0,0,1-1.24.086q-.172.013-.343.013A4.669,4.669,0,0,1,1.039,15.217ZM10.751.084c1.939-.248,3.643.054,4.516.925a4.627,4.627,0,0,1,1.009,3.269,10.219,10.219,0,0,1-.093,1.23Z" transform="translate(0.725 0.009)" fill="#8a24ff" opacity="0.5"/>
+        </g>
+      </g>
+      <text id="_653_Kcal" data-name="+653 Kcal" transform="translate(14 84)" fill="#8a24ff" font-size="16" font-family="Helvetica"><tspan x="0" y="0">+</tspan><tspan y="0" font-size="17">653</tspan><tspan y="0" font-size="12"></tspan><tspan font-size="12"><tspan x="0" y="16">Kcal</tspan></tspan></text>
+    </g>
+  </g>
+</svg>
