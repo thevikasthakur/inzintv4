@@ -101,20 +101,6 @@ export default function Navigation({
                   )}
                 </div>
 
-                {/* Mega Menu */}
-                {item.submenu && activeMenu === item.id && (
-                  <div
-                    className="absolute left-0 top-full pt-0 z-50"
-                    onMouseEnter={() => handleMouseEnter(item.id)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <MegaMenu
-                      submenu={item.submenu}
-                      isOpen={true}
-                      onClose={handleCloseMenu}
-                    />
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -152,6 +138,26 @@ export default function Navigation({
           </div>
         </div>
       </div>
+
+      {/* Mega Menu - Centered on Page */}
+      {activeMenu && (
+        <div
+          className="absolute left-0 right-0 top-full w-full z-50"
+          onMouseEnter={() => activeMenu && handleMouseEnter(activeMenu)}
+          onMouseLeave={handleMouseLeave}
+        >
+          {navigationData.map((item) =>
+            item.submenu && activeMenu === item.id ? (
+              <MegaMenu
+                key={item.id}
+                submenu={item.submenu}
+                isOpen={true}
+                onClose={handleCloseMenu}
+              />
+            ) : null
+          )}
+        </div>
+      )}
 
       {/* Search Modal */}
       {isSearchOpen && (

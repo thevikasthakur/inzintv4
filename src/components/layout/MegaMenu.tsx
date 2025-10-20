@@ -34,12 +34,10 @@ export default function MegaMenu({ submenu, isOpen, onClose }: MegaMenuProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
-        className="absolute left-1/2 -translate-x-1/2 w-screen max-w-7xl mt-0"
+        className="relative z-50"
       >
-        <div className="relative">
-          <div className="absolute inset-0 bg-black/5 backdrop-blur-sm" />
-          <div className="relative border-t border-gray-200 bg-white shadow-2xl rounded-b-2xl">
-            <div className="px-8 py-8">
+        <div className="container mx-auto px-4">
+          <div className="border-t border-gray-200 bg-white shadow-2xl rounded-b-2xl px-8 py-8">
                 {submenu.type === 'tabs' && submenu.tabs && (
                   <TabsLayout
                     tabs={submenu.tabs}
@@ -66,7 +64,6 @@ export default function MegaMenu({ submenu, isOpen, onClose }: MegaMenuProps) {
                 {submenu.cta && (
                   <CTASection cta={submenu.cta} onClose={onClose} />
                 )}
-            </div>
           </div>
         </div>
       </motion.div>
@@ -125,41 +122,47 @@ function TabsLayout({
               </h3>
             )}
 
-            <div className="grid grid-cols-2 gap-6 lg:grid-cols-3">
-              {currentTab.content.items.map((item) => (
-                <MenuItem key={item.id} item={item} onClose={onClose} />
-              ))}
-            </div>
-
-            {/* Featured Section */}
-            {currentTab.content.featuredSection && (
-              <div className="mt-8 border-t border-gray-200 pt-8">
-                <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                  {currentTab.content.featuredSection.title}
-                </h4>
-                <div className="grid grid-cols-2 gap-4">
-                  {currentTab.content.featuredSection.items.map((featured) => (
-                    <Link
-                      key={featured.id}
-                      href={featured.href}
-                      onClick={onClose}
-                      className="group relative overflow-hidden rounded-lg"
-                    >
-                      <div className="aspect-video overflow-hidden rounded-lg bg-gray-100">
-                        <img
-                          src={featured.image}
-                          alt={featured.title}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                      <p className="mt-2 text-sm font-medium text-gray-900 group-hover:text-primary-600">
-                        {featured.title}
-                      </p>
-                    </Link>
+            {/* Side-by-side Layout: Main Content + Featured Projects */}
+            <div className="flex gap-6">
+              {/* Main Content - AI-Powered Technology Solutions */}
+              <div className="flex-1">
+                <div className="grid grid-cols-2 gap-6">
+                  {currentTab.content.items.map((item) => (
+                    <MenuItem key={item.id} item={item} onClose={onClose} />
                   ))}
                 </div>
               </div>
-            )}
+
+              {/* Featured Projects - Right Side */}
+              {currentTab.content.featuredSection && (
+                <div className="w-64 flex-shrink-0 border-l border-gray-200 pl-6">
+                  <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    {currentTab.content.featuredSection.title}
+                  </h4>
+                  <div className="space-y-3">
+                    {currentTab.content.featuredSection.items.map((featured) => (
+                      <Link
+                        key={featured.id}
+                        href={featured.href}
+                        onClick={onClose}
+                        className="group block"
+                      >
+                        <div className="aspect-video overflow-hidden rounded-lg bg-gray-100">
+                          <img
+                            src={featured.image}
+                            alt={featured.title}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
+                        <p className="mt-2 text-xs font-medium text-gray-900 group-hover:text-primary-600 line-clamp-2">
+                          {featured.title}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -247,7 +250,7 @@ function ColumnsLayout({
   );
 }
 
-// Grid Layout Component
+// Grid Layout Component - Balanced Design for Industries
 function GridLayout({
   items,
   onClose,
@@ -262,18 +265,18 @@ function GridLayout({
           key={item.id}
           href={item.href}
           onClick={onClose}
-          className="group rounded-lg border border-gray-200 p-4 transition-all hover:border-primary-600 hover:shadow-md"
+          className="group rounded-lg border border-gray-200 p-3 transition-all hover:border-primary-600 hover:shadow-md hover:bg-primary-50"
         >
           {item.icon && (
-            <div className="mb-3 inline-flex rounded-lg bg-primary-50 p-3">
-              {getIcon(item.icon, 'h-6 w-6 text-primary-600')}
+            <div className="mb-2 inline-flex rounded-lg bg-primary-50 p-2">
+              {getIcon(item.icon, 'h-5 w-5 text-primary-600')}
             </div>
           )}
-          <h4 className="mb-1 font-semibold text-gray-900 group-hover:text-primary-600">
+          <h4 className="mb-1 text-sm font-semibold text-gray-900 group-hover:text-primary-600">
             {item.label}
           </h4>
           {item.description && (
-            <p className="text-sm text-gray-500">{item.description}</p>
+            <p className="text-xs text-gray-500 line-clamp-2">{item.description}</p>
           )}
         </Link>
       ))}

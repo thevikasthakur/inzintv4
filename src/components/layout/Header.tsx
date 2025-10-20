@@ -64,14 +64,8 @@ export default function Header({
         setIsScrolled(false);
       }
 
-      // Show/hide header based on scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setIsHeaderVisible(false);
-      } else {
-        // Scrolling up
-        setIsHeaderVisible(true);
-      }
+      // Keep header always visible
+      setIsHeaderVisible(true);
 
       setLastScrollY(currentScrollY);
     };
