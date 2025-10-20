@@ -1,0 +1,30 @@
+{
+  "name": "Appinventiv - Digital Transformation Company",
+  "short_name": "Appinventiv",
+  "description": "Appinventiv is a global mobile app development company with offices in the US, UAE & UK. We offer innovative digital solutions to startups, enterprises and government clients across industries.",
+  "theme_color": "#0069ff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "categories": ["business", "technology", "developer"],
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}

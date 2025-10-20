@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://appinventiv.com
+
+# Sitemaps
+Sitemap: https://appinventiv.com/sitemap.xml
