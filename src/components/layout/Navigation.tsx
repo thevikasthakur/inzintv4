@@ -59,7 +59,7 @@ export default function Navigation({
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Logo variant={isScrolled ? 'default' : 'default'} />
+            <Logo />
           </div>
 
           {/* Desktop Navigation */}
