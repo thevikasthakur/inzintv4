@@ -9,26 +9,35 @@ interface AnnouncementBarProps {
   text: string;
   link?: string;
   linkText?: string;
+  onClose?: () => void;
 }
 
 export default function AnnouncementBar({
   text = 'Were ranked as the #1 AI Development Company by Clutch 2024',
   link = '/awards',
   linkText = 'Learn More',
+  onClose,
 }: AnnouncementBarProps) {
   const [isVisible, setIsVisible] = useState(true);
 
-  if (!isVisible) return null;
+  const handleClose = () => {
+    setIsVisible(false);
+    if (onClose) {
+      // Delay callback to allow animation to complete
+      setTimeout(onClose, 300);
+    }
+  };
 
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: 'auto', opacity: 1 }}
-        exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="relative overflow-hidden bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white"
-      >
+      {isVisible && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className="relative overflow-hidden bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white"
+        >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2.5 md:py-3">
             {/* Marquee Text for Mobile */}
@@ -80,7 +89,7 @@ export default function AnnouncementBar({
 
             {/* Close Button */}
             <button
-              onClick={() => setIsVisible(false)}
+              onClick={handleClose}
               className="flex-shrink-0 rounded-full p-1 transition-colors hover:bg-white/10"
               aria-label="Close announcement"
             >
@@ -104,7 +113,8 @@ export default function AnnouncementBar({
             ease: 'linear',
           }}
         />
-      </motion.div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }

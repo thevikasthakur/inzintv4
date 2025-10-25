@@ -48,6 +48,13 @@ import {
   Pizza,
   Briefcase,
   Mic,
+  Building,
+  Award,
+  Shield,
+  Handshake,
+  MapPin,
+  Mail,
+  UsersRound,
 } from 'lucide-react';
 
 export const iconMap = {
@@ -121,6 +128,16 @@ export const iconMap = {
   fuel: Zap,
   mic: Mic,
   bank: DollarSign,
+
+  // About/Company Icons
+  building: Building,
+  award: Award,
+  shield: Shield,
+  handshake: Handshake,
+  'map-pin': MapPin,
+  mail: Mail,
+  'users-round': UsersRound,
+  cog: Settings,
 };
 
 export function getIcon(iconName: string, className?: string) {

@@ -191,12 +191,14 @@ function ColumnsLayout({
           </h3>
           <div className="space-y-3">
             {column.items.map((item) => (
-              <div key={item.id}>
+              <div
+                key={item.id}
+                onMouseEnter={() => item.submenu && setHoveredItem(item.id)}
+                onMouseLeave={() => item.submenu && setHoveredItem(null)}
+              >
                 <Link
                   href={item.href}
                   onClick={onClose}
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
                   className="group flex items-start gap-3 rounded-lg p-2 transition-all hover:bg-gray-50"
                 >
                   {item.icon && (
@@ -222,25 +224,28 @@ function ColumnsLayout({
                 </Link>
 
                 {/* Nested Submenu */}
-                {item.submenu && hoveredItem === item.id && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="ml-8 mt-2 space-y-2"
-                  >
-                    {item.submenu.map((subItem) => (
-                      <Link
-                        key={subItem.id}
-                        href={subItem.href}
-                        onClick={onClose}
-                        className="block rounded px-2 py-1.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary-600"
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
+                <AnimatePresence>
+                  {item.submenu && hoveredItem === item.id && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2, ease: 'easeInOut' }}
+                      className="ml-8 mt-2 space-y-2 overflow-hidden"
+                    >
+                      {item.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.id}
+                          href={subItem.href}
+                          onClick={onClose}
+                          className="block rounded px-2 py-1.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary-600"
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>

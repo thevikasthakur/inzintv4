@@ -17,7 +17,7 @@ interface HeaderProps {
 
 export default function Header({
   showAnnouncement = true,
-  announcementText = 'Code’s still hot. The website is writing itself. We just watch. — ',
+  announcementText = `Code's still hot. The website is writing itself. We just watch. — `,
   announcementLink = '/website-status',
   announcementLinkText = 'track it live',
 }: HeaderProps) {
@@ -27,6 +27,7 @@ export default function Header({
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(showAnnouncement);
 
   const { scrollY } = useScroll();
 
@@ -100,11 +101,12 @@ export default function Header({
         style={{ opacity: headerOpacity }}
       >
         {/* Announcement Bar */}
-        {showAnnouncement && (
+        {isAnnouncementVisible && (
           <AnnouncementBar
             text={announcementText}
             link={announcementLink}
             linkText={announcementLinkText}
+            onClose={() => setIsAnnouncementVisible(false)}
           />
         )}
 
@@ -141,7 +143,12 @@ export default function Header({
       )}
 
       {/* Spacer to prevent content from going under fixed header */}
-      <div className={showAnnouncement ? 'h-[120px]' : 'h-[72px]'} />
+      <motion.div
+        animate={{
+          height: isAnnouncementVisible ? '120px' : '72px',
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+      />
     </>
   );
 }

@@ -12,7 +12,7 @@ interface ScrollAnnouncementModalProps {
 }
 
 export default function ScrollAnnouncementModal({
-  message = "Code's still hot. The website is writing itself. We just watch.",
+  message = `Code's still hot. The website is writing itself. We just watch.`,
   ctaText = 'track it live',
   ctaLink = '/website-status',
 }: ScrollAnnouncementModalProps) {
