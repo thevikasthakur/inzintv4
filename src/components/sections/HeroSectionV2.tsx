@@ -9,7 +9,7 @@ import { AnimatedCodeScreen } from '@/components/ui/AnimatedCodeScreen';
 type StoryPhase = 'problem' | 'attempts' | 'frustration' | 'realization' | 'solution' | 'expertise' | 'results';
 
 const STORY_TEXTS = {
-  problem: "You tried ChatGPT, Claude Code, CoPilot, Bolt, Lovable.",
+  problem: "You tried ChatGPT, Claude Code, CoPilot, Bolt, Bubble, Lovable.",
   attempts: "Day 7: Still debugging AI-generated code...",
   frustration: "The AI promised a full app. You got broken fragments.",
   realization: "AI tools are powerful. BUT, in our hands.",
@@ -72,6 +72,14 @@ export default function HeroSectionV2() {
 
     return () => unsubscribe();
   }, [scrollY]);
+
+  // Reset scroll position on mount/refresh
+  useEffect(() => {
+    // Force scroll to top on component mount (page refresh)
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
 
   // Story progression
   useEffect(() => {

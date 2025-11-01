@@ -88,6 +88,15 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0069ff" />
+        {/* Force scroll restoration to manual to prevent browser from remembering scroll position */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if (history.scrollRestoration) {
+              history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0, 0);
+          `
+        }} />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <Header />
