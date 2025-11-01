@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { AlertTriangle, Code2, Sparkles, Zap, ChevronDown, Clock, Laptop, Rocket, XCircle, CheckCircle, Users, Brain } from 'lucide-react';
 import { AnimatedCodeScreen } from '@/components/ui/AnimatedCodeScreen';
 
@@ -34,6 +34,37 @@ export default function HeroSectionV2() {
   const [problemTypedText, setProblemTypedText] = useState('');
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
   const [selectedAttempt] = useState(() => FAILED_ATTEMPTS[Math.floor(Math.random() * FAILED_ATTEMPTS.length)]);
+
+  // Scroll-based animation refs and values
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+
+  // Calculate the upward movement of the code screen
+  // It should move up based on scroll, but only after the final phase
+  const codeScreenY = useTransform(
+    scrollY,
+    [0, 600], // Scroll range - increased for smoother transition
+    [0, -700] // Movement range (negative for upward) - moves up to cover the content above
+  );
+
+  // Optional: Add opacity fade for the text/CTA when code screen covers them
+  const contentOpacity = useTransform(
+    scrollY,
+    [300, 500],
+    [1, 0]
+  );
+
+  // Control navbar appearance based on code screen position
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = scrollY.on("change", (latest) => {
+      // Show navbar when code screen reaches near the top (around 500px scroll)
+      setShowNavbar(latest > 500);
+    });
+
+    return () => unsubscribe();
+  }, [scrollY]);
 
   // Story progression
   useEffect(() => {
@@ -102,7 +133,7 @@ export default function HeroSectionV2() {
   }, [currentPhase, selectedAttempt]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-visible bg-gradient-to-br from-gray-950 via-gray-900 to-black">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
         {/* Grid pattern */}
@@ -361,8 +392,9 @@ export default function HeroSectionV2() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="relative"
+              ref={containerRef}
             >
-              {/* Header Text - with smooth height animation */}
+              {/* Header Text - Fixed position, doesn't move with scroll */}
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{
@@ -373,7 +405,10 @@ export default function HeroSectionV2() {
                   height: { duration: 0.8, ease: "easeInOut" },
                   opacity: { duration: 0.6, delay: 0.2 }
                 }}
-                className="overflow-hidden"
+                style={{
+                  opacity: currentPhase === 'results' ? contentOpacity : 1
+                }}
+                className="overflow-hidden relative z-10"
               >
                 <div className="text-center mb-8 pt-8">
                   <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full border border-green-500/30">
@@ -408,12 +443,17 @@ export default function HeroSectionV2() {
                 </div>
               </motion.div>
 
-              {/* Code Generation Screen */}
+              {/* Code Generation Screen - Moves up on scroll to cover the content above */}
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="relative h-[600px] -mx-4 md:mx-0"
+                style={{
+                  y: currentPhase === 'results' ? codeScreenY : 0,
+                  position: currentPhase === 'results' ? 'sticky' : 'relative',
+                  top: currentPhase === 'results' ? '0' : 'auto',
+                }}
+                className="h-[800px] -mx-4 md:mx-0 z-20 bg-gradient-to-br from-gray-950 via-gray-900 to-black"
               >
                 <AnimatedCodeScreen />
               </motion.div>

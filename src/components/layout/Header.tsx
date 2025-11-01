@@ -66,8 +66,9 @@ export default function Header({
         setIsScrolled(false);
       }
 
-      // Show header only when user starts scrolling (after 100px)
-      if (currentScrollY > 100) {
+      // Show header only when Claude Code area reaches near the top (after 500px)
+      // This aligns with the HeroSectionV2 scroll animation
+      if (currentScrollY > 500) {
         setIsHeaderVisible(true);
       } else {
         setIsHeaderVisible(false);
