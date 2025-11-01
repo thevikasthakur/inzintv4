@@ -10,9 +10,9 @@ type StoryPhase = 'problem' | 'attempts' | 'frustration' | 'realization' | 'solu
 
 const STORY_TEXTS = {
   problem: "You tried ChatGPT, Claude Code, CoPilot, Bolt, Lovable.",
-  attempts: "Day 3: Still debugging AI-generated code...",
+  attempts: "Day 7: Still debugging AI-generated code...",
   frustration: "The AI promised a full app. You got broken fragments.",
-  realization: "AI tools are powerful. BUT, In our hands.",
+  realization: "AI tools are powerful. BUT, in our hands.",
   solution: "We speak AI fluently.",
   expertise: "Experience AI's speed.",
   results: "From concept to deployment in days, not months."
@@ -52,6 +52,13 @@ export default function HeroSectionV2() {
     scrollY,
     [300, 500],
     [1, 0]
+  );
+
+  // Dynamically adjust the container's margin/padding to prevent blank space
+  const containerMargin = useTransform(
+    scrollY,
+    [0, 600],
+    [0, -700] // Negative margin to pull up the content below
   );
 
   // Control navbar appearance based on code screen position
@@ -391,6 +398,9 @@ export default function HeroSectionV2() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
+              style={{
+                marginBottom: currentPhase === 'results' ? containerMargin : 0,
+              }}
               className="relative"
               ref={containerRef}
             >
@@ -450,10 +460,8 @@ export default function HeroSectionV2() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 style={{
                   y: currentPhase === 'results' ? codeScreenY : 0,
-                  position: currentPhase === 'results' ? 'sticky' : 'relative',
-                  top: currentPhase === 'results' ? '0' : 'auto',
                 }}
-                className="h-[800px] -mx-4 md:mx-0 z-20 bg-gradient-to-br from-gray-950 via-gray-900 to-black"
+                className="relative h-[800px] -mx-4 md:mx-0 z-20 bg-gradient-to-br from-gray-950 via-gray-900 to-black"
               >
                 <AnimatedCodeScreen />
               </motion.div>
