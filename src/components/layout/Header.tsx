@@ -24,7 +24,7 @@ export default function Header({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false); // Hidden on initial load
   const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(showAnnouncement);
@@ -66,8 +66,12 @@ export default function Header({
         setIsScrolled(false);
       }
 
-      // Keep header always visible
-      setIsHeaderVisible(true);
+      // Show header only when user starts scrolling (after 100px)
+      if (currentScrollY > 100) {
+        setIsHeaderVisible(true);
+      } else {
+        setIsHeaderVisible(false);
+      }
 
       setLastScrollY(currentScrollY);
     };
@@ -95,10 +99,13 @@ export default function Header({
     <>
       {/* Header Container */}
       <motion.header
-        className={`fixed left-0 right-0 top-0 z-50 transition-transform duration-300 ${
-          isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-        style={{ opacity: headerOpacity }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{
+          y: isHeaderVisible ? 0 : -100,
+          opacity: isHeaderVisible ? 1 : 0,
+        }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="fixed left-0 right-0 top-0 z-50"
       >
         {/* Announcement Bar */}
         {isAnnouncementVisible && (
@@ -142,13 +149,7 @@ export default function Header({
         />
       )}
 
-      {/* Spacer to prevent content from going under fixed header */}
-      <motion.div
-        animate={{
-          height: isAnnouncementVisible ? '120px' : '72px',
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-      />
+      {/* No spacer needed since header is hidden on initial load */}
     </>
   );
 }
