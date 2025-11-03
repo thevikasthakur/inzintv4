@@ -458,6 +458,33 @@ export default function HeroSectionV2() {
                       See Our Process
                     </button>
                   </motion.div>
+
+                  {/* Stats - Part of header content that fades with scroll */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5 }}
+                    className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-12"
+                  >
+                    {[
+                      { label: 'AI Tools Mastered', value: '20+', color: 'text-purple-400' },
+                      { label: 'Faster Than DIY', value: '10x', color: 'text-blue-400' },
+                      { label: 'Production-Ready Code', value: '100%', color: 'text-green-400' },
+                    ].map((stat, index) => (
+                      <motion.div
+                        key={stat.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.7 + index * 0.1 }}
+                        className="text-center"
+                      >
+                        <div className={`text-3xl md:text-4xl font-bold ${stat.color}`}>
+                          {stat.value}
+                        </div>
+                        <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+                      </motion.div>
+                    ))}
+                  </motion.div>
                 </div>
               </motion.div>
 
@@ -473,35 +500,6 @@ export default function HeroSectionV2() {
               >
                 <AnimatedCodeScreen />
               </motion.div>
-
-              {/* Stats */}
-              {currentPhase === 'results' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.5 }}
-                  className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-12"
-                >
-                  {[
-                    { label: 'AI Tools Mastered', value: '20+', color: 'text-purple-400' },
-                    { label: 'Faster Than DIY', value: '10x', color: 'text-blue-400' },
-                    { label: 'Production-Ready Code', value: '100%', color: 'text-green-400' },
-                  ].map((stat, index) => (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 1.7 + index * 0.1 }}
-                      className="text-center"
-                    >
-                      <div className={`text-3xl md:text-4xl font-bold ${stat.color}`}>
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
             </motion.div>
           )}
         </AnimatePresence>
