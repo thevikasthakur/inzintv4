@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import AnnouncementBar from './AnnouncementBar';
-import Navigation from './Navigation';
-import MobileMenu from './MobileMenu';
-import ScrollAnnouncementModal from './ScrollAnnouncementModal';
-import { navigationData } from '@/data/navigation';
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { motion, useScroll, useTransform } from "framer-motion";
+import AnnouncementBar from "./AnnouncementBar";
+import Navigation from "./Navigation";
+import MobileMenu from "./MobileMenu";
+import ScrollAnnouncementModal from "./ScrollAnnouncementModal";
+import { navigationData } from "@/data/navigation";
 
 interface HeaderProps {
   showAnnouncement?: boolean;
@@ -17,17 +18,21 @@ interface HeaderProps {
 
 export default function Header({
   showAnnouncement = true,
-  announcementText = `Code's still hot. The website is writing itself. We just watch. — `,
-  announcementLink = '/website-status',
-  announcementLinkText = 'track it live',
+  announcementText = `🎓 Now Hiring: Computer Science Graduates from 2026 Batch for AI & ML Engineering Department — `,
+  announcementLink = "/careers/ai-ml-engineer-trainee-2026",
+  announcementLinkText = "Apply Now",
 }: HeaderProps) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(!isHomePage); // Hidden on home page, visible on other pages
   const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
-  const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(showAnnouncement);
+  const [isAnnouncementVisible, setIsAnnouncementVisible] =
+    useState(showAnnouncement);
 
   const { scrollY } = useScroll();
 
@@ -39,8 +44,20 @@ export default function Header({
   const scrollProgress = useTransform(
     scrollY,
     [0, Math.max(documentHeight - windowHeight, 1)],
-    ['0%', '100%']
+    ["0%", "100%"]
   );
+
+  // Update header visibility when navigating between pages
+  useEffect(() => {
+    if (!isHomePage) {
+      // If not on home page, immediately show the header
+      setIsHeaderVisible(true);
+    } else {
+      // If on home page, check current scroll position
+      const currentScrollY = window.scrollY;
+      setIsHeaderVisible(currentScrollY > 500);
+    }
+  }, [isHomePage]);
 
   useEffect(() => {
     // Set document and window heights on client side
@@ -50,9 +67,9 @@ export default function Header({
     };
 
     updateDimensions();
-    window.addEventListener('resize', updateDimensions);
+    window.addEventListener("resize", updateDimensions);
 
-    return () => window.removeEventListener('resize', updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   useEffect(() => {
@@ -66,18 +83,27 @@ export default function Header({
         setIsScrolled(false);
       }
 
-      // Keep header always visible
-      setIsHeaderVisible(true);
+      // Only apply the 500px scroll threshold on the home page
+      // On other pages, the header is always visible
+      if (isHomePage) {
+        // Show header only when Claude Code area reaches near the top (after 500px)
+        // This aligns with the HeroSectionV2 scroll animation
+        if (currentScrollY > 500) {
+          setIsHeaderVisible(true);
+        } else {
+          setIsHeaderVisible(false);
+        }
+      }
 
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isHomePage]);
 
   // Close mobile menu when window is resized to desktop size
   useEffect(() => {
@@ -87,18 +113,21 @@ export default function Header({
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
 
   return (
     <>
       {/* Header Container */}
       <motion.header
-        className={`fixed left-0 right-0 top-0 z-50 transition-transform duration-300 ${
-          isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-        style={{ opacity: headerOpacity }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{
+          y: isHeaderVisible ? 0 : -100,
+          opacity: isHeaderVisible ? 1 : 0,
+        }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="fixed left-0 right-0 top-0 z-50"
       >
         {/* Announcement Bar */}
         {isAnnouncementVisible && (
@@ -134,21 +163,15 @@ export default function Header({
       />
 
       {/* Scroll Announcement Modal */}
-      {showAnnouncement && (
+      {/* {showAnnouncement && (
         <ScrollAnnouncementModal
           message={announcementText}
           ctaText={announcementLinkText}
           ctaLink={announcementLink}
         />
-      )}
+      )} */}
 
-      {/* Spacer to prevent content from going under fixed header */}
-      <motion.div
-        animate={{
-          height: isAnnouncementVisible ? '120px' : '72px',
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-      />
+      {/* No spacer needed since header is hidden on initial load */}
     </>
   );
 }

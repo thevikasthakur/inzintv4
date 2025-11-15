@@ -7,6 +7,17 @@ import Link from 'next/link';
 
 const jobs = [
   {
+    title: '🎓 Full Stack AI & ML Engineer - Trainee (2026 Batch)',
+    department: 'AI & ML Engineering',
+    location: 'Noida, Sector 65',
+    type: 'Full-time Trainee',
+    description: 'Join our 6-month training program for 2026 CS graduates. Work on cutting-edge AI/ML projects with comprehensive training in Data Science, DevOps, and AWS.',
+    skills: ['Python', 'ReactJS', 'Machine Learning', 'TensorFlow'],
+    isNew: true,
+    isFeatured: true,
+    link: '/careers/ai-ml-engineer-trainee-2026',
+  },
+  {
     title: 'Senior Full-Stack Engineer',
     department: 'Engineering',
     location: 'Remote / India',
@@ -87,8 +98,17 @@ export default function JobListingsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group"
+              className={`${
+                job.isFeatured
+                  ? 'bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-400 shadow-lg'
+                  : 'bg-white border border-gray-200'
+              } rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group relative`}
             >
+              {job.isNew && (
+                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-bold animate-pulse">
+                  NEW - 6 Positions
+                </div>
+              )}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
@@ -127,10 +147,14 @@ export default function JobListingsSection() {
                 </div>
 
                 <Link
-                  href="/contact"
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 whitespace-nowrap self-start md:self-center"
+                  href={job.link || "/contact"}
+                  className={`flex items-center gap-2 px-6 py-3 ${
+                    job.isFeatured
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 animate-pulse'
+                      : 'bg-gradient-to-r from-blue-600 to-purple-600'
+                  } text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 whitespace-nowrap self-start md:self-center`}
                 >
-                  Apply Now
+                  {job.isFeatured ? 'View Details' : 'Apply Now'}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>

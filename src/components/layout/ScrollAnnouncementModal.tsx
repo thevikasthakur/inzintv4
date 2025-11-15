@@ -12,9 +12,9 @@ interface ScrollAnnouncementModalProps {
 }
 
 export default function ScrollAnnouncementModal({
-  message = `Code's still hot. The website is writing itself. We just watch.`,
-  ctaText = 'track it live',
-  ctaLink = '/website-status',
+  message = `🎓 Now Hiring: Computer Science Graduates from 2026 Batch for AI & ML Engineering Department`,
+  ctaText = 'Apply Now',
+  ctaLink = '/about/company/careers',
 }: ScrollAnnouncementModalProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);

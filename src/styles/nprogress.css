@@ -1,0 +1,143 @@
+/* NProgress Custom Styles */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: linear-gradient(90deg, #ff6b00 0%, #ff0066 25%, #9333ea 50%, #3b82f6 75%, #ff6b00 100%);
+  background-size: 200% 100%;
+  animation: nprogress-gradient 1.5s ease infinite;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  box-shadow:
+    0 2px 20px rgba(255, 107, 0, 0.8),
+    0 2px 10px rgba(255, 0, 102, 0.6),
+    0 4px 25px rgba(147, 51, 234, 0.4);
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 150px;
+  height: 100%;
+  box-shadow:
+    0 0 20px #ff6b00,
+    0 0 15px #ff0066,
+    0 0 30px #9333ea;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Gradient animation */
+@keyframes nprogress-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Loading spinner (disabled by default) */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 9999;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+  border-top-color: #3b82f6;
+  border-left-color: #3b82f6;
+  border-radius: 50%;
+  animation: nprogress-spinner 400ms linear infinite;
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ensure it appears above everything */
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+/* Add pulse effect when loading */
+#nprogress .bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  animation: nprogress-pulse 0.8s ease-out infinite;
+  filter: blur(4px);
+}
+
+/* Add a bright white core to make it more visible */
+#nprogress .bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.9) 100%);
+  transform: translateY(-50%);
+  animation: nprogress-shimmer 1.5s ease infinite;
+}
+
+@keyframes nprogress-pulse {
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scaleY(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes nprogress-shimmer {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
