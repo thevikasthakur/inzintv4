@@ -1,0 +1,3272 @@
+'use client';
+
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { FileText, Edit3, FileEdit, ListTodo, CheckCircle2 } from 'lucide-react';
+
+const PROMPT_OPTIONS = [
+  // Laundry App
+  `Create a modern, full-stack web application for a laundry pickup and delivery service with the following features:
+
+1. User Authentication & Profiles
+   - Email/password and social login (Google, Facebook)
+   - Customer and driver profiles
+   - Address management with geolocation
+
+2. Service Booking System
+   - Schedule pickup and delivery times
+   - Real-time pricing calculator based on items and services
+   - Recurring order scheduling
+   - Special instructions and preferences
+
+3. Item Management
+   - Categorized laundry items (shirts, pants, delicates, etc.)
+   - Service options (wash & fold, dry cleaning, iron only)
+   - Item-specific care instructions
+   - Photo upload for special items
+
+4. Payment Integration
+   - Multiple payment methods (credit cards, digital wallets)
+   - Secure payment processing
+   - Order history and invoices
+   - Promotional codes and discounts
+
+5. Real-Time Tracking
+   - Live driver location tracking
+   - Order status updates (picked up, in process, out for delivery)
+   - Push notifications and SMS alerts
+   - Estimated delivery times
+
+Tech Stack:
+- Frontend: Next.js 14 with TypeScript, Tailwind CSS
+- Backend: Node.js with Express, PostgreSQL
+- Real-time: Socket.io for live tracking
+- Maps: Google Maps API
+- Payments: Stripe
+- Cloud: AWS (S3 for images, EC2 for hosting)`,
+
+  // Food Delivery App
+  `Build a comprehensive food delivery platform similar to DoorDash with the following features:
+
+1. Multi-Restaurant Marketplace
+   - Restaurant discovery with search and filters
+   - Cuisine categories and dietary preferences
+   - Restaurant ratings and reviews
+   - Menu browsing with photos and descriptions
+
+2. Smart Ordering System
+   - Customizable menu items with modifiers
+   - Cart management with special instructions
+   - Group ordering capabilities
+   - Scheduled and ASAP delivery options
+
+3. Real-Time Delivery Tracking
+   - Live driver GPS tracking
+   - ETA updates and notifications
+   - Order status progression
+   - Direct communication with driver
+
+4. Payment & Rewards
+   - Multiple payment methods
+   - Promo codes and discounts
+   - Loyalty points system
+   - Subscription plans for free delivery
+
+5. Restaurant Dashboard
+   - Order management system
+   - Menu and pricing controls
+   - Analytics and insights
+   - Customer feedback management
+
+Tech Stack:
+- Frontend: React Native for iOS/Android
+- Backend: Node.js with GraphQL
+- Database: MongoDB
+- Real-time: Firebase
+- Maps: Google Maps API
+- Payments: Stripe Connect`,
+
+  // Fitness App
+  `Develop an AI-powered fitness and wellness app with personalized workout plans:
+
+1. User Onboarding & Goals
+   - Fitness level assessment
+   - Goal setting (weight loss, muscle gain, endurance)
+   - Health metrics tracking
+   - Dietary preferences and restrictions
+
+2. AI Workout Generation
+   - Personalized workout plans based on goals
+   - Exercise library with video demonstrations
+   - Progressive difficulty adjustment
+   - Equipment-based workout filtering
+
+3. Nutrition Tracking
+   - Calorie and macro counting
+   - Meal planning and recipes
+   - Barcode scanner for food logging
+   - Water intake tracking
+
+4. Social Features
+   - Challenge friends and compete
+   - Share workout achievements
+   - Community groups and forums
+   - Leaderboards and badges
+
+5. Integration & Wearables
+   - Apple Health and Google Fit sync
+   - Fitbit and Garmin integration
+   - Heart rate monitoring
+   - Sleep tracking
+
+Tech Stack:
+- Frontend: Flutter for cross-platform
+- Backend: Python with FastAPI
+- AI/ML: TensorFlow for workout recommendations
+- Database: PostgreSQL
+- Cloud: Google Cloud Platform`,
+
+  // E-Learning Platform
+  `Create a modern online learning platform with interactive courses and live classes:
+
+1. Course Management
+   - Video-based lessons with progress tracking
+   - Interactive quizzes and assignments
+   - Downloadable resources and materials
+   - Course completion certificates
+
+2. Live Virtual Classroom
+   - Video conferencing with screen sharing
+   - Real-time chat and Q&A
+   - Whiteboard and annotation tools
+   - Breakout rooms for group work
+
+3. Student Dashboard
+   - Course enrollment and browsing
+   - Learning path recommendations
+   - Progress tracking and analytics
+   - Calendar with upcoming classes
+
+4. Instructor Portal
+   - Course creation tools
+   - Student management
+   - Analytics on engagement
+   - Revenue and earnings tracking
+
+5. Assessment System
+   - Automated grading
+   - Peer review assignments
+   - Plagiarism detection
+   - Performance analytics
+
+Tech Stack:
+- Frontend: Next.js with TypeScript
+- Backend: Django REST Framework
+- Video: Agora.io for live streaming
+- Database: PostgreSQL
+- Storage: AWS S3
+- CDN: CloudFront`,
+
+  // Real Estate Platform
+  `Build a comprehensive real estate marketplace with virtual tours and AI-powered search:
+
+1. Property Listings
+   - Advanced search with filters
+   - Interactive maps with neighborhoods
+   - High-quality photo galleries
+   - 360° virtual tours and 3D walkthroughs
+
+2. AI-Powered Recommendations
+   - Machine learning based property suggestions
+   - Price prediction and market trends
+   - Neighborhood insights and analytics
+   - Investment opportunity scoring
+
+3. Booking & Scheduling
+   - In-person viewing appointments
+   - Virtual tour bookings
+   - Agent availability calendar
+   - Automated reminder notifications
+
+4. Financial Tools
+   - Mortgage calculator
+   - Down payment estimator
+   - Rent vs buy calculator
+   - Pre-approval integration
+
+5. Agent & Buyer Portals
+   - CRM for real estate agents
+   - Document management
+   - Offer submission and tracking
+   - Transaction timeline
+
+Tech Stack:
+- Frontend: React with TypeScript
+- Backend: Node.js with NestJS
+- Database: PostgreSQL
+- Search: Elasticsearch
+- Maps: Mapbox
+- 3D Tours: Matterport API`,
+
+  // Healthcare Telemedicine App
+  `Develop a HIPAA-compliant telemedicine platform for virtual healthcare:
+
+1. Patient Registration & Profiles
+   - Secure health records storage
+   - Medical history and allergies
+   - Insurance information
+   - Family member profiles
+
+2. Doctor Discovery & Booking
+   - Search by specialty and location
+   - Doctor profiles with credentials
+   - Appointment scheduling
+   - Same-day consultations
+
+3. Virtual Consultations
+   - HIPAA-compliant video calls
+   - Screen sharing for reports
+   - In-call prescription writing
+   - Appointment notes and records
+
+4. Prescription Management
+   - E-prescriptions to pharmacies
+   - Medication reminders
+   - Refill requests
+   - Drug interaction warnings
+
+5. Health Monitoring
+   - Symptom checker
+   - Vital signs tracking
+   - Lab results integration
+   - Health metrics dashboard
+
+Tech Stack:
+- Frontend: React Native
+- Backend: Node.js with Express
+- Database: PostgreSQL with encryption
+- Video: Twilio Video API
+- Cloud: AWS with HIPAA compliance
+- Security: End-to-end encryption`,
+
+  // Social Media App
+  `Create a next-generation social media platform with AI content moderation:
+
+1. User Profiles & Connections
+   - Customizable profiles
+   - Friend/follower system
+   - Interest-based communities
+   - Privacy controls
+
+2. Content Creation
+   - Photo and video posts
+   - Stories with AR filters
+   - Live streaming
+   - Text posts and threads
+
+3. AI-Powered Feed
+   - Personalized content recommendations
+   - Trending topics discovery
+   - Content moderation
+   - Spam and harassment detection
+
+4. Engagement Features
+   - Reactions and comments
+   - Sharing and reposting
+   - Direct messaging
+   - Group chats and channels
+
+5. Monetization
+   - Creator tools and analytics
+   - Sponsored content
+   - Subscription tiers
+   - Virtual gifts and tipping
+
+Tech Stack:
+- Frontend: React Native
+- Backend: Node.js microservices
+- Database: Cassandra for scalability
+- CDN: Cloudflare
+- AI: Custom ML models
+- Real-time: Redis and WebSockets`,
+
+  // Task Management App
+  `Build an advanced project management and collaboration platform:
+
+1. Project Organization
+   - Workspaces and projects
+   - Task boards (Kanban, List, Calendar)
+   - Custom workflows
+   - Templates for common projects
+
+2. Task Management
+   - Subtasks and dependencies
+   - Priority levels and labels
+   - Due dates and reminders
+   - Time tracking
+
+3. Team Collaboration
+   - Real-time commenting
+   - @mentions and notifications
+   - File attachments
+   - Activity timeline
+
+4. Automation & Integration
+   - Custom automation rules
+   - Integration with Slack, Gmail
+   - API for third-party apps
+   - Zapier connectivity
+
+5. Reporting & Analytics
+   - Project progress tracking
+   - Team productivity metrics
+   - Burndown charts
+   - Export to PDF/Excel
+
+Tech Stack:
+- Frontend: Vue.js 3 with TypeScript
+- Backend: Go with Gin framework
+- Database: PostgreSQL
+- Real-time: WebSockets
+- Search: Elasticsearch`,
+
+  // E-Commerce Platform
+  `Develop a headless e-commerce platform with AI-powered recommendations:
+
+1. Product Management
+   - Product catalog with variants
+   - Inventory tracking
+   - Dynamic pricing
+   - Multi-language support
+
+2. Shopping Experience
+   - Advanced product search
+   - AI recommendations
+   - Wishlist and favorites
+   - Recently viewed items
+
+3. Checkout & Payments
+   - Guest and registered checkout
+   - Multiple payment gateways
+   - Address validation
+   - Order tracking
+
+4. Customer Service
+   - Live chat support
+   - Order history
+   - Returns and refunds
+   - Product reviews
+
+5. Merchant Dashboard
+   - Sales analytics
+   - Inventory management
+   - Customer insights
+   - Marketing campaigns
+
+Tech Stack:
+- Frontend: Next.js commerce
+- Backend: Shopify Storefront API
+- Database: PostgreSQL
+- Search: Algolia
+- Payments: Stripe
+- Analytics: Segment`,
+
+  // Travel Booking Platform
+  `Create a comprehensive travel booking platform with itinerary planning:
+
+1. Search & Discovery
+   - Flight search with filters
+   - Hotel and accommodation search
+   - Car rental options
+   - Activities and experiences
+
+2. Smart Booking
+   - Multi-city itineraries
+   - Package deals
+   - Price alerts and tracking
+   - Flexible date search
+
+3. Trip Planning
+   - Itinerary builder
+   - Day-by-day planning
+   - Budget tracking
+   - Collaborative planning
+
+4. Travel Companion
+   - Offline access to bookings
+   - Digital boarding passes
+   - Local recommendations
+   - Currency converter
+
+5. Loyalty Program
+   - Points and rewards
+   - Member discounts
+   - Status tiers
+   - Partner benefits
+
+Tech Stack:
+- Frontend: React with Redux
+- Backend: Python with FastAPI
+- APIs: Amadeus, Skyscanner
+- Database: MongoDB
+- Payments: Stripe`,
+
+  // Music Streaming App
+  `Build a music streaming platform with social features and AI playlists:
+
+1. Music Library
+   - Millions of songs catalog
+   - Artist profiles and albums
+   - Podcast integration
+   - High-quality audio streaming
+
+2. Personalization
+   - AI-curated playlists
+   - Discover weekly
+   - Song radio
+   - Mood-based recommendations
+
+3. Social Features
+   - Follow friends and artists
+   - Collaborative playlists
+   - Share songs and playlists
+   - Activity feed
+
+4. Offline & Downloads
+   - Offline playback
+   - Download management
+   - Storage optimization
+   - Quality settings
+
+5. Artist Tools
+   - Upload and distribute
+   - Analytics dashboard
+   - Fan engagement
+   - Revenue tracking
+
+Tech Stack:
+- Frontend: React Native
+- Backend: Node.js
+- Database: MongoDB
+- Audio: AWS S3 + CloudFront
+- Streaming: HLS protocol`,
+
+  // Dating App
+  `Develop a modern dating app with AI-powered matching and video profiles:
+
+1. Profile Creation
+   - Photo verification
+   - Video profiles
+   - Interest tags
+   - Personality prompts
+
+2. AI Matching
+   - Compatibility scoring
+   - Behavioral analysis
+   - Preference learning
+   - Smart recommendations
+
+3. Discovery
+   - Swipe interface
+   - Advanced filters
+   - Location-based matching
+   - Icebreaker questions
+
+4. Communication
+   - In-app messaging
+   - Video chat
+   - Voice messages
+   - Stickers and GIFs
+
+5. Safety Features
+   - Photo verification
+   - Report and block
+   - Date safety tips
+   - Location sharing
+
+Tech Stack:
+- Frontend: Flutter
+- Backend: Node.js
+- Database: PostgreSQL
+- ML: Python with scikit-learn
+- Video: WebRTC`,
+
+  // Banking App
+  `Create a digital banking app with AI-powered financial insights:
+
+1. Account Management
+   - Multiple account types
+   - Real-time balance updates
+   - Transaction history
+   - Account statements
+
+2. Payments & Transfers
+   - Instant transfers
+   - Bill payments
+   - QR code payments
+   - International remittance
+
+3. AI Financial Assistant
+   - Spending insights
+   - Budget recommendations
+   - Savings goals
+   - Investment suggestions
+
+4. Security
+   - Biometric authentication
+   - Two-factor authentication
+   - Transaction alerts
+   - Card freeze/unfreeze
+
+5. Investment Platform
+   - Stock trading
+   - Mutual funds
+   - Portfolio tracking
+   - Market news
+
+Tech Stack:
+- Frontend: React Native
+- Backend: Java Spring Boot
+- Database: Oracle
+- Security: Encryption, Tokenization
+- Compliance: PCI DSS`,
+
+  // Restaurant Management System
+  `Build a complete restaurant management system with POS and delivery:
+
+1. Point of Sale
+   - Table management
+   - Order taking
+   - Split bills
+   - Multiple payment methods
+
+2. Kitchen Display
+   - Real-time order updates
+   - Preparation timers
+   - Ingredient tracking
+   - Special requests
+
+3. Inventory Management
+   - Stock tracking
+   - Supplier management
+   - Auto-reordering
+   - Waste tracking
+
+4. Delivery Integration
+   - Third-party delivery apps
+   - Driver management
+   - Route optimization
+   - Order tracking
+
+5. Analytics
+   - Sales reports
+   - Popular items
+   - Peak hours analysis
+   - Staff performance
+
+Tech Stack:
+- Frontend: React
+- Backend: Node.js
+- Database: PostgreSQL
+- Hardware: POS terminals
+- Cloud: AWS`,
+
+  // Event Management Platform
+  `Develop an event management platform with ticketing and virtual events:
+
+1. Event Creation
+   - Event details and schedules
+   - Venue management
+   - Speaker profiles
+   - Agenda builder
+
+2. Ticketing System
+   - Multiple ticket types
+   - Early bird pricing
+   - Group discounts
+   - Promo codes
+
+3. Virtual Events
+   - Live streaming
+   - Breakout sessions
+   - Networking lounges
+   - Virtual booths
+
+4. Attendee Experience
+   - Event app
+   - Networking features
+   - Push notifications
+   - Post-event surveys
+
+5. Organizer Dashboard
+   - Ticket sales tracking
+   - Attendee management
+   - Check-in system
+   - Analytics and reports
+
+Tech Stack:
+- Frontend: Next.js
+- Backend: Node.js
+- Video: Zoom API
+- Database: PostgreSQL
+- Payments: Stripe`,
+
+  // Car Rental Platform
+  `Create a peer-to-peer car rental marketplace with insurance integration:
+
+1. Vehicle Listings
+   - Car photos and details
+   - Availability calendar
+   - Pricing per day/hour
+   - Location and delivery
+
+2. Booking System
+   - Instant or request booking
+   - Insurance options
+   - Add-ons (GPS, child seat)
+   - Cancellation policies
+
+3. Identity Verification
+   - Driver's license verification
+   - Background checks
+   - Age verification
+   - Security deposit
+
+4. Trip Management
+   - Pickup/dropoff coordination
+   - Mileage tracking
+   - Damage reporting
+   - Trip extensions
+
+5. Trust & Safety
+   - Insurance coverage
+   - 24/7 roadside assistance
+   - Dispute resolution
+   - Reviews and ratings
+
+Tech Stack:
+- Frontend: React
+- Backend: Ruby on Rails
+- Database: PostgreSQL
+- Payments: Stripe Connect
+- Insurance: Turo API`,
+
+  // Grocery Delivery App
+  `Build a grocery delivery app with AI-powered shopping lists:
+
+1. Product Catalog
+   - Multi-store inventory
+   - Product search
+   - Category browsing
+   - Deals and offers
+
+2. Smart Shopping
+   - AI shopping list suggestions
+   - Reorder favorites
+   - Substitution preferences
+   - Dietary filters
+
+3. Delivery Options
+   - Same-day delivery
+   - Scheduled delivery
+   - Pickup options
+   - Express delivery
+
+4. Fresh Guarantee
+   - Quality checks
+   - Expiry date tracking
+   - Return policy
+   - Customer support
+
+5. Subscription Service
+   - Recurring orders
+   - Membership benefits
+   - Free delivery
+   - Exclusive deals
+
+Tech Stack:
+- Frontend: React Native
+- Backend: Node.js
+- Database: MongoDB
+- AI: Python ML models
+- Payments: Stripe`,
+
+  // Job Portal
+  `Develop a modern job portal with AI-powered job matching and remote work focus:
+
+1. Job Listings
+   - Advanced search filters
+   - Remote/hybrid/onsite options
+   - Salary transparency
+   - Company profiles
+
+2. AI Job Matching
+   - Skills-based matching
+   - Career path recommendations
+   - Salary insights
+   - Application tips
+
+3. Application Process
+   - One-click apply
+   - Resume builder
+   - Cover letter templates
+   - Application tracking
+
+4. Employer Tools
+   - Job posting
+   - Applicant tracking
+   - Interview scheduling
+   - Candidate messaging
+
+5. Career Resources
+   - Interview prep
+   - Skill assessments
+   - Courses and certifications
+   - Career advice blog
+
+Tech Stack:
+- Frontend: Vue.js
+- Backend: Django
+- Database: PostgreSQL
+- Search: Elasticsearch
+- AI: OpenAI GPT`,
+
+  // Pet Care App
+  `Create a comprehensive pet care app with vet appointments and community:
+
+1. Pet Profiles
+   - Multiple pets per account
+   - Health records
+   - Vaccination tracking
+   - Microchip information
+
+2. Vet Services
+   - Find nearby vets
+   - Book appointments
+   - Telemedicine consultations
+   - Prescription management
+
+3. Pet Services
+   - Grooming bookings
+   - Dog walking
+   - Pet sitting
+   - Training classes
+
+4. Community Features
+   - Pet social network
+   - Playday organization
+   - Lost & found pets
+   - Adoption listings
+
+5. Care Reminders
+   - Feeding schedules
+   - Medication reminders
+   - Vet appointment alerts
+   - Grooming schedule
+
+Tech Stack:
+- Frontend: Flutter
+- Backend: Firebase
+- Database: Firestore
+- Maps: Google Maps
+- Notifications: FCM`,
+
+  // Home Services Marketplace
+  `Build a marketplace for home services like cleaning, repairs, and maintenance:
+
+1. Service Discovery
+   - Browse by category
+   - Location-based search
+   - Service provider profiles
+   - Ratings and reviews
+
+2. Booking System
+   - Instant or scheduled booking
+   - Service customization
+   - Recurring appointments
+   - Price estimates
+
+3. Professional Verification
+   - Background checks
+   - License verification
+   - Insurance validation
+   - Skill certifications
+
+4. Job Management
+   - Before/after photos
+   - Time tracking
+   - Service checklist
+   - Customer approval
+
+5. Payment & Guarantees
+   - Secure payments
+   - Service guarantee
+   - Dispute resolution
+   - Refund policy
+
+Tech Stack:
+- Frontend: React
+- Backend: Node.js
+- Database: PostgreSQL
+- Payments: Stripe Connect
+- Background Checks: Checkr API`,
+];
+
+// Select a random prompt on component mount
+const getRandomPrompt = () => {
+  const index = Math.floor(Math.random() * PROMPT_OPTIONS.length);
+  return { prompt: PROMPT_OPTIONS[index], index };
+};
+
+interface Message {
+  type: 'text' | 'tool' | 'diff' | 'summary';
+  content?: string;
+  toolName?: string;
+  fileName?: string;
+  diffLines?: { type: 'add' | 'remove' | 'context'; content: string }[];
+  timestamp?: number;
+}
+
+// Get matching code messages for each prompt type
+const getMessagesForPromptType = (promptIndex: number): Message[] => {
+  switch (promptIndex) {
+    case 0: // Laundry App
+      return LAUNDRY_MESSAGES;
+    case 1: // Food Delivery
+      return FOOD_DELIVERY_MESSAGES;
+    case 2: // Fitness App
+      return FITNESS_MESSAGES;
+    case 3: // E-Learning
+      return ELEARNING_MESSAGES;
+    case 4: // Real Estate
+      return REAL_ESTATE_MESSAGES;
+    case 5: // Healthcare
+      return HEALTHCARE_MESSAGES;
+    case 6: // Social Media
+      return SOCIAL_MEDIA_MESSAGES;
+    case 7: // Task Management
+      return TASK_MANAGEMENT_MESSAGES;
+    case 8: // E-Commerce
+      return ECOMMERCE_MESSAGES;
+    case 9: // Travel
+      return TRAVEL_MESSAGES;
+    case 10: // Music Streaming
+      return MUSIC_MESSAGES;
+    case 11: // Dating App
+      return DATING_MESSAGES;
+    case 12: // Banking
+      return BANKING_MESSAGES;
+    case 13: // Restaurant POS
+      return RESTAURANT_MESSAGES;
+    case 14: // Event Management
+      return EVENT_MESSAGES;
+    case 15: // Car Rental
+      return CAR_RENTAL_MESSAGES;
+    case 16: // Grocery Delivery
+      return GROCERY_MESSAGES;
+    case 17: // Job Portal
+      return JOB_PORTAL_MESSAGES;
+    case 18: // Pet Care
+      return PET_CARE_MESSAGES;
+    case 19: // Home Services
+      return HOME_SERVICES_MESSAGES;
+    default:
+      return LAUNDRY_MESSAGES;
+  }
+};
+
+const FOOD_DELIVERY_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a comprehensive food delivery platform. Let me start by creating the restaurant discovery and ordering system.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating todo list for food delivery platform',
+  },
+  {
+    type: 'text',
+    content: "Let me create the restaurant listing page with search and filters.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'app/restaurants/page.tsx',
+    content: 'Creating restaurant discovery page',
+  },
+  {
+    type: 'diff',
+    fileName: 'app/restaurants/page.tsx',
+    diffLines: [
+      { type: 'add', content: "import { RestaurantGrid } from '@/components/restaurants/RestaurantGrid';" },
+      { type: 'add', content: "import { SearchFilters } from '@/components/restaurants/SearchFilters';" },
+      { type: 'add', content: "import { CuisineFilter } from '@/components/restaurants/CuisineFilter';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export default function RestaurantsPage() {' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="container mx-auto px-4 py-8">' },
+      { type: 'add', content: '      <SearchFilters />' },
+      { type: 'add', content: '      <CuisineFilter />' },
+      { type: 'add', content: '      <RestaurantGrid />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now I'll implement the cart system with item customization.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/cart/CartProvider.tsx',
+    content: 'Creating cart context',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/cart/CartProvider.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { createContext, useContext, useState } from 'react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'interface CartItem {' },
+      { type: 'add', content: '  id: string;' },
+      { type: 'add', content: '  name: string;' },
+      { type: 'add', content: '  price: number;' },
+      { type: 'add', content: '  quantity: number;' },
+      { type: 'add', content: '  modifiers: string[];' },
+      { type: 'add', content: '  specialInstructions?: string;' },
+      { type: 'add', content: '}' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function CartProvider({ children }: { children: React.ReactNode }) {' },
+      { type: 'add', content: '  const [items, setItems] = useState<CartItem[]>([]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const addToCart = (item: CartItem) => {' },
+      { type: 'add', content: '    setItems(prev => [...prev, item]);' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <CartContext.Provider value={{ items, addToCart }}>{children}</CartContext.Provider>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created restaurant discovery with search and filters
+✓ Implemented cart system with customizable items
+✓ Added real-time order tracking
+✓ Integrated payment processing with Stripe Connect
+
+Food delivery platform is ready with multi-restaurant marketplace and delivery tracking.`,
+  },
+];
+
+const FITNESS_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create an AI-powered fitness app with personalized workout plans. Starting with the user onboarding flow.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning fitness app implementation',
+  },
+  {
+    type: 'text',
+    content: "Let me build the fitness assessment component.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/onboarding/FitnessAssessment.tsx',
+    content: 'Creating fitness level assessment',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/onboarding/FitnessAssessment.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Activity, Target, TrendingUp } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function FitnessAssessment() {' },
+      { type: 'add', content: "  const [goal, setGoal] = useState<'weight-loss' | 'muscle-gain' | 'endurance'>('weight-loss');" },
+      { type: 'add', content: "  const [fitnessLevel, setFitnessLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-6">' },
+      { type: 'add', content: "      <h2 className=\"text-2xl font-bold\">What's your fitness goal?</h2>" },
+      { type: 'add', content: '      <div className="grid grid-cols-3 gap-4">' },
+      { type: 'add', content: '        <GoalCard icon={Target} label="Weight Loss" />' },
+      { type: 'add', content: '        <GoalCard icon={Activity} label="Muscle Gain" />' },
+      { type: 'add', content: '        <GoalCard icon={TrendingUp} label="Endurance" />' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now implementing the AI workout generator using TensorFlow.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/ai/workoutGenerator.ts',
+    content: 'Creating AI workout recommendation engine',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/ai/workoutGenerator.ts',
+    diffLines: [
+      { type: 'add', content: "import * as tf from '@tensorflow/tfjs';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function generateWorkoutPlan(userProfile: UserProfile) {' },
+      { type: 'add', content: "  const model = await tf.loadLayersModel(\'/models/workout-recommender/model.json\');" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const input = tf.tensor2d([[' },
+      { type: 'add', content: '    userProfile.age,' },
+      { type: 'add', content: '    userProfile.weight,' },
+      { type: 'add', content: '    userProfile.fitnessLevel,' },
+      { type: 'add', content: '    userProfile.goal' },
+      { type: 'add', content: '  ]]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const prediction = model.predict(input) as tf.Tensor;' },
+      { type: 'add', content: '  const exercises = await prediction.array();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return generateExerciseList(exercises);' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built user onboarding with fitness assessment
+✓ Created AI workout generator with TensorFlow
+✓ Implemented nutrition tracking with macro counting
+✓ Added wearable integration for Apple Health and Google Fit
+
+Fitness app is complete with personalized AI-powered workout plans.`,
+  },
+];
+
+const ELEARNING_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop an online learning platform with interactive courses. Starting with the course player.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating e-learning platform tasks',
+  },
+  {
+    type: 'text',
+    content: "Creating the video course player with progress tracking.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/courses/VideoPlayer.tsx',
+    content: 'Building course video player',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/courses/VideoPlayer.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useRef, useState } from 'react';" },
+      { type: 'add', content: "import { Play, Pause, Volume2, Settings } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VideoPlayer({ lessonId, onProgress }: VideoPlayerProps) {' },
+      { type: 'add', content: '  const videoRef = useRef<HTMLVideoElement>(null);' },
+      { type: 'add', content: '  const [isPlaying, setIsPlaying] = useState(false);' },
+      { type: 'add', content: '  const [progress, setProgress] = useState(0);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    const video = videoRef.current;' },
+      { type: 'add', content: '    if (!video) return;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    const updateProgress = () => {' },
+      { type: 'add', content: '      const percent = (video.currentTime / video.duration) * 100;' },
+      { type: 'add', content: '      setProgress(percent);' },
+      { type: 'add', content: "      onProgress(lessonId, percent);" },
+      { type: 'add', content: '    };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "    video.addEventListener('timeupdate', updateProgress);" },
+      { type: 'add', content: "    return () => video.removeEventListener('timeupdate', updateProgress);" },
+      { type: 'add', content: '  }, [lessonId, onProgress]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <video ref={videoRef} className="w-full rounded-lg" />;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now adding the live virtual classroom with Agora.io.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/live/VirtualClassroom.tsx',
+    content: 'Implementing live classroom',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/live/VirtualClassroom.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useState } from 'react';" },
+      { type: 'add', content: "import AgoraRTC from 'agora-rtc-sdk-ng';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VirtualClassroom({ classId }: { classId: string }) {' },
+      { type: 'add', content: "  const [client] = useState(() => AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' }));" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    const init = async () => {' },
+      { type: 'add', content: '      await client.join(APP_ID, classId, TOKEN, null);' },
+      { type: 'add', content: '      const audioTrack = await AgoraRTC.createMicrophoneAudioTrack();' },
+      { type: 'add', content: '      const videoTrack = await AgoraRTC.createCameraVideoTrack();' },
+      { type: 'add', content: '      await client.publish([audioTrack, videoTrack]);' },
+      { type: 'add', content: '    };' },
+      { type: 'add', content: '    init();' },
+      { type: 'add', content: '  }, [classId]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div className="grid grid-cols-3 gap-4">/* Video grid */</div>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built video course player with progress tracking
+✓ Implemented live virtual classroom with Agora.io
+✓ Created interactive quiz system with auto-grading
+✓ Added instructor dashboard with analytics
+
+E-learning platform is ready with courses and live classes.`,
+  },
+];
+
+const REAL_ESTATE_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a real estate platform with virtual tours. Let me start with the property listing system.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning real estate platform',
+  },
+  {
+    type: 'text',
+    content: "Creating the property search with advanced filters.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/properties/PropertySearch.tsx',
+    content: 'Building property search interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/properties/PropertySearch.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Search, MapPin, Home, DollarSign } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function PropertySearch() {' },
+      { type: 'add', content: '  const [filters, setFilters] = useState({' },
+      { type: 'add', content: "    location: ''," },
+      { type: 'add', content: '    minPrice: 0,' },
+      { type: 'add', content: '    maxPrice: 1000000,' },
+      { type: 'add', content: '    bedrooms: 0,' },
+      { type: 'add', content: '    bathrooms: 0,' },
+      { type: 'add', content: "    propertyType: 'all'," },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="bg-white rounded-lg shadow-lg p-6">' },
+      { type: 'add', content: '      <div className="grid grid-cols-4 gap-4">' },
+      { type: 'add', content: '        <input placeholder="Location" className="border rounded-lg px-4 py-2" />' },
+      { type: 'add', content: '        <select className="border rounded-lg px-4 py-2">/* Property type */</select>' },
+      { type: 'add', content: '        <input type="number" placeholder="Min Price" />' },
+      { type: 'add', content: '        <button className="bg-blue-600 text-white rounded-lg">Search</button>' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding 3D virtual tour integration with Matterport.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/properties/VirtualTour.tsx',
+    content: 'Integrating Matterport 3D tours',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/properties/VirtualTour.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useRef } from 'react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VirtualTour({ matterportId }: { matterportId: string }) {' },
+      { type: 'add', content: '  const containerRef = useRef<HTMLDivElement>(null);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    if (!containerRef.current) return;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "    const iframe = document.createElement('iframe');" },
+      { type: 'add', content: '    iframe.src = `https://my.matterport.com/show/?m=${matterportId}`;' },
+      { type: 'add', content: "    iframe.width = '100%';" },
+      { type: 'add', content: "    iframe.height = '600px';" },
+      { type: 'add', content: "    iframe.frameBorder = '0';" },
+      { type: 'add', content: '    containerRef.current.appendChild(iframe);' },
+      { type: 'add', content: '  }, [matterportId]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div ref={containerRef} className="w-full rounded-lg overflow-hidden" />;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created advanced property search with filters
+✓ Integrated Matterport for 3D virtual tours
+✓ Built AI-powered property recommendations
+✓ Added mortgage calculator and financial tools
+
+Real estate platform is complete with virtual tours and smart search.`,
+  },
+];
+
+const HEALTHCARE_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop a HIPAA-compliant telemedicine platform. Starting with secure patient registration.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning telemedicine platform',
+  },
+  {
+    type: 'text',
+    content: "Creating encrypted health records storage.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/security/healthRecords.ts',
+    content: 'Implementing HIPAA-compliant data encryption',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/security/healthRecords.ts',
+    diffLines: [
+      { type: 'add', content: "import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "const ALGORITHM = 'aes-256-gcm';" },
+      { type: 'add', content: 'const KEY = process.env.ENCRYPTION_KEY!;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function encryptHealthRecord(data: any): string {' },
+      { type: 'add', content: '  const iv = randomBytes(16);' },
+      { type: 'add', content: "  const cipher = createCipheriv(ALGORITHM, Buffer.from(KEY, 'hex'), iv);" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "  let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');" },
+      { type: 'add', content: "  encrypted += cipher.final('hex');" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const authTag = cipher.getAuthTag();' },
+      { type: 'add', content: "  return iv.toString('hex') + '::' + authTag.toString('hex') + '::' + encrypted;" },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now implementing secure video consultations with Twilio.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/consultation/VideoCall.tsx',
+    content: 'Building HIPAA-compliant video calls',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/consultation/VideoCall.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useState } from 'react';" },
+      { type: 'add', content: "import { connect, LocalVideoTrack, RemoteVideoTrack } from 'twilio-video';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VideoCall({ roomName, token }: VideoCallProps) {' },
+      { type: 'add', content: '  const [room, setRoom] = useState(null);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    connect(token, { name: roomName, audio: true, video: { width: 1280 } })' },
+      { type: 'add', content: '      .then(room => {' },
+      { type: 'add', content: '        setRoom(room);' },
+      { type: 'add', content: "        room.on('participantConnected', participant => {" },
+      { type: 'add', content: '          console.log(`Participant ${participant.identity} connected`);' },
+      { type: 'add', content: '        });' },
+      { type: 'add', content: '      });' },
+      { type: 'add', content: '  }, [roomName, token]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div className="grid grid-cols-2 gap-4">/* Video streams */</div>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Implemented HIPAA-compliant data encryption
+✓ Built secure video consultations with Twilio
+✓ Created e-prescription system
+✓ Added health monitoring dashboard
+
+Telemedicine platform is complete with secure patient-doctor communication.`,
+  },
+];
+
+const SOCIAL_MEDIA_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create a social media platform with AI moderation. Starting with the content feed.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning social media platform',
+  },
+  {
+    type: 'text',
+    content: "Building the personalized feed algorithm.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/feed/feedAlgorithm.ts',
+    content: 'Creating AI-powered feed ranking',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/feed/feedAlgorithm.ts',
+    diffLines: [
+      { type: 'add', content: 'interface Post {' },
+      { type: 'add', content: '  id: string;' },
+      { type: 'add', content: '  authorId: string;' },
+      { type: 'add', content: '  content: string;' },
+      { type: 'add', content: '  engagement: number;' },
+      { type: 'add', content: '  timestamp: Date;' },
+      { type: 'add', content: '}' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function rankFeed(userId: string, posts: Post[]): Promise<Post[]> {' },
+      { type: 'add', content: '  const userPreferences = await getUserPreferences(userId);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return posts.sort((a, b) => {' },
+      { type: 'add', content: '    const scoreA = calculateRelevanceScore(a, userPreferences);' },
+      { type: 'add', content: '    const scoreB = calculateRelevanceScore(b, userPreferences);' },
+      { type: 'add', content: '    return scoreB - scoreA;' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing AI content moderation for safety.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/moderation/contentFilter.ts',
+    content: 'Building AI content moderation',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/moderation/contentFilter.ts',
+    diffLines: [
+      { type: 'add', content: "import { OpenAI } from 'openai';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function moderateContent(text: string): Promise<ModerationResult> {' },
+      { type: 'add', content: '  const response = await openai.moderations.create({ input: text });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const result = response.results[0];' },
+      { type: 'add', content: '  return {' },
+      { type: 'add', content: '    flagged: result.flagged,' },
+      { type: 'add', content: '    categories: result.categories,' },
+      { type: 'add', content: '    severity: calculateSeverity(result.category_scores),' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built personalized AI-powered feed algorithm
+✓ Implemented real-time content moderation
+✓ Created stories feature with AR filters
+✓ Added live streaming capabilities
+
+Social media platform is ready with AI moderation and engagement features.`,
+  },
+];
+
+const TASK_MANAGEMENT_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a project management platform with real-time collaboration. Starting with the task board.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating task management system',
+  },
+  {
+    type: 'text',
+    content: "Creating the Kanban board component.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/board/KanbanBoard.tsx',
+    content: 'Building drag-and-drop task board',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/board/KanbanBoard.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { DndContext, closestCenter } from '@dnd-kit/core';" },
+      { type: 'add', content: "import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function KanbanBoard({ columns, tasks }: BoardProps) {' },
+      { type: 'add', content: '  const handleDragEnd = (event) => {' },
+      { type: 'add', content: '    const { active, over } = event;' },
+      { type: 'add', content: '    if (active.id !== over.id) {' },
+      { type: 'add', content: '      updateTaskStatus(active.id, over.id);' },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>' },
+      { type: 'add', content: '      <div className="flex gap-4">' },
+      { type: 'add', content: '        {columns.map(column => (' },
+      { type: 'add', content: '          <Column key={column.id} column={column} tasks={tasks} />' },
+      { type: 'add', content: '        ))}' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '    </DndContext>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding real-time collaboration with WebSockets.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/collaboration/realtimeSync.ts',
+    content: 'Implementing real-time updates',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/collaboration/realtimeSync.ts',
+    diffLines: [
+      { type: 'add', content: "import { io } from 'socket.io-client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function setupRealtimeSync(projectId: string) {' },
+      { type: 'add', content: '  const socket = io(process.env.NEXT_PUBLIC_WS_URL!);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "  socket.emit('join-project', projectId);" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "  socket.on('task-updated', (task) => {" },
+      { type: 'add', content: '    updateTaskInUI(task);' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "  socket.on('user-joined', (user) => {" },
+      { type: 'add', content: '    showNotification(`${user.name} joined the project`);' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return socket;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created Kanban board with drag-and-drop
+✓ Implemented real-time collaboration via WebSockets
+✓ Built automation system for task workflows
+✓ Added reporting and analytics dashboard
+
+Project management platform is ready with real-time team collaboration.`,
+  },
+];
+
+const ECOMMERCE_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop a headless e-commerce platform. Starting with the product catalog.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning e-commerce platform',
+  },
+  {
+    type: 'text',
+    content: "Creating the product listing with AI recommendations.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/products/ProductGrid.tsx',
+    content: 'Building product display grid',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/products/ProductGrid.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { ProductCard } from './ProductCard';" },
+      { type: 'add', content: "import { useProducts } from '@/hooks/useProducts';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function ProductGrid({ category }: { category: string }) {' },
+      { type: 'add', content: '  const { products, loading } = useProducts(category);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  if (loading) return <LoadingGrid />;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="grid grid-cols-4 gap-6">' },
+      { type: 'add', content: '      {products.map(product => (' },
+      { type: 'add', content: '        <ProductCard key={product.id} product={product} />' },
+      { type: 'add', content: '      ))}' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Integrating Stripe for checkout and payments.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'app/api/checkout/route.ts',
+    content: 'Creating Stripe checkout API',
+  },
+  {
+    type: 'diff',
+    fileName: 'app/api/checkout/route.ts',
+    diffLines: [
+      { type: 'add', content: "import Stripe from 'stripe';" },
+      { type: 'add', content: "import { NextRequest, NextResponse } from 'next/server';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function POST(request: NextRequest) {' },
+      { type: 'add', content: '  const { items } = await request.json();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const session = await stripe.checkout.sessions.create({' },
+      { type: 'add', content: "    payment_method_types: ['card']," },
+      { type: 'add', content: '    line_items: items.map(item => ({' },
+      { type: 'add', content: '      price_data: {' },
+      { type: 'add', content: "        currency: 'usd'," },
+      { type: 'add', content: '        product_data: { name: item.name },' },
+      { type: 'add', content: '        unit_amount: item.price * 100,' },
+      { type: 'add', content: '      },' },
+      { type: 'add', content: '      quantity: item.quantity,' },
+      { type: 'add', content: '    })),' },
+      { type: 'add', content: "    mode: 'payment'," },
+      { type: 'add', content: '    success_url: `${process.env.NEXT_PUBLIC_URL}/success`,' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return NextResponse.json({ sessionId: session.id });' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built product catalog with search and filters
+✓ Integrated Stripe for secure payments
+✓ Implemented AI product recommendations
+✓ Created merchant analytics dashboard
+
+E-commerce platform is complete with headless architecture and payments.`,
+  },
+];
+
+const TRAVEL_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create a travel booking platform with itinerary planning. Starting with flight search.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning travel booking platform',
+  },
+  {
+    type: 'text',
+    content: "Integrating Amadeus API for flight search.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/travel/flightSearch.ts',
+    content: 'Implementing flight search with Amadeus',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/travel/flightSearch.ts',
+    diffLines: [
+      { type: 'add', content: "import Amadeus from 'amadeus';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'const amadeus = new Amadeus({' },
+      { type: 'add', content: '  clientId: process.env.AMADEUS_CLIENT_ID!,' },
+      { type: 'add', content: '  clientSecret: process.env.AMADEUS_CLIENT_SECRET!,' },
+      { type: 'add', content: '});' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function searchFlights(params: FlightSearchParams) {' },
+      { type: 'add', content: '  const response = await amadeus.shopping.flightOffersSearch.get({' },
+      { type: 'add', content: '    originLocationCode: params.origin,' },
+      { type: 'add', content: '    destinationLocationCode: params.destination,' },
+      { type: 'add', content: '    departureDate: params.departureDate,' },
+      { type: 'add', content: '    adults: params.adults,' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return response.data;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Building the itinerary planner with day-by-day activities.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/itinerary/TripPlanner.tsx',
+    content: 'Creating trip itinerary builder',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/itinerary/TripPlanner.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Calendar, MapPin, Plus } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function TripPlanner() {' },
+      { type: 'add', content: '  const [days, setDays] = useState<Day[]>([]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const addActivity = (dayIndex: number, activity: Activity) => {' },
+      { type: 'add', content: '    setDays(prev => prev.map((day, idx) =>' },
+      { type: 'add', content: '      idx === dayIndex ? { ...day, activities: [...day.activities, activity] } : day' },
+      { type: 'add', content: '    ));' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div className="space-y-4">/* Itinerary days */</div>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Integrated Amadeus API for flight search
+✓ Built itinerary planner with day-by-day activities
+✓ Added hotel booking with price comparison
+✓ Implemented loyalty rewards program
+
+Travel booking platform is complete with comprehensive trip planning.`,
+  },
+];
+
+const MUSIC_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a music streaming platform with AI playlists. Starting with the audio player.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating music streaming platform',
+  },
+  {
+    type: 'text',
+    content: "Creating the music player with HLS streaming.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/player/MusicPlayer.tsx',
+    content: 'Building audio player component',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/player/MusicPlayer.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useRef, useState } from 'react';" },
+      { type: 'add', content: "import { Play, Pause, SkipForward, SkipBack, Volume2 } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function MusicPlayer({ track }: { track: Track }) {' },
+      { type: 'add', content: '  const audioRef = useRef<HTMLAudioElement>(null);' },
+      { type: 'add', content: '  const [isPlaying, setIsPlaying] = useState(false);' },
+      { type: 'add', content: '  const [progress, setProgress] = useState(0);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const togglePlay = () => {' },
+      { type: 'add', content: '    if (isPlaying) {' },
+      { type: 'add', content: '      audioRef.current?.pause();' },
+      { type: 'add', content: '    } else {' },
+      { type: 'add', content: '      audioRef.current?.play();' },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '    setIsPlaying(!isPlaying);' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div className="fixed bottom-0 left-0 right-0">/* Player UI */</div>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing AI-curated playlist generation.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/ai/playlistGenerator.ts',
+    content: 'Creating AI playlist recommendations',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/ai/playlistGenerator.ts',
+    diffLines: [
+      { type: 'add', content: 'export async function generateDiscoverWeekly(userId: string): Promise<Track[]> {' },
+      { type: 'add', content: '  const listeningHistory = await getListeningHistory(userId);' },
+      { type: 'add', content: '  const preferences = analyzePreferences(listeningHistory);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "  const recommendations = await fetch('https://api.music.ai/recommend', {" },
+      { type: 'add', content: "    method: 'POST'," },
+      { type: 'add', content: '    body: JSON.stringify({ preferences }),' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return recommendations.json();' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built music player with HLS streaming
+✓ Implemented AI-curated Discover Weekly playlists
+✓ Added collaborative playlist features
+✓ Created artist dashboard with analytics
+
+Music streaming platform is ready with personalized recommendations.`,
+  },
+];
+
+const DATING_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop a dating app with AI matching. Starting with the profile creation flow.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning dating app development',
+  },
+  {
+    type: 'text',
+    content: "Creating the swipe interface with animations.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/discovery/SwipeCards.tsx',
+    content: 'Building swipe card interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/discovery/SwipeCards.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { motion, useMotionValue, useTransform } from 'framer-motion';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function SwipeCards({ profiles }: { profiles: Profile[] }) {' },
+      { type: 'add', content: '  const [currentIndex, setCurrentIndex] = useState(0);' },
+      { type: 'add', content: '  const x = useMotionValue(0);' },
+      { type: 'add', content: '  const rotate = useTransform(x, [-200, 200], [-25, 25]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const handleDragEnd = (event, info) => {' },
+      { type: 'add', content: '    if (info.offset.x > 100) {' },
+      { type: 'add', content: '      handleLike(profiles[currentIndex]);' },
+      { type: 'add', content: '    } else if (info.offset.x < -100) {' },
+      { type: 'add', content: '      handlePass(profiles[currentIndex]);' },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <motion.div drag="x" style={{ x, rotate }} onDragEnd={handleDragEnd} />;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding AI compatibility scoring algorithm.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/matching/compatibilityScore.ts',
+    content: 'Implementing AI matching algorithm',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/matching/compatibilityScore.ts',
+    diffLines: [
+      { type: 'add', content: 'export function calculateCompatibility(user1: Profile, user2: Profile): number {' },
+      { type: 'add', content: '  let score = 0;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  // Interest overlap' },
+      { type: 'add', content: '  const sharedInterests = user1.interests.filter(i => user2.interests.includes(i));' },
+      { type: 'add', content: '  score += sharedInterests.length * 10;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  // Personality compatibility' },
+      { type: 'add', content: '  score += calculatePersonalityMatch(user1.personality, user2.personality);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  // Location proximity' },
+      { type: 'add', content: '  const distance = calculateDistance(user1.location, user2.location);' },
+      { type: 'add', content: '  score += Math.max(0, 50 - distance);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return Math.min(100, score);' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created swipe interface with smooth animations
+✓ Implemented AI compatibility scoring
+✓ Built video profile support
+✓ Added in-app messaging with WebRTC video chat
+
+Dating app is complete with AI-powered matching and video profiles.`,
+  },
+];
+
+const BANKING_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create a digital banking app with AI financial insights. Starting with secure account management.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning digital banking platform',
+  },
+  {
+    type: 'text',
+    content: "Implementing biometric authentication.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/auth/biometric.ts',
+    content: 'Creating biometric authentication',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/auth/biometric.ts',
+    diffLines: [
+      { type: 'add', content: "export async function authenticateWithBiometrics(): Promise<boolean> {" },
+      { type: 'add', content: "  if (!window.PublicKeyCredential) {" },
+      { type: 'add', content: "    throw new Error('WebAuthn not supported');" },
+      { type: 'add', content: '  }' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const publicKey = {' },
+      { type: 'add', content: "    challenge: new Uint8Array(32)," },
+      { type: 'add', content: "    rp: { name: 'Banking App' }," },
+      { type: 'add', content: '    user: {' },
+      { type: 'add', content: '      id: new Uint8Array(16),' },
+      { type: 'add', content: "      name: 'user@example.com'," },
+      { type: 'add', content: "      displayName: 'User'," },
+      { type: 'add', content: '    },' },
+      { type: 'add', content: "    pubKeyCredParams: [{ alg: -7, type: 'public-key' }]," },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const credential = await navigator.credentials.create({ publicKey });' },
+      { type: 'add', content: '  return credential !== null;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Building AI spending insights dashboard.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/insights/SpendingAnalysis.tsx',
+    content: 'Creating AI financial insights',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/insights/SpendingAnalysis.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useState } from 'react';" },
+      { type: 'add', content: "import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function SpendingAnalysis({ userId }: { userId: string }) {' },
+      { type: 'add', content: '  const [insights, setInsights] = useState(null);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    fetch(`/api/insights/${userId}`).then(res => res.json()).then(setInsights);' },
+      { type: 'add', content: '  }, [userId]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-4">' },
+      { type: 'add', content: '      <h3>Your Spending by Category</h3>' },
+      { type: 'add', content: '      <ResponsiveContainer width="100%" height={300}>' },
+      { type: 'add', content: '        <PieChart><Pie data={insights?.categories} /></PieChart>' },
+      { type: 'add', content: '      </ResponsiveContainer>' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Implemented biometric authentication with WebAuthn
+✓ Built AI spending insights dashboard
+✓ Created instant transfer system
+✓ Added investment platform with stock trading
+
+Digital banking app is complete with AI financial assistant.`,
+  },
+];
+
+const RESTAURANT_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a restaurant management system with POS. Starting with the table management interface.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating restaurant POS system',
+  },
+  {
+    type: 'text',
+    content: "Creating the table layout and order management.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/pos/TableLayout.tsx',
+    content: 'Building table management interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/pos/TableLayout.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Table, TableStatus } from '@/types';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function TableLayout() {' },
+      { type: 'add', content: '  const [tables, setTables] = useState<Table[]>([]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const getTableColor = (status: TableStatus) => {' },
+      { type: 'add', content: "    if (status === 'occupied') return 'bg-red-500';" },
+      { type: 'add', content: "    if (status === 'reserved') return 'bg-yellow-500';" },
+      { type: 'add', content: "    return 'bg-green-500';" },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="grid grid-cols-4 gap-4">' },
+      { type: 'add', content: '      {tables.map(table => (' },
+      { type: 'add', content: '        <div key={table.id} className={`p-4 rounded ${getTableColor(table.status)}`}>' },
+      { type: 'add', content: '          Table {table.number}' },
+      { type: 'add', content: '        </div>' },
+      { type: 'add', content: '      ))}' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding kitchen display system for real-time orders.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/kitchen/KitchenDisplay.tsx',
+    content: 'Creating kitchen order display',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/kitchen/KitchenDisplay.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useState } from 'react';" },
+      { type: 'add', content: "import { Timer } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function KitchenDisplay() {' },
+      { type: 'add', content: '  const [orders, setOrders] = useState<Order[]>([]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: "    const socket = io('/kitchen');" },
+      { type: 'add', content: "    socket.on('new-order', (order) => {" },
+      { type: 'add', content: '      setOrders(prev => [...prev, order]);' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '  }, []);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <div className="grid grid-cols-3 gap-4">/* Order tickets */</div>;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created table management interface
+✓ Built kitchen display system with real-time updates
+✓ Implemented inventory tracking
+✓ Added sales analytics and reporting
+
+Restaurant POS system is complete with kitchen integration.`,
+  },
+];
+
+const EVENT_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop an event management platform with ticketing. Starting with the event creation flow.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning event management platform',
+  },
+  {
+    type: 'text',
+    content: "Creating the event builder with schedule management.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/events/EventBuilder.tsx',
+    content: 'Building event creation interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/events/EventBuilder.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Calendar, MapPin, Users, Ticket } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function EventBuilder() {' },
+      { type: 'add', content: '  const [event, setEvent] = useState({' },
+      { type: 'add', content: "    title: ''," },
+      { type: 'add', content: "    date: ''," },
+      { type: 'add', content: "    venue: ''," },
+      { type: 'add', content: '    capacity: 0,' },
+      { type: 'add', content: '    ticketTypes: [],' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-6">' },
+      { type: 'add', content: '      <input placeholder="Event Title" className="w-full" />' },
+      { type: 'add', content: '      <div className="grid grid-cols-2 gap-4">' },
+      { type: 'add', content: '        <input type="datetime-local" />' },
+      { type: 'add', content: '        <input placeholder="Venue" />' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <TicketTypeBuilder />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing ticketing system with Stripe integration.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'app/api/tickets/purchase/route.ts',
+    content: 'Creating ticket purchase API',
+  },
+  {
+    type: 'diff',
+    fileName: 'app/api/tickets/purchase/route.ts',
+    diffLines: [
+      { type: 'add', content: "import Stripe from 'stripe';" },
+      { type: 'add', content: "import { NextRequest, NextResponse } from 'next/server';" },
+      { type: 'add', content: "import QRCode from 'qrcode';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function POST(request: NextRequest) {' },
+      { type: 'add', content: '  const { eventId, ticketTypeId, quantity } = await request.json();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const ticket = await prisma.ticketType.findUnique({ where: { id: ticketTypeId } });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const session = await stripe.checkout.sessions.create({' },
+      { type: 'add', content: "    payment_method_types: ['card']," },
+      { type: 'add', content: "    line_items: [{ price_data: { currency: 'usd', product_data: { name: ticket.name }, unit_amount: ticket.price * 100 }, quantity }]," },
+      { type: 'add', content: "    mode: 'payment'," },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const qrCode = await QRCode.toDataURL(`ticket-${session.id}`);' },
+      { type: 'add', content: '  return NextResponse.json({ sessionId: session.id, qrCode });' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built event creation with schedule builder
+✓ Implemented ticketing system with QR codes
+✓ Added virtual event support with Zoom integration
+✓ Created attendee check-in system
+
+Event management platform is complete with ticketing and virtual events.`,
+  },
+];
+
+const CAR_RENTAL_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create a car rental marketplace. Starting with vehicle listing management.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning car rental platform',
+  },
+  {
+    type: 'text',
+    content: "Building the vehicle listing form.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/vehicles/VehicleListingForm.tsx',
+    content: 'Creating vehicle listing interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/vehicles/VehicleListingForm.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Car, Calendar, DollarSign } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VehicleListingForm() {' },
+      { type: 'add', content: '  const [vehicle, setVehicle] = useState({' },
+      { type: 'add', content: "    make: ''," },
+      { type: 'add', content: "    model: ''," },
+      { type: 'add', content: '    year: 2024,' },
+      { type: 'add', content: '    pricePerDay: 0,' },
+      { type: 'add', content: '    availability: [],' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <form className="space-y-4">' },
+      { type: 'add', content: '      <div className="grid grid-cols-3 gap-4">' },
+      { type: 'add', content: '        <input placeholder="Make" />' },
+      { type: 'add', content: '        <input placeholder="Model" />' },
+      { type: 'add', content: '        <input type="number" placeholder="Year" />' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <input type="number" placeholder="Price per day" />' },
+      { type: 'add', content: '      <CalendarPicker onSelect={setAvailability} />' },
+      { type: 'add', content: '    </form>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding identity verification for renters.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/verification/identityCheck.ts',
+    content: 'Implementing driver license verification',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/verification/identityCheck.ts',
+    diffLines: [
+      { type: 'add', content: 'export async function verifyDriverLicense(licenseData: LicenseData): Promise<VerificationResult> {' },
+      { type: 'add', content: "  const response = await fetch('https://api.verification.com/license', {" },
+      { type: 'add', content: "    method: 'POST'," },
+      { type: 'add', content: '    headers: { Authorization: `Bearer ${process.env.VERIFICATION_API_KEY}` },' },
+      { type: 'add', content: '    body: JSON.stringify(licenseData),' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const result = await response.json();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return {' },
+      { type: 'add', content: '    verified: result.valid,' },
+      { type: 'add', content: '    expiryDate: result.expiryDate,' },
+      { type: 'add', content: '    restrictions: result.restrictions,' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created vehicle listing management
+✓ Implemented driver license verification
+✓ Built booking system with insurance options
+✓ Added trip tracking and mileage monitoring
+
+Car rental platform is complete with verification and insurance.`,
+  },
+];
+
+const GROCERY_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a grocery delivery app with AI shopping lists. Starting with the product catalog.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating grocery delivery platform',
+  },
+  {
+    type: 'text',
+    content: "Building the multi-store product search.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/grocery/ProductSearch.tsx',
+    content: 'Creating product search interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/grocery/ProductSearch.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Search, Filter, ShoppingCart } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function ProductSearch() {' },
+      { type: 'add', content: "  const [query, setQuery] = useState('');" },
+      { type: 'add', content: "  const [filters, setFilters] = useState({ category: 'all', dietary: [] });" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-4">' },
+      { type: 'add', content: '      <div className="flex gap-2">' },
+      { type: 'add', content: '        <input placeholder="Search products..." className="flex-1" />' },
+      { type: 'add', content: '        <button className="btn-primary"><Filter /></button>' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <CategoryFilters filters={filters} onChange={setFilters} />' },
+      { type: 'add', content: '      <ProductGrid query={query} filters={filters} />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing AI-powered shopping list suggestions.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/ai/shoppingListAI.ts',
+    content: 'Creating AI shopping recommendations',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/ai/shoppingListAI.ts',
+    diffLines: [
+      { type: 'add', content: 'export async function generateShoppingList(userId: string): Promise<Product[]> {' },
+      { type: 'add', content: '  const purchaseHistory = await getPurchaseHistory(userId);' },
+      { type: 'add', content: '  const preferences = await getUserPreferences(userId);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const frequentItems = analyzeFrequency(purchaseHistory);' },
+      { type: 'add', content: '  const suggestions = [];' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  for (const item of frequentItems) {' },
+      { type: 'add', content: '    const daysSinceLastPurchase = getDaysSince(item.lastPurchased);' },
+      { type: 'add', content: '    if (daysSinceLastPurchase >= item.averagePurchaseInterval) {' },
+      { type: 'add', content: '      suggestions.push(item);' },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '  }' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return suggestions;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built multi-store product catalog
+✓ Implemented AI shopping list suggestions
+✓ Created same-day delivery scheduling
+✓ Added subscription service for recurring orders
+
+Grocery delivery app is complete with AI-powered recommendations.`,
+  },
+];
+
+const JOB_PORTAL_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll develop a job portal with AI matching. Starting with the job search interface.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning job portal platform',
+  },
+  {
+    type: 'text',
+    content: "Creating the advanced job search with filters.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/jobs/JobSearch.tsx',
+    content: 'Building job search interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/jobs/JobSearch.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Search, MapPin, Briefcase, DollarSign } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function JobSearch() {' },
+      { type: 'add', content: '  const [filters, setFilters] = useState({' },
+      { type: 'add', content: "    keywords: ''," },
+      { type: 'add', content: "    location: ''," },
+      { type: 'add', content: "    workType: 'all', // remote, hybrid, onsite" },
+      { type: 'add', content: '    salaryMin: 0,' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-4">' },
+      { type: 'add', content: '      <div className="grid grid-cols-3 gap-4">' },
+      { type: 'add', content: '        <input placeholder="Job title or keywords" />' },
+      { type: 'add', content: '        <input placeholder="Location" />' },
+      { type: 'add', content: '        <select><option>Remote</option><option>Hybrid</option></select>' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing AI-powered job matching algorithm.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/ai/jobMatcher.ts',
+    content: 'Creating AI job recommendation engine',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/ai/jobMatcher.ts',
+    diffLines: [
+      { type: 'add', content: "import { OpenAI } from 'openai';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function matchJobs(candidateProfile: Profile): Promise<Job[]> {' },
+      { type: 'add', content: '  const openai = new OpenAI();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const embedding = await openai.embeddings.create({' },
+      { type: 'add', content: "    model: 'text-embedding-3-small'," },
+      { type: 'add', content: "    input: `${candidateProfile.skills.join(', ')} ${candidateProfile.experience}`," },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const jobs = await findSimilarJobs(embedding.data[0].embedding);' },
+      { type: 'add', content: '  return jobs.slice(0, 20);' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built advanced job search with filters
+✓ Implemented AI job matching with embeddings
+✓ Created one-click apply with resume builder
+✓ Added employer ATS integration
+
+Job portal is complete with AI-powered candidate matching.`,
+  },
+];
+
+const PET_CARE_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll create a pet care app with vet appointments. Starting with pet profile management.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Planning pet care platform',
+  },
+  {
+    type: 'text',
+    content: "Building the pet profile with health records.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/pets/PetProfile.tsx',
+    content: 'Creating pet profile interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/pets/PetProfile.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Heart, Calendar, Activity } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function PetProfile({ petId }: { petId: string }) {' },
+      { type: 'add', content: '  const [pet, setPet] = useState({' },
+      { type: 'add', content: "    name: ''," },
+      { type: 'add', content: "    species: 'dog'," },
+      { type: 'add', content: '    age: 0,' },
+      { type: 'add', content: '    vaccinations: [],' },
+      { type: 'add', content: '    medications: [],' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-6">' },
+      { type: 'add', content: '      <div className="flex items-center gap-4">' },
+      { type: 'add', content: '        <img src={pet.photo} className="w-24 h-24 rounded-full" />' },
+      { type: 'add', content: '        <div><h2>{pet.name}</h2><p>{pet.species}</p></div>' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <VaccinationTimeline vaccinations={pet.vaccinations} />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Adding vet appointment booking system.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/appointments/VetBooking.tsx',
+    content: 'Creating vet appointment scheduler',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/appointments/VetBooking.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Calendar } from '@/components/ui/Calendar';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function VetBooking({ vetId }: { vetId: string }) {' },
+      { type: 'add', content: '  const [selectedDate, setSelectedDate] = useState<Date>();' },
+      { type: 'add', content: '  const [availableSlots, setAvailableSlots] = useState([]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const handleDateSelect = async (date: Date) => {' },
+      { type: 'add', content: '    setSelectedDate(date);' },
+      { type: 'add', content: '    const slots = await fetchAvailableSlots(vetId, date);' },
+      { type: 'add', content: '    setAvailableSlots(slots);' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return <Calendar onSelect={handleDateSelect} />;' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created pet profile with health records
+✓ Built vet appointment booking system
+✓ Implemented medication reminders
+✓ Added pet social network and playday features
+
+Pet care app is complete with vet services and community features.`,
+  },
+];
+
+const HOME_SERVICES_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll build a home services marketplace. Starting with service provider discovery.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating home services platform',
+  },
+  {
+    type: 'text',
+    content: "Building the service provider search and profiles.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/services/ProviderSearch.tsx',
+    content: 'Creating provider search interface',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/services/ProviderSearch.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Search, MapPin, Star, Wrench } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function ProviderSearch() {' },
+      { type: 'add', content: '  const [filters, setFilters] = useState({' },
+      { type: 'add', content: "    service: ''," },
+      { type: 'add', content: "    location: ''," },
+      { type: 'add', content: '    rating: 0,' },
+      { type: 'add', content: '    verified: false,' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="space-y-4">' },
+      { type: 'add', content: '      <div className="grid grid-cols-2 gap-4">' },
+      { type: 'add', content: '        <select><option>Cleaning</option><option>Plumbing</option></select>' },
+      { type: 'add', content: '        <input placeholder="Your location" />' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <ProviderGrid filters={filters} />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Implementing background check verification for providers.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/verification/backgroundCheck.ts',
+    content: 'Creating provider verification system',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/verification/backgroundCheck.ts',
+    diffLines: [
+      { type: 'add', content: 'export async function verifyProvider(providerId: string): Promise<VerificationResult> {' },
+      { type: 'add', content: "  const response = await fetch('https://api.checkr.com/v1/reports', {" },
+      { type: 'add', content: "    method: 'POST'," },
+      { type: 'add', content: "    headers: { Authorization: `Basic ${Buffer.from(process.env.CHECKR_API_KEY + ':').toString('base64')}` }," },
+      { type: 'add', content: '    body: JSON.stringify({ candidate_id: providerId }),' },
+      { type: 'add', content: '  });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const result = await response.json();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return {' },
+      { type: 'add', content: "    verified: result.status === 'clear'," },
+      { type: 'add', content: '    completedAt: result.completed_at,' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Built service provider discovery with ratings
+✓ Implemented background check verification
+✓ Created booking system with recurring appointments
+✓ Added secure payment processing with Stripe Connect
+
+Home services marketplace is complete with verified professionals.`,
+  },
+];
+
+const LAUNDRY_MESSAGES: Message[] = [
+  {
+    type: 'text',
+    content: "I'll help you create a comprehensive laundry pickup and delivery web application. Let me break this down into tasks and start building the core components.",
+  },
+  {
+    type: 'tool',
+    toolName: 'TodoWrite',
+    content: 'Creating todo list for laundry app implementation',
+  },
+  {
+    type: 'text',
+    content: "Let me start by creating the main landing page structure.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'app/page.tsx',
+    content: 'Creating main landing page',
+  },
+  {
+    type: 'diff',
+    fileName: 'app/page.tsx',
+    diffLines: [
+      { type: 'add', content: "import { HeroSection } from '@/components/sections/HeroSection';" },
+      { type: 'add', content: "import { FeaturesSection } from '@/components/sections/FeaturesSection';" },
+      { type: 'add', content: "import { HowItWorks } from '@/components/sections/HowItWorks';" },
+      { type: 'add', content: "import { PricingSection } from '@/components/sections/PricingSection';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export default function Home() {' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <main>' },
+      { type: 'add', content: '      <HeroSection />' },
+      { type: 'add', content: '      <FeaturesSection />' },
+      { type: 'add', content: '      <HowItWorks />' },
+      { type: 'add', content: '      <PricingSection />' },
+      { type: 'add', content: '    </main>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now I'll create the booking form component with date/time selection and address input.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/booking/BookingForm.tsx',
+    content: 'Creating booking form component',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/booking/BookingForm.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useState } from 'react';" },
+      { type: 'add', content: "import { Calendar, Clock, MapPin } from 'lucide-react';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function BookingForm() {' },
+      { type: 'add', content: "  const [pickupDate, setPickupDate] = useState('');" },
+      { type: 'add', content: "  const [pickupTime, setPickupTime] = useState('');" },
+      { type: 'add', content: "  const [address, setAddress] = useState('');" },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  const handleSubmit = async (e: React.FormEvent) => {' },
+      { type: 'add', content: '    e.preventDefault();' },
+      { type: 'add', content: "    const booking = await fetch('/api/bookings', {" },
+      { type: 'add', content: "      method: 'POST'," },
+      { type: 'add', content: "      headers: { 'Content-Type': 'application/json' }," },
+      { type: 'add', content: '      body: JSON.stringify({ pickupDate, pickupTime, address }),' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '  };' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <form onSubmit={handleSubmit} className="space-y-6">' },
+      { type: 'add', content: '      <div>' },
+      { type: 'add', content: '        <label className="flex items-center gap-2 mb-2">' },
+      { type: 'add', content: '          <Calendar className="w-5 h-5" />' },
+      { type: 'add', content: '          Pickup Date' },
+      { type: 'add', content: '        </label>' },
+      { type: 'add', content: '        <input type="date" value={pickupDate}' },
+      { type: 'add', content: '          onChange={(e) => setPickupDate(e.target.value)}' },
+      { type: 'add', content: '          className="w-full px-4 py-2 border rounded-lg" required />' },
+      { type: 'add', content: '      </div>' },
+      { type: 'add', content: '      <button type="submit" className="w-full btn-primary">' },
+      { type: 'add', content: '        Schedule Pickup' },
+      { type: 'add', content: '      </button>' },
+      { type: 'add', content: '    </form>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Let me create the API route for handling booking requests with authentication and database integration.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'app/api/bookings/route.ts',
+    content: 'Creating bookings API endpoint',
+  },
+  {
+    type: 'diff',
+    fileName: 'app/api/bookings/route.ts',
+    diffLines: [
+      { type: 'add', content: "import { NextRequest, NextResponse } from 'next/server';" },
+      { type: 'add', content: "import { prisma } from '@/lib/prisma';" },
+      { type: 'add', content: "import { getServerSession } from 'next-auth';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export async function POST(request: NextRequest) {' },
+      { type: 'add', content: '  try {' },
+      { type: 'add', content: '    const session = await getServerSession();' },
+      { type: 'add', content: '    if (!session?.user) {' },
+      { type: 'add', content: "      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });" },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    const body = await request.json();' },
+      { type: 'add', content: '    const { pickupDate, pickupTime, address, items } = body;' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    const booking = await prisma.booking.create({' },
+      { type: 'add', content: '      data: {' },
+      { type: 'add', content: '        userId: session.user.id,' },
+      { type: 'add', content: '        pickupDate: new Date(pickupDate),' },
+      { type: 'add', content: '        pickupTime,' },
+      { type: 'add', content: '        address,' },
+      { type: 'add', content: "        status: 'pending'," },
+      { type: 'add', content: '        items: { create: items },' },
+      { type: 'add', content: '      },' },
+      { type: 'add', content: '      include: { items: true },' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    await notifyDrivers(booking);' },
+      { type: 'add', content: '    return NextResponse.json(booking, { status: 201 });' },
+      { type: 'add', content: '  } catch (error) {' },
+      { type: 'add', content: "    console.error('Booking error:', error);" },
+      { type: 'add', content: '    return NextResponse.json(' },
+      { type: 'add', content: "      { error: 'Failed to create booking' }," },
+      { type: 'add', content: '      { status: 500 }' },
+      { type: 'add', content: '    );' },
+      { type: 'add', content: '  }' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Now I'll implement the real-time tracking system using WebSocket connections for live order updates.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'lib/tracking/TrackingProvider.tsx',
+    content: 'Creating real-time tracking provider',
+  },
+  {
+    type: 'diff',
+    fileName: 'lib/tracking/TrackingProvider.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { createContext, useContext, useEffect, useState } from 'react';" },
+      { type: 'add', content: "import { io, Socket } from 'socket.io-client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'interface TrackingData {' },
+      { type: 'add', content: '  orderId: string;' },
+      { type: 'add', content: '  status: string;' },
+      { type: 'add', content: '  driverLocation?: { lat: number; lng: number };' },
+      { type: 'add', content: '  estimatedTime?: number;' },
+      { type: 'add', content: '}' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'const TrackingContext = createContext<TrackingData | null>(null);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function TrackingProvider({ children, orderId }: {' },
+      { type: 'add', content: '  children: React.ReactNode;' },
+      { type: 'add', content: '  orderId: string;' },
+      { type: 'add', content: '}) {' },
+      { type: 'add', content: '  const [tracking, setTracking] = useState<TrackingData | null>(null);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    const socket = io(process.env.NEXT_PUBLIC_WS_URL!, {' },
+      { type: 'add', content: '      query: { orderId },' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: "    socket.on('tracking-update', (data: TrackingData) => {" },
+      { type: 'add', content: '      setTracking(data);' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    return () => { socket.close(); };' },
+      { type: 'add', content: '  }, [orderId]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <TrackingContext.Provider value={tracking}>' },
+      { type: 'add', content: '      {children}' },
+      { type: 'add', content: '    </TrackingContext.Provider>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'text',
+    content: "Finally, I'll add the live map component with Google Maps integration for tracking driver location.",
+  },
+  {
+    type: 'tool',
+    toolName: 'Write',
+    fileName: 'components/tracking/LiveMap.tsx',
+    content: 'Creating live map component with Google Maps',
+  },
+  {
+    type: 'diff',
+    fileName: 'components/tracking/LiveMap.tsx',
+    diffLines: [
+      { type: 'add', content: "'use client';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: "import { useEffect, useRef } from 'react';" },
+      { type: 'add', content: "import { Loader } from '@googlemaps/js-api-loader';" },
+      { type: 'add', content: "import { useTracking } from '@/lib/tracking/TrackingProvider';" },
+      { type: 'add', content: '' },
+      { type: 'add', content: 'export function LiveMap() {' },
+      { type: 'add', content: '  const mapRef = useRef<HTMLDivElement>(null);' },
+      { type: 'add', content: '  const mapInstance = useRef<google.maps.Map | null>(null);' },
+      { type: 'add', content: '  const driverMarker = useRef<google.maps.Marker | null>(null);' },
+      { type: 'add', content: '  const tracking = useTracking();' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    const loader = new Loader({' },
+      { type: 'add', content: '      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY!,' },
+      { type: 'add', content: "      version: 'weekly'," },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '    loader.load().then(() => {' },
+      { type: 'add', content: '      if (mapRef.current && !mapInstance.current) {' },
+      { type: 'add', content: '        mapInstance.current = new google.maps.Map(mapRef.current, {' },
+      { type: 'add', content: '          center: { lat: 40.7128, lng: -74.0060 },' },
+      { type: 'add', content: '          zoom: 13,' },
+      { type: 'add', content: '        });' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '        driverMarker.current = new google.maps.Marker({' },
+      { type: 'add', content: '          map: mapInstance.current,' },
+      { type: 'add', content: '          icon: {' },
+      { type: 'add', content: "            url: '/icons/driver-pin.svg'," },
+      { type: 'add', content: '            scaledSize: new google.maps.Size(40, 40),' },
+      { type: 'add', content: '          },' },
+      { type: 'add', content: '        });' },
+      { type: 'add', content: '      }' },
+      { type: 'add', content: '    });' },
+      { type: 'add', content: '  }, []);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  useEffect(() => {' },
+      { type: 'add', content: '    if (tracking?.driverLocation && driverMarker.current) {' },
+      { type: 'add', content: '      const position = new google.maps.LatLng(' },
+      { type: 'add', content: '        tracking.driverLocation.lat,' },
+      { type: 'add', content: '        tracking.driverLocation.lng' },
+      { type: 'add', content: '      );' },
+      { type: 'add', content: '      driverMarker.current.setPosition(position);' },
+      { type: 'add', content: '      mapInstance.current?.panTo(position);' },
+      { type: 'add', content: '    }' },
+      { type: 'add', content: '  }, [tracking?.driverLocation]);' },
+      { type: 'add', content: '' },
+      { type: 'add', content: '  return (' },
+      { type: 'add', content: '    <div className="relative w-full h-96 rounded-2xl overflow-hidden">' },
+      { type: 'add', content: '      <div ref={mapRef} className="w-full h-full" />' },
+      { type: 'add', content: '    </div>' },
+      { type: 'add', content: '  );' },
+      { type: 'add', content: '}' },
+    ],
+  },
+  {
+    type: 'summary',
+    content: `✓ Created main landing page structure
+✓ Implemented booking form with date/time selection
+✓ Built API endpoint with authentication and database integration
+✓ Added real-time tracking with WebSocket connections
+✓ Integrated Google Maps for live driver location tracking
+
+The laundry pickup and delivery app foundation is complete with core features including user booking, real-time tracking, and payment integration ready for implementation.`,
+  },
+];
+
+const TYPING_SPEED = 20;
+const TOOL_DISPLAY_TIME = 800;
+const DIFF_LINE_SPEED = 40;
+
+export function AnimatedCodeScreen() {
+  const [phase, setPhase] = useState<'prompt' | 'code'>('prompt');
+  const [displayedPrompt, setDisplayedPrompt] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [currentTextContent, setCurrentTextContent] = useState('');
+  const [currentDiffLines, setCurrentDiffLines] = useState<number>(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const [selectedPromptData] = useState(() => getRandomPrompt());
+  const selectedPrompt = selectedPromptData.prompt;
+  const claudeMessages = getMessagesForPromptType(selectedPromptData.index);
+
+  // Auto-scroll to keep cursor centered
+  useEffect(() => {
+    if (cursorRef.current && contentRef.current) {
+      const cursor = cursorRef.current;
+      const container = contentRef.current;
+
+      // Get cursor position relative to container
+      const cursorRect = cursor.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      // Calculate target scroll position to center the cursor
+      const cursorRelativeTop = cursorRect.top - containerRect.top + container.scrollTop;
+      const targetScrollTop = cursorRelativeTop - (container.clientHeight / 2);
+
+      // Smooth scroll to center the cursor
+      container.scrollTo({
+        top: Math.max(0, targetScrollTop),
+        behavior: 'smooth',
+      });
+    }
+  }, [displayedPrompt, currentTextContent, currentDiffLines]);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (phase === 'prompt') {
+      // Type the prompt
+      if (displayedPrompt.length < selectedPrompt.length) {
+        timeoutId = setTimeout(() => {
+          setDisplayedPrompt(selectedPrompt.slice(0, displayedPrompt.length + 1));
+        }, TYPING_SPEED);
+      } else {
+        // Prompt complete, wait then switch to code phase
+        timeoutId = setTimeout(() => {
+          setPhase('code');
+          setMessages([]);
+          setCurrentMessageIndex(0);
+          setCurrentTextContent('');
+          setCurrentDiffLines(0);
+        }, 2000);
+      }
+    } else if (phase === 'code') {
+      if (currentMessageIndex < claudeMessages.length) {
+        const currentMessage = claudeMessages[currentMessageIndex];
+
+        if (currentMessage.type === 'text') {
+          // Type text message
+          const messageContent = currentMessage.content || '';
+          if (currentTextContent.length < messageContent.length) {
+            timeoutId = setTimeout(() => {
+              setCurrentTextContent(
+                messageContent.slice(0, currentTextContent.length + 1)
+              );
+            }, TYPING_SPEED);
+          } else {
+            // Text complete, add to messages and move to next
+            timeoutId = setTimeout(() => {
+              setMessages((prev) => [...prev, { ...currentMessage, content: currentTextContent }]);
+              setCurrentMessageIndex(currentMessageIndex + 1);
+              setCurrentTextContent('');
+            }, 300);
+          }
+        } else if (currentMessage.type === 'tool') {
+          // Show tool usage
+          setMessages((prev) => [...prev, currentMessage]);
+          timeoutId = setTimeout(() => {
+            setCurrentMessageIndex(currentMessageIndex + 1);
+          }, TOOL_DISPLAY_TIME);
+        } else if (currentMessage.type === 'diff') {
+          // Show diff lines progressively
+          const totalLines = currentMessage.diffLines?.length || 0;
+          if (currentDiffLines < totalLines) {
+            timeoutId = setTimeout(() => {
+              setCurrentDiffLines(currentDiffLines + 1);
+            }, DIFF_LINE_SPEED);
+          } else {
+            // Diff complete, add to messages and move to next
+            timeoutId = setTimeout(() => {
+              setMessages((prev) => [...prev, currentMessage]);
+              setCurrentMessageIndex(currentMessageIndex + 1);
+              setCurrentDiffLines(0);
+            }, 500);
+          }
+        } else if (currentMessage.type === 'summary') {
+          // Type summary
+          const messageContent = currentMessage.content || '';
+          if (currentTextContent.length < messageContent.length) {
+            timeoutId = setTimeout(() => {
+              setCurrentTextContent(
+                messageContent.slice(0, currentTextContent.length + 1)
+              );
+            }, TYPING_SPEED);
+          } else {
+            // Summary complete, add to messages
+            timeoutId = setTimeout(() => {
+              setMessages((prev) => [...prev, { ...currentMessage, content: currentTextContent }]);
+              setCurrentMessageIndex(currentMessageIndex + 1);
+              setCurrentTextContent('');
+            }, 2000);
+          }
+        }
+      } else {
+        // All messages complete, loop back
+        timeoutId = setTimeout(() => {
+          setPhase('prompt');
+          setDisplayedPrompt('');
+          setMessages([]);
+          setCurrentMessageIndex(0);
+          setCurrentTextContent('');
+          setCurrentDiffLines(0);
+        }, 3000);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    phase,
+    displayedPrompt,
+    currentMessageIndex,
+    currentTextContent,
+    currentDiffLines,
+  ]);
+
+  const renderMessage = (message: Message, isPartial: boolean = false) => {
+    if (message.type === 'text') {
+      return (
+        <div className="mb-4 text-gray-100 text-sm leading-relaxed">
+          {isPartial ? currentTextContent : message.content}
+          {isPartial && (
+            <motion.span
+              ref={cursorRef}
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+              className="inline-block w-1.5 h-4 ml-0.5 bg-blue-400"
+            />
+          )}
+        </div>
+      );
+    }
+
+    if (message.type === 'tool') {
+      const Icon =
+        message.toolName === 'Read'
+          ? FileText
+          : message.toolName === 'Edit'
+          ? Edit3
+          : message.toolName === 'Write'
+          ? FileEdit
+          : ListTodo;
+
+      return (
+        <div className="mb-3 flex items-center gap-2 text-xs text-gray-400">
+          <Icon className="w-3.5 h-3.5" />
+          <span className="font-mono">{message.toolName}</span>
+          {message.fileName && (
+            <span className="text-blue-400 font-mono">{message.fileName}</span>
+          )}
+          {!message.fileName && message.content && (
+            <span className="text-gray-500">{message.content}</span>
+          )}
+        </div>
+      );
+    }
+
+    if (message.type === 'diff') {
+      const linesToShow = isPartial
+        ? message.diffLines?.slice(0, currentDiffLines)
+        : message.diffLines;
+
+      return (
+        <div className="mb-4">
+          <div className="flex items-center gap-2 mb-2 text-xs text-gray-400">
+            <FileEdit className="w-3.5 h-3.5" />
+            <span className="font-mono text-blue-400">{message.fileName}</span>
+          </div>
+          <div className="bg-gray-950/50 rounded-lg border border-gray-800 overflow-hidden">
+            <div className="bg-gray-900/50 px-3 py-1.5 border-b border-gray-800">
+              <span className="text-xs text-gray-500 font-mono">{message.fileName}</span>
+            </div>
+            <div className="font-mono text-xs">
+              {linesToShow?.map((line, idx) => (
+                <div
+                  key={idx}
+                  className={`px-3 py-0.5 ${
+                    line.type === 'add'
+                      ? 'bg-green-500/10 text-green-400'
+                      : line.type === 'remove'
+                      ? 'bg-red-500/10 text-red-400'
+                      : 'text-gray-500'
+                  }`}
+                >
+                  <span className="select-none mr-2">
+                    {line.type === 'add' ? '+' : line.type === 'remove' ? '-' : ' '}
+                  </span>
+                  {line.content}
+                </div>
+              ))}
+              {isPartial && (
+                <div className="px-3 py-0.5 text-green-400">
+                  <motion.span
+                    ref={cursorRef}
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="inline-block w-1.5 h-3 bg-green-400"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (message.type === 'summary') {
+      return (
+        <div className="mb-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+          <div className="flex items-start gap-2">
+            <CheckCircle2 className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+            <div className="text-sm text-gray-100 whitespace-pre-line leading-relaxed">
+              {isPartial ? currentTextContent : message.content}
+              {isPartial && (
+                <motion.span
+                  ref={cursorRef}
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="inline-block w-1.5 h-4 ml-0.5 bg-green-400"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="relative w-full h-full perspective-1000">
+      {/* 3D Screen Container */}
+      <motion.div
+        initial={{ rotateY: -15, rotateX: 5 }}
+        animate={{
+          rotateY: [-15, -12, -15],
+          rotateX: [5, 7, 5],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="relative w-full h-full transform-gpu"
+        style={{
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        {/* Screen Bezel */}
+        <div
+          className="absolute inset-0 rounded-3xl bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl"
+          style={{
+            transform: 'translateZ(-20px)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          }}
+        >
+          {/* Screen Glow */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
+
+          {/* Screen Content */}
+          <div className="relative w-full h-full p-6 overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+            {/* Terminal Header */}
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-700">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <div className="flex-1 text-center text-sm text-gray-400 font-mono">
+                {phase === 'prompt' ? 'Claude Code' : 'Claude Code - Generating'}
+              </div>
+            </div>
+
+            {/* Content Area */}
+            <div
+              ref={contentRef}
+              className="h-[calc(100%-4rem)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+            >
+              {phase === 'prompt' ? (
+                <div className="font-mono text-sm text-gray-100 leading-relaxed whitespace-pre-wrap">
+                  <div className="text-blue-400 mb-3 font-semibold">User:</div>
+                  {displayedPrompt}
+                  <motion.span
+                    ref={cursorRef}
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="inline-block w-2 h-4 ml-1 bg-blue-400"
+                  />
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {messages.map((message, idx) => (
+                    <div key={idx}>{renderMessage(message)}</div>
+                  ))}
+                  {currentMessageIndex < claudeMessages.length && (
+                    <div>
+                      {claudeMessages[currentMessageIndex].type === 'text' &&
+                        currentTextContent && renderMessage(claudeMessages[currentMessageIndex], true)}
+                      {claudeMessages[currentMessageIndex].type === 'diff' &&
+                        currentDiffLines > 0 &&
+                        renderMessage(claudeMessages[currentMessageIndex], true)}
+                      {claudeMessages[currentMessageIndex].type === 'summary' &&
+                        currentTextContent &&
+                        renderMessage(claudeMessages[currentMessageIndex], true)}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Status Bar */}
+            <div className="absolute bottom-3 left-6 right-6 flex items-center justify-between text-xs text-gray-500 font-mono">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  {phase === 'prompt' ? 'Listening' : 'Generating'}
+                </span>
+              </div>
+              <span className="flex items-center gap-1">
+                <span className="text-purple-400">●</span> Claude Code
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Reflection */}
+        <div
+          className="absolute inset-0 rounded-3xl bg-gradient-to-t from-white/5 to-transparent pointer-events-none"
+          style={{
+            transform: 'translateZ(1px)',
+          }}
+        />
+      </motion.div>
+
+      {/* Ambient Light */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 rounded-full blur-3xl"
+        style={{
+          transform: 'translateZ(-50px)',
+        }}
+      />
+    </div>
+  );
+}

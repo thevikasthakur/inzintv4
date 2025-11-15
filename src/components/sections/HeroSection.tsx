@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, TrendingUp, Users, Award } from 'lucide-react';
-import Link from 'next/link';
+import { TrendingUp, Users, Award, ChevronDown } from 'lucide-react';
+import { AnimatedCodeScreen } from '@/components/ui/AnimatedCodeScreen';
+import { useState, useEffect } from 'react';
 
 const stats = [
   { label: 'Projects Delivered', value: '1000+', icon: Award },
@@ -11,179 +12,138 @@ const stats = [
 ];
 
 export default function HeroSection() {
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = "Humans build slow.\nWe build with AI.\n10x cheaper,\n10x faster.\n100% reliable.";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingSpeed = 50; // milliseconds per character
+
+    const typeNextChar = () => {
+      if (currentIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+        setTimeout(typeNextChar, typingSpeed);
+      }
+    };
+
+    // Start typing after initial delay
+    const startTimeout = setTimeout(() => {
+      typeNextChar();
+    }, 800);
+
+    return () => clearTimeout(startTimeout);
+  }, []);
+
+  // Parse the displayed text to apply gradient
+  const renderText = () => {
+    const parts = displayedText.split('10x');
+    if (parts.length === 1) {
+      return <>{displayedText}</>;
+    }
+
+    // Check if we have the full gradient text
+    const gradientPart = displayedText.includes('10x cheaper')
+      ? displayedText.substring(displayedText.indexOf('10x'))
+      : '';
+
+    const beforeGradient = displayedText.substring(0, displayedText.indexOf('10x'));
+
+    return (
+      <>
+        {beforeGradient}
+        <span className="bg-gradient-to-r from-primary-400 to-purple-400 bg-clip-text text-transparent">
+          {gradientPart}
+        </span>
+      </>
+    );
+  };
+
+// import Link from 'next/link';
+  // 
+  //  <Link href="/contact" className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 flex items-center justify-center gap-2">
+//               Book Discovery Call
+//               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+//             </Link>
+//             <Link href="/portfolio" className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 rounded-full font-semibold border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
+//               View Portfolio
+//             </Link>
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-          <svg className="w-full h-full opacity-5" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="container relative z-10 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Content */}
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-block"
-            >
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium">
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
-                Founded by Developers in 2020
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
-            >
-              AI-Driven Software{' '}
-              <span className="bg-gradient-to-r from-primary-500 to-purple-600 bg-clip-text text-transparent">
-                Built with Startup Speed and Enterprise Rigor
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-600 leading-relaxed"
-            >
-              We ship production-ready software: AI voice systems, high-performance web/mobile apps, and cloud backends that scale. Small senior squads, documented decisions, measurable outcomes.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Link href="/contact" className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 flex items-center justify-center gap-2">
-                Book Discovery Call
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/portfolio" className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 rounded-full font-semibold border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
-                View Portfolio
-              </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="grid grid-cols-3 gap-6 pt-8"
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className="flex flex-col items-start"
-                >
-                  <stat.icon className="w-8 h-8 text-primary-500 mb-2" />
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+      {/* Animated Code Screen Background - Shifted Up */}
+      <div className="absolute inset-0 z-0 -translate-y-20">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full max-w-7xl h-[800px] px-4">
+            <AnimatedCodeScreen />
           </div>
-
-          {/* Right Column - Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative aspect-square">
-              {/* Animated circles */}
-              <motion.div
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                className="absolute inset-0"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary-500 rounded-full" />
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-purple-500 rounded-full" />
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-blue-500 rounded-full" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-pink-500 rounded-full" />
-              </motion.div>
-
-              {/* Center glow */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="w-64 h-64 bg-gradient-to-r from-primary-500/30 to-purple-500/30 rounded-full blur-3xl"
-                />
-              </div>
-
-              {/* Floating cards */}
-              <motion.div
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-10 right-10 p-4 bg-white rounded-2xl shadow-xl"
-              >
-                <div className="text-3xl font-bold text-primary-500">99.9%</div>
-                <div className="text-sm text-gray-600">Uptime</div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [10, -10, 10] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-20 left-10 p-4 bg-white rounded-2xl shadow-xl"
-              >
-                <div className="text-3xl font-bold text-purple-500">4.9★</div>
-                <div className="text-sm text-gray-600">Rating</div>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-gray-950/30 to-gray-950/80" />
+
+      {/* Centered Message */}
+      <div className="relative z-10 text-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="max-w-4xl mx-auto"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight whitespace-pre-line">
+            {renderText()}
+            {displayedText.length < fullText.length && (
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+                className="inline-block w-1 h-12 md:h-16 ml-1 bg-primary-400"
+              />
+            )}
+          </h1>
+        </motion.div>
+
+        {/* Scroll Call-to-Action */}
+        {displayedText.length === fullText.length && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-12"
+          >
+            <p className="text-gray-400 text-sm md:text-base mb-4">
+              See how we do it
+            </p>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex justify-center"
+            >
+              <ChevronDown className="w-8 h-8 text-primary-400" />
+            </motion.div>
+          </motion.div>
+        )}
+      </div>
+
+      {/* Enhanced Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-gray-300 rounded-full flex items-start justify-center p-1"
+          className="flex flex-col items-center gap-2"
         >
-          <div className="w-1 h-2 bg-gray-400 rounded-full" />
+          <div className="w-6 h-10 border-2 border-primary-400/50 rounded-full flex items-start justify-center p-1">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-2 bg-primary-400 rounded-full"
+            />
+          </div>
         </motion.div>
       </motion.div>
     </section>

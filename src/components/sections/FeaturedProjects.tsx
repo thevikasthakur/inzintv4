@@ -104,7 +104,7 @@ export default function FeaturedProjects() {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const stickyRef = useRef<HTMLDivElement | null>(null);
 
-  const animatedText = 'Our portfolio includes a diverse range of digital products built to support growth and digital transformation — from B2B platforms to B2C apps, and digital solutions across multiple sectors.';
+  const animatedText = 'These success stories showcase how we transform ideas into market-leading digital products that drive real business value.';
   const words = animatedText.split(' ');
 
   useEffect(() => {
@@ -152,19 +152,45 @@ export default function FeaturedProjects() {
   }, []);
 
   return (
-    <section className="bg-primary-brand-25 py-14 md:py-16 lg:py-[144px]">
-      <div className="container max-sm:px-5 mx-auto">
-        {/* Header Section */}
-        <div className="text-start">
-          <p className="font-medium text-primary text-base md:text-lg">
-            Featured digital <br /> Products projects
+    <section className="relative py-14 md:py-16 lg:py-[144px]">
+      {/* Gradient transition from previous section */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-primary-brand-25/50 to-primary-brand-25 pointer-events-none" />
+
+      {/* Decorative elements for smooth transition */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent opacity-50" />
+
+      <div className="relative container max-sm:px-5 mx-auto">
+        {/* Transition Bridge Section */}
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
+            <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+            <span className="text-sm font-medium text-gray-600">Real Results, Real Impact</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            From Process to <span className="text-primary-500">Products</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            See how our AI-powered methodology transforms ambitious ideas into successful digital products
           </p>
-          <div className="max-w-3xl mt-4 md:mt-8">
+        </div>
+
+        {/* Original Header Section with enhanced styling */}
+        <div className="text-start">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-[2px] w-12 bg-primary-500"></div>
+            <p className="font-semibold text-primary-500 text-sm uppercase tracking-wider">
+              Case Studies
+            </p>
+          </div>
+          <h3 className="font-bold text-2xl md:text-3xl lg:text-4xl text-gray-900 mb-6">
+            Featured Digital Products
+          </h3>
+          <div className="max-w-3xl">
             <p className="flex flex-wrap justify-start !px-0">
               {words.map((word, index) => (
-                <span key={index} className="relative mt-2 mr-1 font-bold text-xl md:text-2xl">
-                  <span className="absolute text-content-light">{word}</span>
-                  <span className="relative z-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <span key={index} className="relative mt-2 mr-1 font-medium text-lg md:text-xl">
+                  <span className="absolute text-gray-400">{word}</span>
+                  <span className="relative z-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-900">
                     {word}
                   </span>
                 </span>
