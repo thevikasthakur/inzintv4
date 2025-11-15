@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
+import "@/styles/nprogress.css";
 import { Header } from "@/components/layout";
+import NavigationProgress from "@/components/NavigationProgress";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -99,6 +102,9 @@ export default function RootLayout({
         }} />
       </head>
       <body className="antialiased" suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <Header />
         {children}
       </body>
