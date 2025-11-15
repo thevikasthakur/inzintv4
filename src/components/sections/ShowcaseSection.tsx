@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const showcaseData = [
@@ -17,6 +18,7 @@ const showcaseData = [
     ],
     image: '/showcase/adidas.jpg',
     color: 'from-black to-gray-800',
+    slug: 'adidas-retail-experience',
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ const showcaseData = [
     ],
     image: '/showcase/ikea.jpg',
     color: 'from-blue-600 to-yellow-500',
+    slug: 'ikea-ar-furniture',
   },
   {
     id: 3,
@@ -43,6 +46,7 @@ const showcaseData = [
     ],
     image: '/showcase/pizzahut.jpg',
     color: 'from-red-600 to-orange-500',
+    slug: 'pizza-hut-ordering-platform',
   },
   {
     id: 4,
@@ -56,6 +60,7 @@ const showcaseData = [
     ],
     image: '/showcase/americana.jpg',
     color: 'from-green-600 to-blue-600',
+    slug: 'americana-food-management',
   },
 ];
 
@@ -169,10 +174,10 @@ export default function ShowcaseSection() {
                             ))}
                           </div>
 
-                          <button className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all w-fit">
+                          <Link href={`/case-studies/${item.slug}`} className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all w-fit">
                             View Case Study
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                          </button>
+                          </Link>
                         </div>
 
                         {/* Visual Placeholder */}

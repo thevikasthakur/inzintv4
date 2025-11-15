@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Logo from './Logo';
 import type { NavItem, MenuItem } from '@/types';
-import { getIcon } from '@/lib/icons';
+import { renderIcon } from '@/lib/icons';
 
 interface MobileMenuProps {
   navigationData: NavItem[];
@@ -285,7 +285,7 @@ function TabsSubmenu({
                 >
                   {item.icon && (
                     <div className="flex-shrink-0 pt-0.5">
-                      {getIcon(item.icon, 'h-4 w-4 text-primary-600')}
+                      {renderIcon(item.icon, 'h-4 w-4 text-primary-600')}
                     </div>
                   )}
                   <div>
@@ -331,7 +331,7 @@ function ColumnsSubmenu({
               >
                 {item.icon && (
                   <div className="flex-shrink-0 pt-0.5">
-                    {getIcon(item.icon, 'h-4 w-4 text-primary-600')}
+                    {renderIcon(item.icon, 'h-4 w-4 text-primary-600')}
                   </div>
                 )}
                 <div>
@@ -368,7 +368,7 @@ function GridSubmenu({
         >
           {item.icon && (
             <div className="flex-shrink-0 pt-0.5">
-              {getIcon(item.icon, 'h-4 w-4 text-primary-600')}
+              {renderIcon(item.icon, 'h-4 w-4 text-primary-600')}
             </div>
           )}
           <div>

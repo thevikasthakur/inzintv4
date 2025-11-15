@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
   Brain,
   Smartphone,
@@ -22,6 +23,7 @@ const services = [
     features: ['Machine Learning', 'Natural Language Processing', 'Computer Vision', 'Predictive Analytics'],
     color: 'from-purple-500 to-pink-500',
     bgColor: 'bg-purple-50',
+    slug: 'ai-development',
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ const services = [
     features: ['Native iOS & Android', 'React Native', 'Flutter', 'Progressive Web Apps'],
     color: 'from-blue-500 to-cyan-500',
     bgColor: 'bg-blue-50',
+    slug: 'mobile-app-development',
   },
   {
     id: 3,
@@ -40,6 +43,7 @@ const services = [
     features: ['Custom Software', 'Enterprise Solutions', 'SaaS Products', 'API Development'],
     color: 'from-green-500 to-emerald-500',
     bgColor: 'bg-green-50',
+    slug: 'software-development',
   },
   {
     id: 4,
@@ -49,6 +53,7 @@ const services = [
     features: ['AWS', 'Azure', 'Google Cloud', 'DevOps & CI/CD'],
     color: 'from-orange-500 to-yellow-500',
     bgColor: 'bg-orange-50',
+    slug: 'cloud-solutions',
   },
   {
     id: 5,
@@ -58,6 +63,7 @@ const services = [
     features: ['Smart Contracts', 'DeFi Solutions', 'NFT Platforms', 'Web3 Development'],
     color: 'from-indigo-500 to-purple-500',
     bgColor: 'bg-indigo-50',
+    slug: 'blockchain-development',
   },
   {
     id: 6,
@@ -67,6 +73,7 @@ const services = [
     features: ['Smart Devices', 'Industrial IoT', 'Home Automation', 'Wearable Tech'],
     color: 'from-red-500 to-pink-500',
     bgColor: 'bg-red-50',
+    slug: 'iot-solutions',
   },
   {
     id: 7,
@@ -76,6 +83,7 @@ const services = [
     features: ['Security Audits', 'Penetration Testing', 'Compliance', 'Risk Management'],
     color: 'from-gray-700 to-gray-900',
     bgColor: 'bg-gray-50',
+    slug: 'cybersecurity',
   },
   {
     id: 8,
@@ -85,6 +93,7 @@ const services = [
     features: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
     color: 'from-pink-500 to-rose-500',
     bgColor: 'bg-pink-50',
+    slug: 'ui-ux-design',
   },
 ];
 
@@ -164,10 +173,10 @@ export default function ServicesSection() {
                 </ul>
 
                 {/* CTA */}
-                <button className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:gap-3 transition-all">
+                <Link href={`/services/${service.slug}`} className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:gap-3 transition-all">
                   Learn More
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}
@@ -181,12 +190,12 @@ export default function ServicesSection() {
           className="text-center mt-16"
         >
           <div className="inline-flex flex-col sm:flex-row gap-4">
-            <button className="px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40">
+            <Link href="/services" className="px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 flex items-center justify-center">
               Explore All Services
-            </button>
-            <button className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 rounded-full font-semibold border-2 border-gray-200 hover:border-gray-300 transition-all">
+            </Link>
+            <Link href="/contact" className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 rounded-full font-semibold border-2 border-gray-200 hover:border-gray-300 transition-all flex items-center justify-center">
               Schedule a Consultation
-            </button>
+            </Link>
           </div>
         </motion.div>
       </div>

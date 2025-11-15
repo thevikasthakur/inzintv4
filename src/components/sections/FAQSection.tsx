@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
 import { Plus, Minus, HelpCircle } from 'lucide-react';
 
 const faqs = [
@@ -197,12 +198,12 @@ export default function FAQSection() {
             Our team is here to help! Get in touch with us for personalized answers to your questions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
+            <Link href="/contact" className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg flex items-center justify-center">
               Contact Support
-            </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold border-2 border-white/20 hover:bg-white/20 transition-all">
+            </Link>
+            <Link href="/contact" className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold border-2 border-white/20 hover:bg-white/20 transition-all flex items-center justify-center">
               Schedule a Call
-            </button>
+            </Link>
           </div>
         </motion.div>
 

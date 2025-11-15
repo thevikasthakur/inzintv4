@@ -57,9 +57,15 @@ export default function ScrollAnnouncementModal({
   return (
     <AnimatePresence>
       {isVisible && (
-        <>
+        <motion.div
+          key="announcement-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           {/* Backdrop */}
           <motion.div
+            key="backdrop"
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -70,6 +76,7 @@ export default function ScrollAnnouncementModal({
           {/* Modal */}
           <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
             <motion.div
+              key="modal-content"
               className="w-full max-w-2xl"
               initial={{ opacity: 0, scale: 0.9, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -173,7 +180,7 @@ export default function ScrollAnnouncementModal({
             </div>
             </motion.div>
           </div>
-        </>
+        </motion.div>
       )}
 
       <style jsx>{`

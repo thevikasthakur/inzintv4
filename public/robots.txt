@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://appinventiv.com
+Host: https://inzint.com
 
 # Sitemaps
-Sitemap: https://appinventiv.com/sitemap.xml
+Sitemap: https://inzint.com/sitemap.xml
