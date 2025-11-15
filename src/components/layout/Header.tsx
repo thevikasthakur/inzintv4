@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import AnnouncementBar from "./AnnouncementBar";
 import Navigation from "./Navigation";
@@ -21,10 +22,13 @@ export default function Header({
   announcementLink = "/website-status",
   announcementLinkText = "track it live",
 }: HeaderProps) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false); // Hidden on initial load
+  const [isHeaderVisible, setIsHeaderVisible] = useState(!isHomePage); // Hidden on home page, visible on other pages
   const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   const [isAnnouncementVisible, setIsAnnouncementVisible] =
@@ -42,6 +46,18 @@ export default function Header({
     [0, Math.max(documentHeight - windowHeight, 1)],
     ["0%", "100%"]
   );
+
+  // Update header visibility when navigating between pages
+  useEffect(() => {
+    if (!isHomePage) {
+      // If not on home page, immediately show the header
+      setIsHeaderVisible(true);
+    } else {
+      // If on home page, check current scroll position
+      const currentScrollY = window.scrollY;
+      setIsHeaderVisible(currentScrollY > 500);
+    }
+  }, [isHomePage]);
 
   useEffect(() => {
     // Set document and window heights on client side
@@ -67,12 +83,16 @@ export default function Header({
         setIsScrolled(false);
       }
 
-      // Show header only when Claude Code area reaches near the top (after 500px)
-      // This aligns with the HeroSectionV2 scroll animation
-      if (currentScrollY > 500) {
-        setIsHeaderVisible(true);
-      } else {
-        setIsHeaderVisible(false);
+      // Only apply the 500px scroll threshold on the home page
+      // On other pages, the header is always visible
+      if (isHomePage) {
+        // Show header only when Claude Code area reaches near the top (after 500px)
+        // This aligns with the HeroSectionV2 scroll animation
+        if (currentScrollY > 500) {
+          setIsHeaderVisible(true);
+        } else {
+          setIsHeaderVisible(false);
+        }
       }
 
       setLastScrollY(currentScrollY);
@@ -83,7 +103,7 @@ export default function Header({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isHomePage]);
 
   // Close mobile menu when window is resized to desktop size
   useEffect(() => {
