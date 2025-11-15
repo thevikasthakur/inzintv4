@@ -18,9 +18,9 @@ interface HeaderProps {
 
 export default function Header({
   showAnnouncement = true,
-  announcementText = `Code's still hot. Our bots are creating the website. We just watch. — `,
-  announcementLink = "/website-status",
-  announcementLinkText = "track it live",
+  announcementText = `🎓 Now Hiring: Computer Science Graduates from 2026 Batch for AI & ML Engineering Department — `,
+  announcementLink = "/careers/ai-ml-engineer-trainee-2026",
+  announcementLinkText = "Apply Now",
 }: HeaderProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";

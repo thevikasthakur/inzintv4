@@ -7,8 +7,8 @@ export default function NotFound() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to website-status page
-    router.replace('/website-status');
+    // Redirect to home page
+    router.replace('/');
   }, [router]);
 
   // Return null or a loading state while redirecting
