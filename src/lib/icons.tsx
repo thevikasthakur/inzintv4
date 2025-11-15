@@ -55,6 +55,29 @@ import {
   MapPin,
   Mail,
   UsersRound,
+  HeartPulse,
+  CreditCard,
+  Video,
+  Hospital,
+  Pill,
+  Monitor,
+  Trophy,
+  Search,
+  Camera,
+  Package,
+  Route,
+  Clock,
+  MessageCircle,
+  ShoppingBag,
+  Store,
+  Gamepad2,
+  PlayCircle,
+  Music,
+  BatteryCharging,
+  ChefHat,
+  Bike,
+  Circle,
+  Wallet,
 } from 'lucide-react';
 
 export const iconMap = {
@@ -101,7 +124,9 @@ export const iconMap = {
   // Industries
   'dollar-sign': DollarSign,
   heart: Heart,
+  'heart-pulse': HeartPulse,
   'shopping-cart': ShoppingCart,
+  'shopping-bag': ShoppingBag,
   'graduation-cap': GraduationCap,
   home: Home,
   truck: Truck,
@@ -110,6 +135,26 @@ export const iconMap = {
   film: Film,
   utensils: Utensils,
   car: Car,
+  'credit-card': CreditCard,
+  video: Video,
+  hospital: Hospital,
+  pill: Pill,
+  monitor: Monitor,
+  trophy: Trophy,
+  search: Search,
+  camera: Camera,
+  package: Package,
+  route: Route,
+  clock: Clock,
+  'message-circle': MessageCircle,
+  store: Store,
+  'gamepad-2': Gamepad2,
+  'play-circle': PlayCircle,
+  music: Music,
+  'battery-charging': BatteryCharging,
+  'chef-hat': ChefHat,
+  bike: Bike,
+  wallet: Wallet,
 
   // Resources
   newspaper: Newspaper,
@@ -140,12 +185,11 @@ export const iconMap = {
   cog: Settings,
 };
 
-export function getIcon(iconName: string, className?: string) {
-  const IconComponent = iconMap[iconName as keyof typeof iconMap];
+export function getIcon(iconName: string) {
+  return iconMap[iconName as keyof typeof iconMap] || Circle;
+}
 
-  if (!IconComponent) {
-    return null;
-  }
-
-  return <IconComponent className={className} />;
+export function renderIcon(iconName: string, className?: string) {
+  const Icon = getIcon(iconName);
+  return <Icon className={className} />;
 }

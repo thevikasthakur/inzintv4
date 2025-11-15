@@ -46,8 +46,8 @@ const offices = [
     id: 4,
     city: 'St. Louis',
     country: 'USA',
-    address: '12379 Cross Creek Cove, St. Louis, MO 63141, USA',
-    phone: '+1 (253) 523-2373',
+    address: "214 Fairway green dr, O'Fallon, MO 63368, USA",
+    phone: '+1 (206) 796 4306',
     email: 'contact@inzint.com',
   },
 ];
@@ -343,16 +343,16 @@ export default function FooterSection() {
               viewport={{ once: true }}
               className="flex flex-wrap justify-center gap-6 text-sm"
             >
-              <Link href="#" className="hover:text-primary-400 transition-colors">
+              <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="#" className="hover:text-primary-400 transition-colors">
+              <Link href="/terms-of-service" className="hover:text-primary-400 transition-colors">
                 Terms of Service
               </Link>
-              <Link href="#" className="hover:text-primary-400 transition-colors">
+              <Link href="/cookie-policy" className="hover:text-primary-400 transition-colors">
                 Cookie Policy
               </Link>
-              <Link href="#" className="hover:text-primary-400 transition-colors">
+              <Link href="/sitemap.xml" className="hover:text-primary-400 transition-colors">
                 Sitemap
               </Link>
             </motion.div>

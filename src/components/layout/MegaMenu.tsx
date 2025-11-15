@@ -201,11 +201,14 @@ function ColumnsLayout({
                   onClick={onClose}
                   className="group flex items-start gap-3 rounded-lg p-2 transition-all hover:bg-gray-50"
                 >
-                  {item.icon && (
-                    <div className="flex-shrink-0">
-                      {getIcon(item.icon, 'h-5 w-5 text-primary-600')}
-                    </div>
-                  )}
+                  {item.icon && (() => {
+                    const Icon = getIcon(item.icon);
+                    return (
+                      <div className="flex-shrink-0">
+                        <Icon className="h-5 w-5 text-primary-600" />
+                      </div>
+                    );
+                  })()}
                   <div className="flex-1">
                     <div className="flex items-center gap-1">
                       <span className="text-sm font-medium text-gray-900 group-hover:text-primary-600">
@@ -272,11 +275,14 @@ function GridLayout({
           onClick={onClose}
           className="group rounded-lg border border-gray-200 p-3 transition-all hover:border-primary-600 hover:shadow-md hover:bg-primary-50"
         >
-          {item.icon && (
-            <div className="mb-2 inline-flex rounded-lg bg-primary-50 p-2">
-              {getIcon(item.icon, 'h-5 w-5 text-primary-600')}
-            </div>
-          )}
+          {item.icon && (() => {
+            const Icon = getIcon(item.icon);
+            return (
+              <div className="mb-2 inline-flex rounded-lg bg-primary-50 p-2">
+                <Icon className="h-5 w-5 text-primary-600" />
+              </div>
+            );
+          })()}
           <h4 className="mb-1 text-sm font-semibold text-gray-900 group-hover:text-primary-600">
             {item.label}
           </h4>
@@ -297,11 +303,14 @@ function MenuItem({ item, onClose }: { item: MenuItem; onClose: () => void }) {
       onClick={onClose}
       className="group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50"
     >
-      {item.icon && (
-        <div className="flex-shrink-0 rounded-lg bg-primary-50 p-2">
-          {getIcon(item.icon, 'h-5 w-5 text-primary-600')}
-        </div>
-      )}
+      {item.icon && (() => {
+        const Icon = getIcon(item.icon);
+        return (
+          <div className="flex-shrink-0 rounded-lg bg-primary-50 p-2">
+            <Icon className="h-5 w-5 text-primary-600" />
+          </div>
+        );
+      })()}
       <div className="flex-1">
         <h4 className="font-medium text-gray-900 group-hover:text-primary-600">
           {item.label}

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://appinventiv.com',
+  siteUrl: process.env.SITE_URL || 'https://inzint.com',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,
@@ -9,7 +9,7 @@ module.exports = {
   exclude: ['/api/*', '/admin/*'],
   robotsTxtOptions: {
     additionalSitemaps: [
-      'https://appinventiv.com/sitemap.xml',
+      'https://inzint.com/sitemap.xml',
     ],
     policies: [
       {
