@@ -82,10 +82,11 @@ export default function HeroSectionV2() {
     document.body.scrollTop = 0;
   }, []);
 
-  // Handle video autoplay
+  // Handle video autoplay - Safari compatible with Low Power Mode detection
   useEffect(() => {
     if (videoRef.current) {
       const video = videoRef.current;
+      let hasUserInteracted = false;
 
       // Add event listeners for debugging
       video.addEventListener('loadstart', () => console.log('Video: loadstart'));
@@ -95,37 +96,76 @@ export default function HeroSectionV2() {
       video.addEventListener('pause', () => console.log('Video: paused'));
       video.addEventListener('error', (e) => console.log('Video: error', e));
 
-      // Try to play the video
+      // Safari-compatible autoplay function
       const playVideo = async () => {
         try {
-          await video.play();
-          console.log('Video: playback started successfully');
-          console.log('Video element visibility:', {
-            display: window.getComputedStyle(video).display,
-            opacity: window.getComputedStyle(video).opacity,
-            visibility: window.getComputedStyle(video).visibility,
-            zIndex: window.getComputedStyle(video).zIndex,
-            currentSrc: video.currentSrc,
-            paused: video.paused,
-            readyState: video.readyState
-          });
-        } catch (error) {
-          console.log('Video: autoplay failed, trying muted play', error);
+          // Ensure video is muted (required for autoplay)
           video.muted = true;
-          try {
-            await video.play();
-            console.log('Video: muted playback started');
-          } catch (secondError) {
-            console.log('Video: playback failed completely', secondError);
+          video.defaultMuted = true;
+
+          // For Safari, we need to set the playsinline attribute
+          video.setAttribute('playsinline', 'true');
+          video.setAttribute('webkit-playsinline', 'true');
+
+          // Use a timeout to avoid immediate play attempts that Safari blocks
+          await new Promise(resolve => setTimeout(resolve, 100));
+
+          // Try to play
+          const playPromise = video.play();
+
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                console.log('Video: playback started successfully');
+              })
+              .catch((error) => {
+                console.log('Video: autoplay blocked by Safari', error.name);
+                // Don't hide the video, just show with poster
+                // Safari will show the poster image automatically
+              });
           }
+        } catch (error) {
+          console.log('Video: playback error', error);
         }
       };
 
-      // Wait for video to be ready
-      if (video.readyState >= 3) {
-        playVideo();
+      // Detect Safari
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+      // For Safari, we need to wait for ACTIVE user interaction (click/touch, not scroll)
+      if (isSafari) {
+        // Show a play button or wait for any interaction
+        const handleFirstInteraction = () => {
+          if (!hasUserInteracted) {
+            hasUserInteracted = true;
+            console.log('User interaction detected, attempting video play');
+            playVideo();
+          }
+        };
+
+        // Listen for ACTIVE user interactions only (Safari doesn't accept scroll as valid interaction for autoplay)
+        document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('touchstart', handleFirstInteraction);
+        // Removed scroll listener as Safari doesn't consider it a valid user gesture for autoplay
+
+        // Also try to play when metadata is loaded (might work on desktop Safari)
+        video.addEventListener('loadedmetadata', () => {
+          if (!hasUserInteracted) {
+            playVideo();
+          }
+        }, { once: true });
+
+        return () => {
+          document.removeEventListener('click', handleFirstInteraction);
+          document.removeEventListener('touchstart', handleFirstInteraction);
+        };
       } else {
-        video.addEventListener('canplay', playVideo, { once: true });
+        // For non-Safari browsers, try immediate autoplay
+        if (video.readyState >= 2) {
+          playVideo();
+        } else {
+          video.addEventListener('loadedmetadata', playVideo, { once: true });
+        }
       }
     }
   }, []);
@@ -209,13 +249,14 @@ export default function HeroSectionV2() {
         {/* Video Background (on top of fallback image) */}
         <video
           ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
+          autoPlay={true}
+          muted={true}
+          loop={true}
+          playsInline={true}
+          preload="auto"
           poster="/videos/inzint-hero.webp"
           className="absolute inset-0 w-full h-full object-cover z-10"
-          style={{ filter: 'blur(8px)' }}
+          style={{ filter: 'blur(8px)', WebkitFilter: 'blur(8px)' }}
           onError={(e) => {
             // Hide video element if it fails to load
             console.log('Video failed to load, showing fallback');
