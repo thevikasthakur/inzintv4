@@ -175,7 +175,9 @@ export const company = {
 
   contact: {
     email: 'hello@inzint.com',
-    phone: '+91-XXXXXXXXXX', // Add actual number
+    phone: '+91 92899 09174',
+    phoneUS: '+1 206 796 4306',
+    phoneJobs: '+91 9289704058',
     locations: [
       {
         country: 'India',
@@ -191,7 +193,8 @@ export const company = {
     linkedin: 'https://www.linkedin.com/company/inzint',
     twitter: 'https://twitter.com/inzint',
     github: 'https://github.com/inzint',
-    // Add actual URLs
+    instagram: 'http://instagram.com/inzint.om',
+    youtube: 'https://www.youtube.com/@inzint',
   },
 };
 

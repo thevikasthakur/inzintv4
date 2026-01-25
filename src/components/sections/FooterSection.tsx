@@ -53,56 +53,55 @@ const offices = [
 ];
 
 const services = [
-  'AI Rapid Prototype',
-  'AI MVP Development',
-  'AI Voice Bot (VoxReception)',
-  'Full Privacy Chatbot',
-  'Web/Mobile MVP',
-  'Mobile App Development',
-  'Custom ERP & CRM',
-  'Cloud & DevOps',
+  { name: 'AI Consulting', href: '/inzint-ai/ai-tech-solutions/ai-consulting-services' },
+  { name: 'Generative AI Development', href: '/inzint-ai/ai-tech-solutions/generative-ai-development-company' },
+  { name: 'AI Agent Development', href: '/inzint-ai/ai-tech-solutions/ai-agent-development' },
+  { name: 'Machine Learning', href: '/inzint-ai/ai-tech-solutions/machine-learning-development' },
+  { name: 'Mobile App Development', href: '/services/product-development/mobile-app-development' },
+  { name: 'Web Development', href: '/services/product-development/web-development' },
+  { name: 'Cloud Services', href: '/services/digital-transformation/cloud-services' },
+  { name: 'DevOps Services', href: '/services/it-managed-services/devops-services' },
 ];
 
 const company = [
-  'About Inzint',
-  'Founders',
-  'How We Work',
-  'Careers',
-  'Portfolio',
-  'Upwork Track Record',
-  'Tech Stack',
-  'Contact',
+  { name: 'About Inzint', href: '/about' },
+  { name: 'Leadership', href: '/about/company/leadership' },
+  { name: 'How We Work', href: '/about/company/how-we-work' },
+  { name: 'Careers', href: '/about/company/careers' },
+  { name: 'Awards', href: '/about/recognition/awards' },
+  { name: 'Partnerships', href: '/about/recognition/partnerships' },
+  { name: 'Locations', href: '/about/connect/locations' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 const industries = [
-  'Healthcare',
-  'Logistics & Warehousing',
-  'Hospitality',
-  'Education & Training',
-  'Banking & Fintech',
-  'E-Commerce & Retail',
-  'Real Estate',
-  'Events & Sports',
+  { name: 'Healthcare', href: '/industries/healthcare-app-development' },
+  { name: 'Logistics', href: '/industries/logistics-app-development' },
+  { name: 'Education', href: '/industries/education-app-development' },
+  { name: 'Fintech', href: '/industries/fintech-app-development' },
+  { name: 'E-Commerce', href: '/industries/ecommerce-app-development' },
+  { name: 'Real Estate', href: '/industries/real-estate-app-development' },
+  { name: 'Travel', href: '/industries/travel-app-development' },
+  { name: 'Entertainment', href: '/industries/entertainment-app-development' },
 ];
 
 const resources = [
-  'VoxReception',
-  'PeopleParity',
-  'Pomo Cards',
-  'BoardBlend',
-  'Pricing',
-  'Case Studies',
-  'FAQs',
-  'Support',
+  { name: 'Blog', href: '/resources/learn/blog' },
+  { name: 'Guides', href: '/resources/learn/guides' },
+  { name: 'Whitepapers', href: '/resources/learn/whitepapers' },
+  { name: 'eBooks', href: '/resources/learn/ebooks' },
+  { name: 'Case Studies', href: '/resources/tools/case-studies' },
+  { name: 'Events', href: '/resources/news-events/events' },
+  { name: 'Podcasts', href: '/resources/news-events/podcasts' },
+  { name: 'App Cost Calculator', href: '/resources/tools/app-cost-calculator' },
 ];
 
 const socialLinks = [
-  { icon: Facebook, url: '#', label: 'Facebook' },
-  { icon: Twitter, url: '#', label: 'Twitter' },
-  { icon: Linkedin, url: '#', label: 'LinkedIn' },
-  { icon: Instagram, url: '#', label: 'Instagram' },
-  { icon: Youtube, url: '#', label: 'YouTube' },
-  { icon: Github, url: '#', label: 'GitHub' },
+  { icon: Linkedin, url: 'https://www.linkedin.com/company/inzint', label: 'LinkedIn' },
+  { icon: Twitter, url: 'https://twitter.com/inzint', label: 'Twitter' },
+  { icon: Github, url: 'https://github.com/inzint', label: 'GitHub' },
+  { icon: Instagram, url: 'http://instagram.com/inzint.om', label: 'Instagram' },
+  { icon: Youtube, url: 'https://www.youtube.com/@inzint', label: 'YouTube' },
 ];
 
 export default function FooterSection() {
@@ -188,12 +187,12 @@ export default function FooterSection() {
                 <h4 className="text-white font-semibold mb-4">Services</h4>
                 <ul className="space-y-3">
                   {services.map((service) => (
-                    <li key={service}>
+                    <li key={service.name}>
                       <Link
-                        href="#"
+                        href={service.href}
                         className="hover:text-primary-400 transition-colors inline-block"
                       >
-                        {service}
+                        {service.name}
                       </Link>
                     </li>
                   ))}
@@ -210,12 +209,12 @@ export default function FooterSection() {
                 <h4 className="text-white font-semibold mb-4">Company</h4>
                 <ul className="space-y-3">
                   {company.map((item) => (
-                    <li key={item}>
+                    <li key={item.name}>
                       <Link
-                        href="#"
+                        href={item.href}
                         className="hover:text-primary-400 transition-colors inline-block"
                       >
-                        {item}
+                        {item.name}
                       </Link>
                     </li>
                   ))}
@@ -232,12 +231,12 @@ export default function FooterSection() {
                 <h4 className="text-white font-semibold mb-4">Industries</h4>
                 <ul className="space-y-3">
                   {industries.map((industry) => (
-                    <li key={industry}>
+                    <li key={industry.name}>
                       <Link
-                        href="#"
+                        href={industry.href}
                         className="hover:text-primary-400 transition-colors inline-block"
                       >
-                        {industry}
+                        {industry.name}
                       </Link>
                     </li>
                   ))}
@@ -254,12 +253,12 @@ export default function FooterSection() {
                 <h4 className="text-white font-semibold mb-4">Resources</h4>
                 <ul className="space-y-3">
                   {resources.map((resource) => (
-                    <li key={resource}>
+                    <li key={resource.name}>
                       <Link
-                        href="#"
+                        href={resource.href}
                         className="hover:text-primary-400 transition-colors inline-block"
                       >
-                        {resource}
+                        {resource.name}
                       </Link>
                     </li>
                   ))}
