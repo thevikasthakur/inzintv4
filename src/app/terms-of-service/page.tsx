@@ -361,8 +361,8 @@ export default function TermsOfServicePage() {
                     <Phone className="w-5 h-5 text-primary-600 mt-1" />
                     <div>
                       <div className="font-semibold text-gray-900">Phone</div>
-                      <a href="tel:+1234567890" className="text-primary-600 hover:text-primary-700">
-                        +1 (234) 567-890
+                      <a href="tel:+12067964306" className="text-primary-600 hover:text-primary-700">
+                        +1 206 796 4306
                       </a>
                     </div>
                   </div>
@@ -373,8 +373,8 @@ export default function TermsOfServicePage() {
                       <div className="font-semibold text-gray-900">Address</div>
                       <p className="text-gray-600">
                         Inzint Private Limited<br />
-                        [Your Address]<br />
-                        [City, State, ZIP Code]
+                        B-111, Sector 65, Noida<br />
+                        Gautam Buddha Nagar, Uttar Pradesh, India - 201301
                       </p>
                     </div>
                   </div>
