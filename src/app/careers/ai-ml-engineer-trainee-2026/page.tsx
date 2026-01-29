@@ -74,7 +74,7 @@ export default function AIMLEngineerTraineePage() {
           <div className="grid md:grid-cols-4 gap-4">
             {[
               { icon: MapPin, label: 'Location', value: 'Sector 65, Noida' },
-              { icon: Calendar, label: 'Start Date', value: <><s>Jan 05, 2026</s> Feb 16, 2026 <span className="text-xs text-gray-500">(Updated due to scheduling adjustments)</span></> },
+              { icon: Calendar, label: 'Start Date', value: <><s>Jan 05, 2026</s> Feb 02, 2026 <span className="text-xs text-gray-500">(Updated due to scheduling adjustments)</span></> },
               { icon: Users, label: 'Positions', value: '6 Openings' },
               { icon: Clock, label: 'Work Mode', value: 'Full-Time, On-site' }
             ].map((item, index) => (
@@ -203,7 +203,7 @@ export default function AIMLEngineerTraineePage() {
               <div className="space-y-3">
                 {[
                   'You must have scored at least 60% marks throughout your academics.',
-                  <><span>There should be no active backlogs on the day of joining (i.e. on <s>Jan 05, 2026</s> Feb 16, 2026).</span></>,
+                  <><span>There should be no active backlogs on the day of joining (i.e. on <s>Jan 05, 2026</s> Feb 02, 2026).</span></>,
                   'You must have studied Mathematics in your 10th, 12th, and Graduation for at least two semesters.',
                   'You must have done projects in a Full Stack Web App, Mobile App or an AI/ML project.'
                 ].map((req, index) => (
