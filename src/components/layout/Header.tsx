@@ -18,9 +18,9 @@ interface HeaderProps {
 
 export default function Header({
   showAnnouncement = true,
-  announcementText = `🎓 Now Hiring: Computer Science Graduates from 2026 Batch for AI & ML Engineering Department — `,
+  announcementText = `🎉 Inzint welcomes Raman Kumar Mishra, Ansh Mani Tripathi, Utkarsh Mishra, and Akash to the 2026 batch! — `,
   announcementLink = "/careers/ai-ml-engineer-trainee-2026",
-  announcementLinkText = "Apply Now",
+  announcementLinkText = "View Details",
 }: HeaderProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";

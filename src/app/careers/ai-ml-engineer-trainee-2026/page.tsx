@@ -35,34 +35,38 @@ export default function AIMLEngineerTraineePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white">
+      <section className="relative bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <motion.div {...fadeInUp} className="text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <GraduationCap className="h-5 w-5" />
-              <span className="text-sm font-semibold">2026 Batch Hiring</span>
+            <div className="inline-flex items-center gap-2 bg-red-500/80 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <AlertCircle className="h-5 w-5" />
+              <span className="text-sm font-semibold">Position Closed</span>
             </div>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
               Full Stack AI & ML Engineer
-              <span className="block text-3xl lg:text-5xl mt-2 text-primary-200">Trainee Developers</span>
+              <span className="block text-3xl lg:text-5xl mt-2 text-gray-300">Trainee Developers - 2026 Batch</span>
             </h1>
-            <p className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-3xl mx-auto">
-              Launch your career in AI & Machine Learning with us
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a
-                href="#apply"
-                className="inline-flex items-center gap-2 bg-white text-primary-700 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
-              >
-                Apply Now
-              </a>
-              <a
-                href="#requirements"
-                className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-500 transition-colors border border-white/20"
-              >
-                View Requirements
-              </a>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-yellow-300">🎉 Congratulations to Our Selected Candidates!</h2>
+              <p className="text-lg text-gray-100 mb-4">
+                We are excited to welcome the following individuals to the Inzint family for our 2026 batch:
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center mb-6">
+                <div className="bg-white/20 px-6 py-3 rounded-lg font-semibold">Raman Kumar Mishra</div>
+                <div className="bg-white/20 px-6 py-3 rounded-lg font-semibold">Ansh Mani Tripathi</div>
+                <div className="bg-white/20 px-6 py-3 rounded-lg font-semibold">Utkarsh Mishra</div>
+                <div className="bg-white/20 px-6 py-3 rounded-lg font-semibold">Akash</div>
+              </div>
+              <p className="text-gray-200 text-sm mb-4">
+                Due to the large number of applicants, we were unable to inform everyone individually. We sincerely appreciate your interest in Inzint.
+              </p>
+              <div className="border-t border-white/20 pt-6 mt-6">
+                <p className="text-xl font-semibold text-primary-200 mb-2">Looking for 2027 Batch?</p>
+                <p className="text-gray-200">
+                  Inzint will start the recruitment process for the <strong>2027 batch in November 2026</strong>. Stay tuned for updates!
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -74,7 +78,7 @@ export default function AIMLEngineerTraineePage() {
           <div className="grid md:grid-cols-4 gap-4">
             {[
               { icon: MapPin, label: 'Location', value: 'Sector 65, Noida' },
-              { icon: Calendar, label: 'Start Date', value: <><s>Jan 05, 2026</s> Feb 16, 2026 <span className="text-xs text-gray-500">(Updated due to scheduling adjustments)</span></> },
+              { icon: Calendar, label: 'Start Date', value: <><s>Jan 05, 2026</s> Feb 02, 2026 <span className="text-xs text-gray-500">(Updated due to scheduling adjustments)</span></> },
               { icon: Users, label: 'Positions', value: '6 Openings' },
               { icon: Clock, label: 'Work Mode', value: 'Full-Time, On-site' }
             ].map((item, index) => (
@@ -203,7 +207,7 @@ export default function AIMLEngineerTraineePage() {
               <div className="space-y-3">
                 {[
                   'You must have scored at least 60% marks throughout your academics.',
-                  <><span>There should be no active backlogs on the day of joining (i.e. on <s>Jan 05, 2026</s> Feb 16, 2026).</span></>,
+                  <><span>There should be no active backlogs on the day of joining (i.e. on <s>Jan 05, 2026</s> Feb 02, 2026).</span></>,
                   'You must have studied Mathematics in your 10th, 12th, and Graduation for at least two semesters.',
                   'You must have done projects in a Full Stack Web App, Mobile App or an AI/ML project.'
                 ].map((req, index) => (
@@ -400,17 +404,20 @@ export default function AIMLEngineerTraineePage() {
         </div>
       </section>
 
-      {/* Apply Section */}
-      <section id="apply" className="py-16 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+      {/* Apply Section - Position Closed */}
+      <section id="apply" className="py-16 bg-gradient-to-br from-gray-600 to-gray-800 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-8">Ready to Start Your AI Journey?</h2>
-            <p className="text-xl mb-8 text-primary-100">
-              Join Inzint and be part of the AI revolution. Apply now for the 2026 batch trainee program.
+            <h2 className="text-3xl lg:text-4xl font-bold mb-8">Applications Closed for 2026 Batch</h2>
+            <p className="text-xl mb-8 text-gray-200">
+              Thank you for your interest in Inzint. The hiring process for the 2026 batch has been completed.
             </p>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-6">Contact HR Team</h3>
+              <h3 className="text-2xl font-bold mb-4">Interested in Future Opportunities?</h3>
+              <p className="text-gray-200 mb-6">
+                We will begin recruitment for the <strong>2027 batch in November 2026</strong>. For general inquiries, feel free to reach out to our HR team.
+              </p>
               <div className="space-y-4">
                 <div className="flex items-center justify-center gap-3">
                   <Mail className="h-5 w-5" />
@@ -426,25 +433,8 @@ export default function AIMLEngineerTraineePage() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:adarshmishra@inzint.com?subject=Application for AI ML Engineer Trainee Position - 2026 Batch"
-                className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
-              >
-                <Mail className="h-5 w-5" />
-                Send Your Resume
-              </a>
-              <a
-                href="tel:+919289704058"
-                className="inline-flex items-center justify-center gap-2 bg-primary-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-400 transition-colors border border-white/20"
-              >
-                <Phone className="h-5 w-5" />
-                Call HR
-              </a>
-            </div>
-
             <div className="mt-8 pt-8 border-t border-white/20">
-              <p className="text-sm text-primary-100">
+              <p className="text-sm text-gray-300">
                 Company: Inzint Pvt. Ltd | Location: B111, B Block, Sector 65, Noida, Uttar Pradesh
               </p>
             </div>

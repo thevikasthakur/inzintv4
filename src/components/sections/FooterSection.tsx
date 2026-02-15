@@ -348,6 +348,12 @@ export default function FooterSection() {
               <Link href="/terms-of-service" className="hover:text-primary-400 transition-colors">
                 Terms of Service
               </Link>
+              <Link href="/cancellation-refund-policy" className="hover:text-primary-400 transition-colors">
+                Cancellation &amp; Refund Policy
+              </Link>
+              <Link href="/support" className="hover:text-primary-400 transition-colors">
+                Support
+              </Link>
               <Link href="/cookie-policy" className="hover:text-primary-400 transition-colors">
                 Cookie Policy
               </Link>

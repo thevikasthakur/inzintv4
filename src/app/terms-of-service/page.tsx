@@ -3,7 +3,7 @@ import { FileText, Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Inzint',
-  description: 'Read the terms and conditions for using Inzint services.',
+  description: 'Read the terms and conditions for using Inzint services, including software development, VoxReception AI, website hosting, and ERP subscriptions.',
 };
 
 export default function TermsOfServicePage() {
@@ -25,7 +25,7 @@ export default function TermsOfServicePage() {
               Terms of Service
             </h1>
             <p className="text-lg text-gray-600">
-              Last updated: November 15, 2025
+              Last updated: February 4, 2026
             </p>
           </div>
         </div>
@@ -40,10 +40,11 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Introduction</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Welcome to Inzint. These Terms of Service ("Terms") govern your access to and use of our website, services, and applications (collectively, the "Services"). By accessing or using our Services, you agree to be bound by these Terms.
+                  Welcome to Inzint. These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and use of services provided by <strong>Inzint Private Limited</strong> (CIN: U72900UP2020PTC132960), a company incorporated under the Companies Act, 2013, with its registered office at 2nd Floor, 111, B Block Road, Sector 65, Noida, Gautam Buddha Nagar, Uttar Pradesh - 201301 (collectively, the &ldquo;Services&rdquo;).
                 </p>
                 <p className="text-gray-600 leading-relaxed mt-4">
-                  Please read these Terms carefully before using our Services. If you do not agree with these Terms, you must not access or use our Services.
+                  Please read these Terms carefully before using our Services. If you do not agree with these Terms, you must not access or use our Services. By accessing or using our Services, you agree to be bound by these Terms and our{' '}
+                  <a href="/privacy-policy" className="text-primary-600 hover:text-primary-700">Privacy Policy</a>.
                 </p>
               </div>
 
@@ -54,11 +55,12 @@ export default function TermsOfServicePage() {
                   For the purposes of these Terms:
                 </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li><strong>"Company"</strong> (referred to as either "the Company", "We", "Us" or "Our") refers to Inzint Private Limited.</li>
-                  <li><strong>"Client"</strong> or <strong>"You"</strong> refers to the individual or entity accessing or using our Services.</li>
-                  <li><strong>"Services"</strong> refers to the software development, consulting, and related services provided by the Company.</li>
-                  <li><strong>"Agreement"</strong> refers to these Terms of Service together with any Statement of Work or project-specific agreements.</li>
-                  <li><strong>"Deliverables"</strong> refers to the work product, code, documentation, or other materials created by the Company for the Client.</li>
+                  <li><strong>&ldquo;Company&rdquo;</strong> (also referred to as &ldquo;INZINT&rdquo;, &ldquo;We&rdquo;, &ldquo;Us&rdquo; or &ldquo;Our&rdquo;) refers to Inzint Private Limited.</li>
+                  <li><strong>&ldquo;Client&rdquo;</strong>, <strong>&ldquo;Customer&rdquo;</strong>, or <strong>&ldquo;You&rdquo;</strong> refers to the individual or entity accessing or using our Services.</li>
+                  <li><strong>&ldquo;Services&rdquo;</strong> refers to all services provided by the Company, including software development, website hosting and maintenance, VoxReception AI, and ERP subscriptions.</li>
+                  <li><strong>&ldquo;Agreement&rdquo;</strong> refers to these Terms of Service together with any Statement of Work, Order Form, or service-specific agreement.</li>
+                  <li><strong>&ldquo;Deliverables&rdquo;</strong> refers to the work product, code, documentation, or other materials created by the Company for the Client.</li>
+                  <li><strong>&ldquo;Subscription Term&rdquo;</strong> refers to the period during which the Customer has access to and use of recurring Services.</li>
                 </ul>
               </div>
 
@@ -66,50 +68,31 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Acceptance of Terms</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  By accessing or using our Services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you are accessing or using our Services on behalf of a company or other legal entity, you represent that you have the authority to bind such entity to these Terms.
+                  By accessing or using our Services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our <a href="/privacy-policy" className="text-primary-600 hover:text-primary-700">Privacy Policy</a>. If you are accessing or using our Services on behalf of a company or other legal entity, you represent that you have the authority to bind such entity to these Terms.
                 </p>
               </div>
 
-              {/* Services */}
+              {/* Our Services */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Inzint provides custom software development services, including but not limited to:
+                  Inzint provides the following categories of services:
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Custom software development and engineering</li>
-                  <li>Mobile application development (iOS, Android)</li>
-                  <li>Web application development</li>
-                  <li>AI and machine learning solutions</li>
-                  <li>Cloud infrastructure and DevOps services</li>
-                  <li>UI/UX design services</li>
-                  <li>Quality assurance and testing</li>
-                  <li>IT consulting and technical advisory</li>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Recurring Payment Services</h3>
+                <ul className="list-disc pl-6 text-gray-600 space-y-3 mt-4">
+                  <li><strong>Website Hosting &amp; Maintenance</strong> &mdash; Managed WordPress hosting on secure cloud infrastructure, SSL certificates, daily automated backups (30-day retention), WordPress core and plugin/theme updates, monthly security scans, uptime monitoring, and minor content updates (up to 2 hours per month). Billed monthly, payable in advance.</li>
+                  <li><strong>VoxReception AI</strong> &mdash; AI-powered telephony Software as a Service (SaaS), including AI receptionist, automated call handling, appointment scheduling, call forwarding, analytics, CRM integration, and multi-language support. Subscription term is 12 months with monthly billing. Includes allocated call minutes with overage charges for additional usage.</li>
+                  <li><strong>ERP Solutions</strong> &mdash; Cloud-based Enterprise Resource Planning platform for managing business operations. Billed monthly or annually as per the applicable Order Form.</li>
                 </ul>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">One-Time Payment Service</h3>
+                <ul className="list-disc pl-6 text-gray-600 space-y-3 mt-4">
+                  <li><strong>Website / Software Development</strong> &mdash; Custom software development including web applications, mobile applications, AI/ML solutions, cloud infrastructure, and UI/UX design. Billed as a one-time project fee, which may be divided into milestones. Each milestone is billed individually and payment is collected while the customer is on session.</li>
+                </ul>
+
                 <p className="text-gray-600 leading-relaxed mt-4">
-                  The specific scope of services will be detailed in a Statement of Work (SOW) or project agreement between the Company and the Client.
-                </p>
-              </div>
-
-              {/* Project Engagement */}
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Project Engagement</h2>
-
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Statement of Work</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Each project engagement will be governed by a Statement of Work (SOW) that outlines:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Project scope and deliverables</li>
-                  <li>Timeline and milestones</li>
-                  <li>Pricing and payment terms</li>
-                  <li>Resources and team composition</li>
-                  <li>Acceptance criteria and testing procedures</li>
-                </ul>
-
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Changes to Scope</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Any changes to the agreed-upon scope of work must be documented in a written change request and approved by both parties. Changes may result in adjustments to timelines and costs.
+                  The specific scope of each service engagement will be detailed in a Statement of Work (SoW), Order Form, or service-specific agreement between the Company and the Client.
                 </p>
               </div>
 
@@ -117,30 +100,24 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Payment Terms</h2>
 
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Fees</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Recurring Services</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Client agrees to pay the fees specified in the applicable SOW or agreement. Unless otherwise specified, all fees are quoted and payable in USD.
+                  Subscription charges are payable in advance. Monthly Hosting &amp; Maintenance fees are due on the 1st of each month. VoxReception AI subscriptions are billed monthly, prepaid, with payment due within 7 days of invoice. All subscription charges are due in full upon commencement of the Subscription Term unless otherwise specified in an Order Form.
                 </p>
 
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Payment Schedule</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">One-Time Development Services</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Payment terms will be specified in the SOW and may include:
+                  Website/Software Development fees are payable as follows: 50% advance upon project commencement, and 50% upon project completion and customer acceptance. For milestone-based projects, each milestone is billed individually and payment is collected while the customer is on session. Invoices are due within 7 days of the invoice date.
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Upfront deposit or retainer</li>
-                  <li>Milestone-based payments</li>
-                  <li>Monthly recurring payments</li>
-                  <li>Time and materials billing</li>
-                </ul>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Late Payments</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Invoices are due within 30 days of the invoice date unless otherwise specified. Late payments may incur interest charges of 1.5% per month or the maximum rate permitted by law, whichever is lower. The Company reserves the right to suspend services for accounts with overdue balances.
+                  If Customer fails to pay any undisputed amount within 15 days of the due date, INZINT may charge interest at 1.5% per month on the outstanding amount and may suspend Services until payment is received. Suspension shall not relieve Customer of payment obligations.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Taxes</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  All fees are exclusive of applicable taxes, duties, or similar governmental assessments, including VAT, GST, sales tax, or use tax. Client is responsible for paying all such taxes associated with the Services.
+                  All fees are exclusive of applicable taxes. Customer shall be responsible for payment of all applicable taxes, including GST, sales tax, VAT, or similar charges relating to Customer&apos;s purchase and use of the Services. INZINT shall invoice taxes as a separate line item.
                 </p>
               </div>
 
@@ -150,23 +127,22 @@ export default function TermsOfServicePage() {
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Client-Owned IP</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Upon full payment of all fees, the Company assigns to the Client all rights, title, and interest in the custom Deliverables created specifically for the Client under the applicable SOW.
+                  Upon full payment of all fees, the Company assigns to the Client all rights, title, and interest in the custom Deliverables created specifically for the Client, including custom design elements, content, and business-specific customizations.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Company-Owned IP</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  The Company retains ownership of:
+                  INZINT retains all intellectual property rights in its proprietary tools, code libraries, frameworks, methodologies, and the VoxReception AI platform. For SaaS services, Customer acknowledges this constitutes a services arrangement and not a license or sale of software.
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Pre-existing intellectual property and tools</li>
-                  <li>Reusable frameworks, libraries, and components</li>
-                  <li>General methodologies and processes</li>
-                  <li>Any derivative works based on Company IP</li>
-                </ul>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Third-Party Components</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Deliverables may include third-party open-source or licensed components. Client's use of such components is subject to the applicable third-party licenses.
+                  Deliverables may include third-party open-source or licensed components (including WordPress themes and plugins). Client&apos;s use of such components is subject to their respective licenses.
+                </p>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Restriction on AI Training</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  INZINT has no rights to reproduce or use Customer&apos;s Confidential Information, Customer Content, or Deliverables for purposes of training artificial intelligence technologies without Customer&apos;s specific and express written permission.
                 </p>
               </div>
 
@@ -174,17 +150,14 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Confidentiality</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Both parties agree to maintain the confidentiality of any proprietary or confidential information disclosed during the engagement. This obligation survives the termination of the agreement.
+                  Both parties agree to maintain the confidentiality of any proprietary or confidential information disclosed during the engagement. This includes business plans, customer data, pricing, technical specifications, login credentials, and proprietary methods.
                 </p>
                 <p className="text-gray-600 leading-relaxed mt-4">
-                  Confidential information does not include information that:
+                  Confidential information does not include information that: (a) is or becomes publicly available through no fault of the receiving party, (b) was rightfully known prior to disclosure, (c) is independently developed without use of the confidential information, or (d) is required to be disclosed by law.
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Is or becomes publicly available through no breach of this Agreement</li>
-                  <li>Was rightfully in the receiving party's possession prior to disclosure</li>
-                  <li>Is independently developed without use of the confidential information</li>
-                  <li>Is rightfully obtained from a third party without breach of confidentiality</li>
-                </ul>
+                <p className="text-gray-600 leading-relaxed mt-4">
+                  Confidentiality obligations survive termination of the agreement for a period of three (3) years for general services, and five (5) years for SaaS services (perpetually in the case of software).
+                </p>
               </div>
 
               {/* Warranties and Disclaimers */}
@@ -196,19 +169,20 @@ export default function TermsOfServicePage() {
                   The Company warrants that:
                 </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Services will be performed in a professional and workmanlike manner</li>
-                  <li>Deliverables will materially conform to the specifications in the SOW</li>
-                  <li>We have the right to provide the Services and Deliverables</li>
+                  <li>Services will be performed in a professional and workmanlike manner by qualified personnel</li>
+                  <li>Deliverables will materially conform to the specifications in the applicable SoW</li>
+                  <li>Websites will function properly on current versions of major browsers (Chrome, Firefox, Safari, Edge) and be responsive on standard devices</li>
+                  <li>VoxReception AI shall substantially perform as specified in the Documentation during the Subscription Term</li>
                 </ul>
-
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Disclaimer</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  EXCEPT AS EXPRESSLY PROVIDED IN THESE TERMS, THE SERVICES AND DELIVERABLES ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. THE COMPANY DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-                </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Warranty Period</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  The Company provides a warranty period (typically 30-90 days as specified in the SOW) for reported defects in Deliverables. During this period, the Company will correct defects at no additional charge.
+                  For development projects, the Company provides a <strong>30-day warranty period</strong> following project completion. During this period, the Company will correct bugs, errors, or defects at no additional cost, provided such issues are reported in writing and are not caused by Customer modifications or third-party interference.
+                </p>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Disclaimer</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  EXCEPT AS EXPRESSLY PROVIDED IN THESE TERMS, THE SERVICES AND DELIVERABLES ARE PROVIDED &ldquo;AS IS&rdquo; WITHOUT WARRANTY OF ANY KIND. THE COMPANY DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE COMPANY DOES NOT WARRANT THE ACCURACY OF AI-GENERATED RESPONSES IN ALL SCENARIOS.
                 </p>
               </div>
 
@@ -216,10 +190,13 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Limitation of Liability</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.
+                  NEITHER PARTY SHALL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, REVENUE, BUSINESS OPPORTUNITIES, DATA, OR GOODWILL, ARISING OUT OF OR RELATED TO THESE TERMS.
                 </p>
                 <p className="text-gray-600 leading-relaxed mt-4">
-                  THE COMPANY'S TOTAL LIABILITY ARISING OUT OF OR RELATED TO THESE TERMS SHALL NOT EXCEED THE TOTAL AMOUNT PAID BY CLIENT TO THE COMPANY IN THE 12 MONTHS PRECEDING THE EVENT GIVING RISE TO THE LIABILITY.
+                  INZINT&apos;S TOTAL AGGREGATE LIABILITY UNDER THESE TERMS SHALL NOT EXCEED THE TOTAL FEES ACTUALLY PAID BY CUSTOMER TO INZINT DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+                </p>
+                <p className="text-gray-600 leading-relaxed mt-4">
+                  These limitations shall not apply to: (a) Customer&apos;s payment obligations, (b) either party&apos;s indemnification obligations, (c) breaches of confidentiality, or (d) claims arising from gross negligence or willful misconduct.
                 </p>
               </div>
 
@@ -230,12 +207,13 @@ export default function TermsOfServicePage() {
                   The Client agrees to:
                 </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Provide timely access to necessary resources, information, and personnel</li>
-                  <li>Provide timely feedback and approvals</li>
-                  <li>Maintain appropriate backup of all data</li>
-                  <li>Comply with all applicable laws and regulations</li>
-                  <li>Not use the Services for any illegal or unauthorized purpose</li>
-                  <li>Not interfere with or disrupt the integrity or performance of the Services</li>
+                  <li>Provide timely access to necessary resources, content, information, and personnel</li>
+                  <li>Provide timely feedback and approvals at each project milestone (failure to respond within 7 business days shall be deemed acceptance)</li>
+                  <li>Maintain the confidentiality and security of all login credentials provided</li>
+                  <li>Ensure all content provided is accurate, legal, and does not infringe third-party rights</li>
+                  <li>Comply with all applicable laws and regulations, including data privacy and telecom regulations</li>
+                  <li>Not use the Services for any illegal, fraudulent, defamatory, or harmful activities</li>
+                  <li>Not make unauthorized modifications to website code, themes, or plugins without INZINT&apos;s knowledge</li>
                 </ul>
               </div>
 
@@ -243,30 +221,29 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Termination</h2>
 
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Termination for Convenience</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Termination of Recurring Services</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Either party may terminate an engagement upon 30 days' written notice. Client will be responsible for payment of all work performed through the termination date.
+                  Either party may terminate recurring services by providing not less than <strong>30 days&apos; prior written notice</strong>. Upon such termination, Services shall cease at the end of the current paid period.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Termination for Cause</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Either party may terminate immediately if the other party:
+                  Either party may terminate immediately upon a material breach that has not been cured within <strong>30 days</strong> after receipt of written notice describing the breach in reasonable detail.
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Materially breaches these Terms and fails to cure within 15 days of written notice</li>
-                  <li>Becomes insolvent or subject to bankruptcy proceedings</li>
-                  <li>Ceases business operations</li>
-                </ul>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Refunds and Cancellation</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Development fees paid are non-refundable once work has commenced. No pro-rata refund shall be provided for mid-period cancellation of recurring services. For complete details, see our{' '}
+                  <a href="/cancellation-refund-policy" className="text-primary-600 hover:text-primary-700">Cancellation &amp; Refund Policy</a>.
+                </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Effect of Termination</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Upon termination:
-                </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
+                  <li>For hosting services, INZINT shall provide a 30-day grace period to migrate website data</li>
+                  <li>For SaaS services, all usage rights terminate immediately and Customer data will be available for export for 30 days</li>
                   <li>Client must pay all outstanding fees for work performed</li>
-                  <li>Company will deliver all completed work product</li>
                   <li>Each party will return or destroy confidential information</li>
-                  <li>Provisions that by their nature should survive will continue (including confidentiality, intellectual property, and limitation of liability)</li>
+                  <li>Provisions that by their nature should survive will continue (including confidentiality, intellectual property, limitation of liability, and indemnification)</li>
                 </ul>
               </div>
 
@@ -274,14 +251,11 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Indemnification</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Client agrees to indemnify, defend, and hold harmless the Company from any claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from:
+                  <strong>By INZINT:</strong> INZINT shall indemnify and hold harmless Customer from claims arising from INZINT&apos;s infringement of third-party intellectual property rights through code or designs created solely by INZINT, or INZINT&apos;s gross negligence or willful misconduct.
                 </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2 mt-4">
-                  <li>Client's use of the Deliverables</li>
-                  <li>Client's breach of these Terms</li>
-                  <li>Client's violation of any law or third-party rights</li>
-                  <li>Content or data provided by Client</li>
-                </ul>
+                <p className="text-gray-600 leading-relaxed mt-4">
+                  <strong>By Customer:</strong> Customer shall indemnify and hold harmless INZINT from claims arising from Customer Content, Customer&apos;s use of Services in violation of applicable laws, Customer&apos;s unauthorized modifications, or Customer&apos;s breach of these Terms.
+                </p>
               </div>
 
               {/* Dispute Resolution */}
@@ -290,17 +264,17 @@ export default function TermsOfServicePage() {
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Negotiation</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  In the event of any dispute, the parties agree to first attempt to resolve the matter through good-faith negotiation.
+                  Before initiating arbitration, the parties shall attempt to resolve any dispute through good faith negotiations by progressively escalating the matter through each party&apos;s senior business representatives for a period of at least 15 days.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Arbitration</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  If negotiation fails, disputes will be resolved through binding arbitration in accordance with the rules of the American Arbitration Association or equivalent body in the applicable jurisdiction.
+                  If negotiation fails, disputes will be resolved through binding arbitration in accordance with the Arbitration and Conciliation Act, 1996. The seat and venue of arbitration shall be Noida/Delhi NCR, India. The arbitration proceedings shall be conducted in English.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Governing Law</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which the Company is registered, without regard to its conflict of law provisions.
+                  These Terms shall be governed by and construed in accordance with the laws of India. If a dispute is not resolved by arbitration, the parties irrevocably agree to the exclusive jurisdiction of the courts of New Delhi, India.
                 </p>
               </div>
 
@@ -308,9 +282,14 @@ export default function TermsOfServicePage() {
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">General Provisions</h2>
 
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Independent Contractor</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  INZINT is an independent contractor. Nothing in these Terms creates an employment, partnership, or agency relationship between the parties.
+                </p>
+
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Entire Agreement</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  These Terms, together with any SOW and related agreements, constitute the entire agreement between the parties and supersede all prior agreements and understandings.
+                  These Terms, together with any SoW, Order Forms, and related agreements, constitute the entire agreement between the parties and supersede all prior agreements and understandings.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Amendments</h3>
@@ -320,7 +299,7 @@ export default function TermsOfServicePage() {
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Assignment</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Client may not assign or transfer these Terms without the Company's prior written consent. The Company may assign these Terms in connection with a merger, acquisition, or sale of assets.
+                  Neither party may assign these Terms without the prior written consent of the other party, except that either party may assign in connection with a merger, acquisition, or sale of substantially all its assets.
                 </p>
 
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Severability</h3>
@@ -328,14 +307,14 @@ export default function TermsOfServicePage() {
                   If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.
                 </p>
 
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Waiver</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  No waiver of any term of these Terms shall be deemed a further or continuing waiver of such term or any other term.
-                </p>
-
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Force Majeure</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Neither party shall be liable for any failure or delay in performance due to circumstances beyond its reasonable control, including acts of God, war, terrorism, pandemics, natural disasters, or government actions.
+                  Neither party shall be liable for any failure or delay in performance due to circumstances beyond its reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, riots, government actions or orders, internet service disruptions, power outages, epidemics, pandemics, strikes, or failures of third-party service providers.
+                </p>
+
+                <h3 className="text-2xl font-semibold text-gray-900 mb-3 mt-6">Waiver</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  No waiver of any provision shall be effective unless in writing and signed by the waiving party.
                 </p>
               </div>
 
@@ -373,7 +352,7 @@ export default function TermsOfServicePage() {
                       <div className="font-semibold text-gray-900">Address</div>
                       <p className="text-gray-600">
                         Inzint Private Limited<br />
-                        B-111, Sector 65, Noida<br />
+                        2nd Floor, 111, B Block Road, Sector 65, Noida<br />
                         Gautam Buddha Nagar, Uttar Pradesh, India - 201301
                       </p>
                     </div>
