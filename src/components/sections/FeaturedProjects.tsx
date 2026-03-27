@@ -32,68 +32,55 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: 'oman-oil',
+    id: 'bapco',
     title: 'Fuel, Play, and Earn: A Smart E-Wallet for Everyday Use',
     description: 'A gamified mobile e-wallet used at 260+ fueling stations. Users can top-up, play games, find stations, send credit, earn points, level up, and unlock exclusive rewards.',
     categories: ['Mobile App', 'UI/UX Design', 'Development'],
-    bgColor: '#D4EFF9',
-    logo: '/assets/images/companies/oman-oil.svg',
+    bgColor: '#F9D4D4',
+    logo: '/assets/images/companies/bapco.svg',
     mockup: {
-      main: '/assets/images/home/mockups/oman-oil/oil.webp',
+      main: '/assets/images/home/mockups/oman-oil/bapco-main.png',
       mainSm: '/assets/images/home/mockups/oman-oil/oman-oil-sm.webp',
-      back: '/assets/images/home/mockups/oman-oil/oman-oil-back.webp',
+      back: '/assets/images/home/mockups/oman-oil/bapco-card.png',
       backSm: '/assets/images/home/mockups/oman-oil/oman-oil-back-sm.svg',
-      front: '/assets/images/home/mockups/oman-oil/oman-oil-front.svg',
+      front: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
       frontSm: '/assets/images/home/mockups/oman-oil/oman-oil-front-sm.svg',
     }
   },
   {
     id: 'al-yusr',
-    title: 'Finance Simplified :Al Yusr financing & leasing mobile application',
-    description: 'A fast, intuitive financing platform built for both individuals and businesses. This mobile app simplifies loan and leasing requests through automated workflows, real-time decisions, and personalized interfaces, positioning Al Yusr as a leading player in fintech innovation.',
+    title: 'Finance Simplified: Floss personal finance mobile application',
+    description: 'A fast, intuitive personal finance platform built for both individuals and businesses. This mobile app simplifies financial management through automated workflows, real-time insights, and personalized interfaces, positioning Floss as a leading player in fintech innovation.',
     categories: ['Mobile App', 'UI/UX Design'],
-    bgColor: '#F1F5F5',
-    logo: '/assets/images/companies/alyusr.svg',
+    bgColor: '#F0EBFF',
+    logo: '/assets/images/companies/flooss.png',
     mockup: {
-      main: '/assets/images/home/mockups/alyusr/al-yusr.webp',
-      mainSm: '/assets/images/home/mockups/alyusr/al-yusr-sm.webp',
-      top: '/assets/images/home/mockups/alyusr/top.svg',
-      topSm: '/assets/images/home/mockups/alyusr/top-sm.svg',
-      bot: '/assets/images/home/mockups/alyusr/bot.svg',
-      botSm: '/assets/images/home/mockups/alyusr/bot-sm.svg',
+      main: '/assets/images/home/mockups/floss/floss-main.png',
+      mainSm: '/assets/images/home/mockups/floss/al-yusr-sm.webp',
+      top: '/assets/images/home/mockups/floss/floss-top-card.svg',
+      topSm: '/assets/images/home/mockups/floss/top-sm.svg',
+      bot: '/assets/images/home/mockups/floss/bot.svg',
+      botSm: '/assets/images/home/mockups/floss/bot-sm.svg',
     }
   },
   {
     id: 'ifit',
-    title: 'Team Wellness, Reinvented: A Gamified Health Experience for Bank Muscat Employees',
-    description: 'A well-being app designed to energize the workplace through friendly team challenges and reward-driven engagement. Built to promote a healthy, connected, and motivated workforce.',
+    title: 'Crush Goals, Burn Calories: A Gamified Fitness Companion for Everyday Wellness',
+    description: 'A vibrant fitness app that turns daily health goals into an engaging experience. Track calories, steps, and mileage, take on challenges, and stay motivated with real-time progress — all designed to make wellness feel effortless and fun.',
     categories: ['Mobile App', 'UI/UX Design'],
     bgColor: '#FDEFF0',
-    logo: '/assets/images/companies/bank-muskat-colored.svg',
+    logo: '/assets/images/companies/vibefit.png',
     mockup: {
-      main: '/assets/images/home/mockups/ifit/ifit.webp',
+      main: '/assets/images/home/mockups/ifit/vibefit.png',
       mainSm: '/assets/images/home/mockups/ifit/ifit-sm.webp',
       right: '/assets/images/home/mockups/ifit/right.svg',
       rightSm: '/assets/images/home/mockups/ifit/right-sm.svg',
       left: '/assets/images/home/mockups/ifit/left.svg',
       leftSm: '/assets/images/home/mockups/ifit/left-sm.svg',
-      bot: '/assets/images/home/mockups/ifit/bot.svg',
+      top: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
+      topSm: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
+      bot: '/assets/images/home/mockups/ifit/walk-stats.png',
       botSm: '/assets/images/home/mockups/ifit/bot-sm.svg',
-    }
-  },
-  {
-    id: 'tamluk',
-    title: 'Bridging Investors and Developers Seamlessly',
-    description: 'Tamluk is a digital crowdfunding platform that makes real estate investment accessible to everyone. It connects individual investors with developers looking to fund high-potential real estate projects. With a secure and intuitive interface, users can browse available opportunities, invest with ease, and monitor progress in real time.',
-    categories: ['Website', 'UI/UX Design', 'Development'],
-    bgColor: '#203847',
-    logo: '/assets/images/companies/tamluk.svg',
-    mockup: {
-      main: '/assets/images/home/mockups/tamluk/tamluk.webp',
-      mainSm: '/assets/images/home/mockups/tamluk/tamluk-sm.webp',
-      top: '/assets/images/home/mockups/tamluk/top.png',
-      topSm: '/assets/images/home/mockups/tamluk/top-sm.png',
-      bot: '/assets/images/home/mockups/tamluk/bot.webp',
     }
   }
 ];
@@ -287,21 +274,21 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
       <Image
         src={project.mockup.main}
         alt={project.title}
-        width={project.id === 'tamluk' ? 550 : 295}
-        height={project.id === 'tamluk' ? 409 : 485}
-        className={`object-contain ${project.id === 'tamluk' ? '' : 'bottom-0 left-[50%] translate-x-[-50%]'} z-10 hidden absolute md:block`}
-        style={project.id === 'tamluk' ? {} : { bottom: 0, left: '50%', transform: 'translateX(-50%)' }}
+        width={295}
+        height={485}
+        className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 hidden absolute md:block"
+        style={{ bottom: project.id === 'al-yusr' ? '45px' : project.id === 'ifit' ? '40px' : 0, left: '50%', transform: `translateX(-50%)${project.id === 'al-yusr' ? ' scaleY(1.2) scaleX(1.15)' : project.id === 'ifit' ? ' scaleX(1.15) scaleY(1.2)' : ''}` }}
       />
       <Image
         src={project.mockup.mainSm}
         alt={project.title}
-        width={project.id === 'tamluk' ? 240 : 138}
-        height={project.id === 'tamluk' ? 179 : 227}
+        width={138}
+        height={227}
         className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 absolute md:hidden"
       />
 
       {/* Additional Elements Based on Project */}
-      {project.id === 'oman-oil' && (
+      {project.id === 'bapco' && (
         <>
           <div className="absolute top-4 left-16 z-0" style={{ opacity: isActive ? 1 : 0, transform: 'none' }}>
             <Image
@@ -342,7 +329,7 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         <>
           <div className="absolute bottom-0 top-[45%] translate-y-[-45%] z-10"
                style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0)',
+                 transform: isActive ? 'translateX(0) scale(1) scaleX(1.15)' : 'translateX(-50px) scale(0) scaleX(1.15)',
                  opacity: isActive ? 1 : 0,
                  transition: 'all 0.5s ease-out'
                }}>
@@ -429,6 +416,27 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
+          <div className="absolute bottom-28 md:bottom-32 z-10"
+               style={{
+                 transform: isActive ? 'translateX(0) scale(0.6)' : 'translateX(0) scale(0)',
+                 opacity: isActive ? 1 : 0,
+                 transition: 'all 0.5s ease-out 0.15s'
+               }}>
+            <Image
+              src={project.mockup.top!}
+              alt="iFit"
+              width={339}
+              height={95}
+              className="object-contain hidden md:block"
+            />
+            <Image
+              src={project.mockup.topSm!}
+              alt="iFit"
+              width={147}
+              height={41}
+              className="object-contain md:hidden"
+            />
+          </div>
           <div className="absolute bottom-10 md:bottom-14 z-10"
                style={{
                  transform: isActive ? 'translateX(0) scale(1)' : 'translateX(0) scale(0)',
@@ -453,52 +461,6 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         </>
       )}
 
-      {project.id === 'tamluk' && (
-        <>
-          <div className="absolute top-10 md:top-20 left-6 z-0"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out'
-               }}>
-            <Image
-              src={project.mockup.top!}
-              alt="Tamluk"
-              width={238}
-              height={161}
-              className="object-contain hidden md:block"
-            />
-            <Image
-              src={project.mockup.topSm!}
-              alt="Tamluk"
-              width={103}
-              height={70}
-              className="object-contain md:hidden"
-            />
-          </div>
-          <div className="absolute bottom-8 right-4 z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.1s'
-               }}>
-            <Image
-              src={project.mockup.bot!}
-              alt="Tamluk"
-              width={255}
-              height={118}
-              className="object-contain hidden md:block"
-            />
-            <Image
-              src={project.mockup.bot!}
-              alt="Tamluk"
-              width={111}
-              height={51}
-              className="object-contain md:hidden"
-            />
-          </div>
-        </>
-      )}
     </div>
   );
 };

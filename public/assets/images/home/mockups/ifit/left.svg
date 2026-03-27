@@ -1,6 +1,6 @@
 <svg id="General_Cards_Dumbbell" data-name="General/Cards/Dumbbell" xmlns="http://www.w3.org/2000/svg" width="85" height="121" viewBox="0 0 85 121">
   <g id="Dumbbell_Card" data-name="Dumbbell Card">
-    <path id="Background" d="M10,0H75A10,10,0,0,1,85,10V111a10,10,0,0,1-10,10H10A10,10,0,0,1,0,111V10A10,10,0,0,1,10,0Z" fill="#5041ab"/>
+    <path id="Background" d="M10,0H75A10,10,0,0,1,85,10V111a10,10,0,0,1-10,10H10A10,10,0,0,1,0,111V10A10,10,0,0,1,10,0Z" fill="#E8590C"/>
     <g id="Icons_Dumbbell" data-name="Icons/Dumbbell" transform="translate(10 10)">
       <g id="Group_5" data-name="Group 5" transform="translate(3 5)">
         <rect id="Rectangle" width="6.75" height="2.25" transform="translate(5.625 5.625)" fill="#fff" opacity="0.5"/>
