@@ -39,12 +39,12 @@ const projects: Project[] = [
     bgColor: '#F9D4D4',
     logo: '/assets/images/companies/bapco.svg',
     mockup: {
-      main: '/assets/images/home/mockups/oman-oil/bapco-main.png',
-      mainSm: '/assets/images/home/mockups/oman-oil/oman-oil-sm.webp',
-      back: '/assets/images/home/mockups/oman-oil/bapco-card.png',
-      backSm: '/assets/images/home/mockups/oman-oil/oman-oil-back-sm.svg',
+      main: '/assets/images/home/mockups/bapco/bapco-main.png',
+      mainSm: '/assets/images/home/mockups/bapco/bapco-main.png',
+      back: '/assets/images/home/mockups/bapco/bapco-card.png',
+      backSm: '/assets/images/home/mockups/bapco/bapco-card.png',
       front: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
-      frontSm: '/assets/images/home/mockups/oman-oil/oman-oil-front-sm.svg',
+      frontSm: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
     }
   },
   {
@@ -290,7 +290,12 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
       {/* Additional Elements Based on Project */}
       {project.id === 'bapco' && (
         <>
-          <div className="absolute top-4 left-16 z-0" style={{ opacity: isActive ? 1 : 0, transform: 'none' }}>
+          <div className="absolute top-4 left-16 z-0"
+               style={{
+                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0)',
+                 opacity: isActive ? 1 : 0,
+                 transition: 'all 0.5s ease-out'
+               }}>
             <Image
               src={project.mockup.back!}
               alt="Background UI"
@@ -306,7 +311,12 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute top-[45%] translate-y-[-45%] z-20 rounded-2xl" style={{ opacity: isActive ? 1 : 0, transform: 'none' }}>
+          <div className="absolute top-[45%] translate-y-[-45%] z-20 rounded-2xl"
+               style={{
+                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0)',
+                 opacity: isActive ? 1 : 0,
+                 transition: 'all 0.5s ease-out 0.1s'
+               }}>
             <Image
               src={project.mockup.front!}
               alt="Front UI"
