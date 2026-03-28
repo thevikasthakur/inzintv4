@@ -64,6 +64,22 @@ const projects: Project[] = [
     }
   },
   {
+    id: 'fantasy',
+    title: 'Win Big, Play Smart: A Fantasy Sports Platform for Cricket, Football & More',
+    description: 'A feature-rich fantasy sports app that lets users build dream teams, join live contests, and compete for real winnings across cricket, football, and basketball. With real-time match data, IPL integrations, and a seamless UX — it\'s the ultimate platform for sports fans.',
+    categories: ['Mobile App', 'UI/UX Design', 'Development'],
+    bgColor: '#E8F0FE',
+    logo: '/assets/images/companies/fantasy-logo.png',
+    mockup: {
+      main: '/assets/images/home/mockups/fantasy/fantasy-main.png',
+      mainSm: '/assets/images/home/mockups/fantasy/fantasy-main.png',
+      bot: '/assets/images/home/mockups/fantasy/fantasy-bot.png',
+      botSm: '/assets/images/home/mockups/fantasy/fantasy-bot.png',
+      back: '/assets/images/home/mockups/fantasy/fantasy-bot-2.png',
+      backSm: '/assets/images/home/mockups/fantasy/fantasy-bot-2.png',
+    }
+  },
+  {
     id: 'ifit',
     title: 'Crush Goals, Burn Calories: A Gamified Fitness Companion for Everyday Wellness',
     description: 'A vibrant fitness app that turns daily health goals into an engaging experience. Track calories, steps, and mileage, take on challenges, and stay motivated with real-time progress — all designed to make wellness feel effortless and fun.',
@@ -277,7 +293,7 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         width={295}
         height={485}
         className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 hidden absolute md:block"
-        style={{ bottom: project.id === 'al-yusr' ? '45px' : project.id === 'ifit' ? '40px' : 0, left: '50%', transform: `translateX(-50%)${project.id === 'al-yusr' ? ' scaleY(1.2) scaleX(1.15)' : project.id === 'ifit' ? ' scaleX(1.15) scaleY(1.2)' : ''}` }}
+        style={{ bottom: project.id === 'al-yusr' ? '45px' : project.id === 'ifit' ? '40px' : 0, left: '50%', transform: `translateX(-50%)${project.id === 'al-yusr' ? ' scaleY(1.2) scaleX(1.15)' : project.id === 'ifit' ? ' scaleX(1.15) scaleY(1.2)' : project.id === 'fantasy' ? ' scaleX(1.25) scaleY(1.25)' : ''}` }}
       />
       <Image
         src={project.mockup.mainSm}
@@ -466,6 +482,55 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               width={147}
               height={41}
               className="object-contain md:hidden"
+            />
+          </div>
+        </>
+      )}
+
+      {project.id === 'fantasy' && (
+        <>
+          <div className="absolute z-10"
+               style={{
+                 bottom: '-50px',
+                 transform: isActive ? 'translateX(0) scale(0.9)' : 'translateX(0) scale(0)',
+                 opacity: isActive ? 1 : 0,
+                 transition: 'all 0.5s ease-out 0.1s'
+               }}>
+            <Image
+              src={project.mockup.back!}
+              alt="Fantasy"
+              width={339}
+              height={95}
+              className="object-contain hidden md:block rounded-2xl"
+            />
+            <Image
+              src={project.mockup.backSm!}
+              alt="Fantasy"
+              width={147}
+              height={41}
+              className="object-contain md:hidden rounded-xl"
+            />
+          </div>
+          <div className="absolute z-10"
+               style={{
+                 bottom: 'calc(2.5rem + 180px)',
+                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(0) scale(0)',
+                 opacity: isActive ? 1 : 0,
+                 transition: 'all 0.5s ease-out 0.2s'
+               }}>
+            <Image
+              src={project.mockup.bot!}
+              alt="Fantasy"
+              width={339}
+              height={95}
+              className="object-contain hidden md:block rounded-2xl"
+            />
+            <Image
+              src={project.mockup.botSm!}
+              alt="Fantasy"
+              width={147}
+              height={41}
+              className="object-contain md:hidden rounded-xl"
             />
           </div>
         </>
