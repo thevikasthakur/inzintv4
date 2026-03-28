@@ -189,7 +189,8 @@ export default function AIServiceTemplate({ data }: AIServiceTemplateProps) {
               Let's discuss how we can help you integrate AI into your business
             </p>
             <Link
-              href="/contact"
+              href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true"
+              target="_blank"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
             >
               Schedule a Consultation

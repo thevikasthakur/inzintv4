@@ -201,7 +201,7 @@ export default function FAQSection() {
             <Link href="/contact" className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg flex items-center justify-center">
               Contact Support
             </Link>
-            <Link href="/contact" className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold border-2 border-white/20 hover:bg-white/20 transition-all flex items-center justify-center">
+            <Link href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true" target="_blank" className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold border-2 border-white/20 hover:bg-white/20 transition-all flex items-center justify-center">
               Schedule a Call
             </Link>
           </div>

@@ -456,7 +456,7 @@ export const navigationData: NavItem[] = [
         title: 'Not Sure Which Service Fits Your Needs?',
         description: 'Our experts will help you choose the right technology stack and services for your project.',
         buttonText: 'Schedule a Consultation',
-        buttonLink: '/contact',
+        buttonLink: 'https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true',
       },
     },
   },
