@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 interface Mockup {
   main: string;
@@ -31,84 +31,87 @@ interface Project {
 }
 
 const projects: Project[] = [
+  // {
+  //   id: 'bapco',
+  //   title: 'Fuel, Play, and Earn: A Smart E-Wallet for Everyday Use',
+  //   description: 'A gamified mobile e-wallet used at 260+ fueling stations. Users can top-up, play games, find stations, send credit, earn points, level up, and unlock exclusive rewards.',
+  //   categories: ['Mobile App', 'UI/UX Design', 'Development'],
+  //   bgColor: '#F9D4D4',
+  //   logo: '/assets/images/companies/bapco.svg',
+  //   mockup: {
+  //     main: '/assets/images/home/mockups/bapco/bapco-main.png',
+  //     mainSm: '/assets/images/home/mockups/bapco/bapco-main.png',
+  //     back: '/assets/images/home/mockups/bapco/bapco-card.png',
+  //     backSm: '/assets/images/home/mockups/bapco/bapco-card.png',
+  //     front: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
+  //     frontSm: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
+  //   }
+  // },
+  // {
+  //   id: 'al-yusr',
+  //   title: 'Finance Simplified: Floss personal finance mobile application',
+  //   description: 'A fast, intuitive personal finance platform built for both individuals and businesses. This mobile app simplifies financial management through automated workflows, real-time insights, and personalized interfaces, positioning Floss as a leading player in fintech innovation.',
+  //   categories: ['Mobile App', 'UI/UX Design'],
+  //   bgColor: '#F0EBFF',
+  //   logo: '/assets/images/companies/flooss.png',
+  //   mockup: {
+  //     main: '/assets/images/home/mockups/floss/floss-main.png',
+  //     mainSm: '/assets/images/home/mockups/floss/al-yusr-sm.webp',
+  //     top: '/assets/images/home/mockups/floss/floss-top-card.svg',
+  //     topSm: '/assets/images/home/mockups/floss/top-sm.svg',
+  //     bot: '/assets/images/home/mockups/floss/bot.svg',
+  //     botSm: '/assets/images/home/mockups/floss/bot-sm.svg',
+  //   }
+  // },
   {
-    id: 'bapco',
-    title: 'Fuel, Play, and Earn: A Smart E-Wallet for Everyday Use',
-    description: 'A gamified mobile e-wallet used at 260+ fueling stations. Users can top-up, play games, find stations, send credit, earn points, level up, and unlock exclusive rewards.',
-    categories: ['Mobile App', 'UI/UX Design', 'Development'],
-    bgColor: '#F9D4D4',
-    logo: '/assets/images/companies/bapco.svg',
+    id: "fantasy",
+    title:
+      "Win Big, Play Smart: A Fantasy Sports Platform for Cricket, Football & More",
+    description:
+      "A feature-rich fantasy sports app that lets users build dream teams, join live contests, and compete for real winnings across cricket, football, and basketball. With real-time match data, IPL integrations, and a seamless UX — it's the ultimate platform for sports fans.",
+    categories: ["Mobile App", "UI/UX Design", "Development"],
+    bgColor: "#E8F0FE",
+    logo: "/assets/images/companies/fantasy-logo.png",
     mockup: {
-      main: '/assets/images/home/mockups/bapco/bapco-main.png',
-      mainSm: '/assets/images/home/mockups/bapco/bapco-main.png',
-      back: '/assets/images/home/mockups/bapco/bapco-card.png',
-      backSm: '/assets/images/home/mockups/bapco/bapco-card.png',
-      front: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
-      frontSm: '/assets/images/home/mockups/bapco/bapco-front-png.svg',
-    }
+      main: "/assets/images/home/mockups/fantasy/fantasy-main.png",
+      mainSm: "/assets/images/home/mockups/fantasy/fantasy-main.png",
+      bot: "/assets/images/home/mockups/fantasy/fantasy-bot.png",
+      botSm: "/assets/images/home/mockups/fantasy/fantasy-bot.png",
+      back: "/assets/images/home/mockups/fantasy/fantasy-bot-2.png",
+      backSm: "/assets/images/home/mockups/fantasy/fantasy-bot-2.png",
+    },
   },
-  {
-    id: 'al-yusr',
-    title: 'Finance Simplified: Floss personal finance mobile application',
-    description: 'A fast, intuitive personal finance platform built for both individuals and businesses. This mobile app simplifies financial management through automated workflows, real-time insights, and personalized interfaces, positioning Floss as a leading player in fintech innovation.',
-    categories: ['Mobile App', 'UI/UX Design'],
-    bgColor: '#F0EBFF',
-    logo: '/assets/images/companies/flooss.png',
-    mockup: {
-      main: '/assets/images/home/mockups/floss/floss-main.png',
-      mainSm: '/assets/images/home/mockups/floss/al-yusr-sm.webp',
-      top: '/assets/images/home/mockups/floss/floss-top-card.svg',
-      topSm: '/assets/images/home/mockups/floss/top-sm.svg',
-      bot: '/assets/images/home/mockups/floss/bot.svg',
-      botSm: '/assets/images/home/mockups/floss/bot-sm.svg',
-    }
-  },
-  {
-    id: 'fantasy',
-    title: 'Win Big, Play Smart: A Fantasy Sports Platform for Cricket, Football & More',
-    description: 'A feature-rich fantasy sports app that lets users build dream teams, join live contests, and compete for real winnings across cricket, football, and basketball. With real-time match data, IPL integrations, and a seamless UX — it\'s the ultimate platform for sports fans.',
-    categories: ['Mobile App', 'UI/UX Design', 'Development'],
-    bgColor: '#E8F0FE',
-    logo: '/assets/images/companies/fantasy-logo.png',
-    mockup: {
-      main: '/assets/images/home/mockups/fantasy/fantasy-main.png',
-      mainSm: '/assets/images/home/mockups/fantasy/fantasy-main.png',
-      bot: '/assets/images/home/mockups/fantasy/fantasy-bot.png',
-      botSm: '/assets/images/home/mockups/fantasy/fantasy-bot.png',
-      back: '/assets/images/home/mockups/fantasy/fantasy-bot-2.png',
-      backSm: '/assets/images/home/mockups/fantasy/fantasy-bot-2.png',
-    }
-  },
-  {
-    id: 'ifit',
-    title: 'Crush Goals, Burn Calories: A Gamified Fitness Companion for Everyday Wellness',
-    description: 'A vibrant fitness app that turns daily health goals into an engaging experience. Track calories, steps, and mileage, take on challenges, and stay motivated with real-time progress — all designed to make wellness feel effortless and fun.',
-    categories: ['Mobile App', 'UI/UX Design'],
-    bgColor: '#FDEFF0',
-    logo: '/assets/images/companies/vibefit.png',
-    mockup: {
-      main: '/assets/images/home/mockups/ifit/vibefit.png',
-      mainSm: '/assets/images/home/mockups/ifit/ifit-sm.webp',
-      right: '/assets/images/home/mockups/ifit/right.svg',
-      rightSm: '/assets/images/home/mockups/ifit/right-sm.svg',
-      left: '/assets/images/home/mockups/ifit/left.svg',
-      leftSm: '/assets/images/home/mockups/ifit/left-sm.svg',
-      top: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
-      topSm: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
-      bot: '/assets/images/home/mockups/ifit/walk-stats.png',
-      botSm: '/assets/images/home/mockups/ifit/bot-sm.svg',
-    }
-  }
+  // {
+  //   id: 'ifit',
+  //   title: 'Crush Goals, Burn Calories: A Gamified Fitness Companion for Everyday Wellness',
+  //   description: 'A vibrant fitness app that turns daily health goals into an engaging experience. Track calories, steps, and mileage, take on challenges, and stay motivated with real-time progress — all designed to make wellness feel effortless and fun.',
+  //   categories: ['Mobile App', 'UI/UX Design'],
+  //   bgColor: '#FDEFF0',
+  //   logo: '/assets/images/companies/vibefit.png',
+  //   mockup: {
+  //     main: '/assets/images/home/mockups/ifit/vibefit.png',
+  //     mainSm: '/assets/images/home/mockups/ifit/ifit-sm.webp',
+  //     right: '/assets/images/home/mockups/ifit/right.svg',
+  //     rightSm: '/assets/images/home/mockups/ifit/right-sm.svg',
+  //     left: '/assets/images/home/mockups/ifit/left.svg',
+  //     leftSm: '/assets/images/home/mockups/ifit/left-sm.svg',
+  //     top: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
+  //     topSm: '/assets/images/home/mockups/ifit/vibefit-barometer.png',
+  //     bot: '/assets/images/home/mockups/ifit/walk-stats.png',
+  //     botSm: '/assets/images/home/mockups/ifit/bot-sm.svg',
+  //   }
+  // }
 ];
 
 export default function FeaturedProjects() {
   const [activeProject, setActiveProject] = useState(0);
-  const [stickyTop, setStickyTop] = useState('100px');
+  const [stickyTop, setStickyTop] = useState("100px");
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const stickyRef = useRef<HTMLDivElement | null>(null);
 
-  const animatedText = 'These success stories showcase how we transform ideas into market-leading digital products that drive real business value.';
-  const words = animatedText.split(' ');
+  const animatedText =
+    "These success stories showcase how we transform ideas into market-leading digital products that drive real business value.";
+  const words = animatedText.split(" ");
 
   useEffect(() => {
     const calculateStickyTop = () => {
@@ -136,21 +139,23 @@ export default function FeaturedProjects() {
         const elementTop = rect.top + scrollY;
         const elementHeight = ref.offsetHeight;
 
-        if (scrollY >= elementTop - windowHeight / 2 &&
-            scrollY < elementTop + elementHeight - windowHeight / 2) {
+        if (
+          scrollY >= elementTop - windowHeight / 2 &&
+          scrollY < elementTop + elementHeight - windowHeight / 2
+        ) {
           setActiveProject(index);
         }
       });
     };
 
     calculateStickyTop();
-    window.addEventListener('resize', calculateStickyTop);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("resize", calculateStickyTop);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
 
     return () => {
-      window.removeEventListener('resize', calculateStickyTop);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("resize", calculateStickyTop);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -167,13 +172,16 @@ export default function FeaturedProjects() {
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
             <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
-            <span className="text-sm font-medium text-gray-600">Real Results, Real Impact</span>
+            <span className="text-sm font-medium text-gray-600">
+              Real Results, Real Impact
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             From Process to <span className="text-primary-500">Products</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            See how our AI-powered methodology transforms ambitious ideas into successful digital products
+            See how our AI-powered methodology transforms ambitious ideas into
+            successful digital products
           </p>
         </div>
 
@@ -191,7 +199,10 @@ export default function FeaturedProjects() {
           <div className="max-w-3xl">
             <p className="flex flex-wrap justify-start !px-0">
               {words.map((word, index) => (
-                <span key={index} className="relative mt-2 mr-1 font-medium text-lg md:text-xl">
+                <span
+                  key={index}
+                  className="relative mt-2 mr-1 font-medium text-lg md:text-xl"
+                >
                   <span className="absolute text-gray-400">{word}</span>
                   <span className="relative z-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-900">
                     {word}
@@ -208,7 +219,10 @@ export default function FeaturedProjects() {
             {/* Left Side - Project Details */}
             <div className="flex-1">
               {projects.map((project, index) => (
-                <div key={project.id} className="mb-[200px] lg:mb-[300px] last:mb-0">
+                <div
+                  key={project.id}
+                  className="mb-[200px] lg:mb-[300px] last:mb-0"
+                >
                   {/* Mobile Mockup Display */}
                   <div
                     className="h-[256px] md:h-[550px] mx-auto text-center rounded-xl overflow-hidden block lg:hidden mb-10"
@@ -219,7 +233,9 @@ export default function FeaturedProjects() {
 
                   {/* Project Info */}
                   <div
-                    ref={el => { projectRefs.current[index] = el; }}
+                    ref={(el) => {
+                      projectRefs.current[index] = el;
+                    }}
                     className="max-w-[50ch]"
                   >
                     <Image
@@ -256,8 +272,8 @@ export default function FeaturedProjects() {
                 ref={stickyRef}
                 className="h-[550px] w-full text-center rounded-xl overflow-hidden"
                 style={{
-                  position: 'sticky',
-                  top: stickyTop
+                  position: "sticky",
+                  top: stickyTop,
                 }}
               >
                 {projects.map((project, index) => (
@@ -266,11 +282,14 @@ export default function FeaturedProjects() {
                     style={{
                       backgroundColor: project.bgColor,
                       opacity: activeProject === index ? 1 : 0,
-                      pointerEvents: activeProject === index ? 'auto' : 'none',
+                      pointerEvents: activeProject === index ? "auto" : "none",
                     }}
                     className="absolute inset-0 w-full h-full transition-opacity duration-500"
                   >
-                    <ProjectMockup project={project} isActive={activeProject === index} />
+                    <ProjectMockup
+                      project={project}
+                      isActive={activeProject === index}
+                    />
                   </div>
                 ))}
               </div>
@@ -283,7 +302,13 @@ export default function FeaturedProjects() {
 }
 
 // Separate component for project mockup display
-const ProjectMockup = ({ project, isActive }: { project: Project; isActive: boolean }) => {
+const ProjectMockup = ({
+  project,
+  isActive,
+}: {
+  project: Project;
+  isActive: boolean;
+}) => {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Main Device Mockup */}
@@ -293,7 +318,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         width={295}
         height={485}
         className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 hidden absolute md:block"
-        style={{ bottom: project.id === 'al-yusr' ? '45px' : project.id === 'ifit' ? '40px' : 0, left: '50%', transform: `translateX(-50%)${project.id === 'al-yusr' ? ' scaleY(1.2) scaleX(1.15)' : project.id === 'ifit' ? ' scaleX(1.15) scaleY(1.2)' : project.id === 'fantasy' ? ' scaleX(1.25) scaleY(1.25)' : ''}` }}
+        style={{
+          bottom:
+            project.id === "al-yusr"
+              ? "45px"
+              : project.id === "ifit"
+                ? "40px"
+                : 0,
+          left: "50%",
+          transform: `translateX(-50%)${project.id === "al-yusr" ? " scaleY(1.2) scaleX(1.15)" : project.id === "ifit" ? " scaleX(1.15) scaleY(1.2)" : project.id === "fantasy" ? " scaleX(1.25) scaleY(1.25)" : ""}`,
+        }}
       />
       <Image
         src={project.mockup.mainSm}
@@ -304,14 +338,18 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
       />
 
       {/* Additional Elements Based on Project */}
-      {project.id === 'bapco' && (
+      {project.id === "bapco" && (
         <>
-          <div className="absolute top-4 left-16 z-0"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out'
-               }}>
+          <div
+            className="absolute top-4 left-16 z-0"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(-50px) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out",
+            }}
+          >
             <Image
               src={project.mockup.back!}
               alt="Background UI"
@@ -327,12 +365,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute top-[45%] translate-y-[-45%] z-20 rounded-2xl"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.1s'
-               }}>
+          <div
+            className="absolute top-[45%] translate-y-[-45%] z-20 rounded-2xl"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(50px) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.1s",
+            }}
+          >
             <Image
               src={project.mockup.front!}
               alt="Front UI"
@@ -351,14 +393,18 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         </>
       )}
 
-      {project.id === 'al-yusr' && (
+      {project.id === "al-yusr" && (
         <>
-          <div className="absolute bottom-0 top-[45%] translate-y-[-45%] z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1) scaleX(1.15)' : 'translateX(-50px) scale(0) scaleX(1.15)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out'
-               }}>
+          <div
+            className="absolute bottom-0 top-[45%] translate-y-[-45%] z-10"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1) scaleX(1.15)"
+                : "translateX(-50px) scale(0) scaleX(1.15)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out",
+            }}
+          >
             <Image
               src={project.mockup.top!}
               alt="Al Yusr"
@@ -374,12 +420,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute bottom-4 md:bottom-8 z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.1s'
-               }}>
+          <div
+            className="absolute bottom-4 md:bottom-8 z-10"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(50px) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.1s",
+            }}
+          >
             <Image
               src={project.mockup.bot!}
               alt="Al Yusr"
@@ -398,14 +448,18 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         </>
       )}
 
-      {project.id === 'ifit' && (
+      {project.id === "ifit" && (
         <>
-          <div className="absolute top-8 right-20 md:right-24 z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out'
-               }}>
+          <div
+            className="absolute top-8 right-20 md:right-24 z-10"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(50px) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out",
+            }}
+          >
             <Image
               src={project.mockup.right!}
               alt="iFit"
@@ -421,12 +475,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute top-8 left-20 md:left-24 z-0"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.1s'
-               }}>
+          <div
+            className="absolute top-8 left-20 md:left-24 z-0"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(-50px) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.1s",
+            }}
+          >
             <Image
               src={project.mockup.left!}
               alt="iFit"
@@ -442,12 +500,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute bottom-28 md:bottom-32 z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(0.6)' : 'translateX(0) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.15s'
-               }}>
+          <div
+            className="absolute bottom-28 md:bottom-32 z-10"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(0.6)"
+                : "translateX(0) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.15s",
+            }}
+          >
             <Image
               src={project.mockup.top!}
               alt="iFit"
@@ -463,12 +525,16 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden"
             />
           </div>
-          <div className="absolute bottom-10 md:bottom-14 z-10"
-               style={{
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(0) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.2s'
-               }}>
+          <div
+            className="absolute bottom-10 md:bottom-14 z-10"
+            style={{
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(0) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.2s",
+            }}
+          >
             <Image
               src={project.mockup.bot!}
               alt="iFit"
@@ -487,15 +553,19 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
         </>
       )}
 
-      {project.id === 'fantasy' && (
+      {project.id === "fantasy" && (
         <>
-          <div className="absolute z-10"
-               style={{
-                 bottom: '-50px',
-                 transform: isActive ? 'translateX(0) scale(0.9)' : 'translateX(0) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.1s'
-               }}>
+          <div
+            className="absolute z-10"
+            style={{
+              bottom: "-50px",
+              transform: isActive
+                ? "translateX(0) scale(0.9)"
+                : "translateX(0) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.1s",
+            }}
+          >
             <Image
               src={project.mockup.back!}
               alt="Fantasy"
@@ -511,13 +581,17 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
               className="object-contain md:hidden rounded-xl"
             />
           </div>
-          <div className="absolute z-10"
-               style={{
-                 bottom: 'calc(2.5rem + 180px)',
-                 transform: isActive ? 'translateX(0) scale(1)' : 'translateX(0) scale(0)',
-                 opacity: isActive ? 1 : 0,
-                 transition: 'all 0.5s ease-out 0.2s'
-               }}>
+          <div
+            className="absolute z-10"
+            style={{
+              bottom: "calc(2.5rem + 180px)",
+              transform: isActive
+                ? "translateX(0) scale(1)"
+                : "translateX(0) scale(0)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out 0.2s",
+            }}
+          >
             <Image
               src={project.mockup.bot!}
               alt="Fantasy"
@@ -535,7 +609,6 @@ const ProjectMockup = ({ project, isActive }: { project: Project; isActive: bool
           </div>
         </>
       )}
-
     </div>
   );
 };

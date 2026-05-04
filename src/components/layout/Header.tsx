@@ -17,7 +17,7 @@ interface HeaderProps {
 }
 
 export default function Header({
-  showAnnouncement = true,
+  showAnnouncement = false,
   announcementText = `🎉 Inzint welcomes Raman Kumar Mishra, Ansh Mani Tripathi, Utkarsh Mishra, and Akash to the 2026 batch! — `,
   announcementLink = "/careers/ai-ml-engineer-trainee-2026",
   announcementLinkText = "View Details",
