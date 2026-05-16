@@ -6,6 +6,9 @@ import Image from "next/image";
 interface Mockup {
   main: string;
   mainSm: string;
+  mainVideo?: string;
+  video?: string;
+  poster?: string;
   back?: string;
   backSm?: string;
   front?: string;
@@ -26,7 +29,9 @@ interface Project {
   description: string;
   categories: string[];
   bgColor: string;
-  logo: string;
+  logo?: string;
+  label?: string;
+  accentColor?: string;
   mockup: Mockup;
 }
 
@@ -56,11 +61,11 @@ const projects: Project[] = [
   //   logo: '/assets/images/companies/flooss.png',
   //   mockup: {
   //     main: '/assets/images/home/mockups/floss/floss-main.png',
-  //     mainSm: '/assets/images/home/mockups/floss/al-yusr-sm.webp',
+  //     mainSm: '/assets/images/home/mockups/floss/floss-main.png',
   //     top: '/assets/images/home/mockups/floss/floss-top-card.svg',
-  //     topSm: '/assets/images/home/mockups/floss/top-sm.svg',
+  //     topSm: '/assets/images/home/mockups/floss/floss-top-card.svg',
   //     bot: '/assets/images/home/mockups/floss/bot.svg',
-  //     botSm: '/assets/images/home/mockups/floss/bot-sm.svg',
+  //     botSm: '/assets/images/home/mockups/floss/bot.svg',
   //   }
   // },
   {
@@ -100,7 +105,27 @@ const projects: Project[] = [
   //     bot: '/assets/images/home/mockups/ifit/walk-stats.png',
   //     botSm: '/assets/images/home/mockups/ifit/bot-sm.svg',
   //   }
-  // }
+  // },
+  {
+    id: "pbt",
+    title:
+      "Progressing Ballet Technique: A Guided Training Experience for Stronger, Safer Movement",
+    description:
+      "A structured class platform inspired by Progressing Ballet Technique, designed to support muscle memory, core strength, posture, alignment, and weight placement through graded sessions from junior to advanced levels. Built for dancers and movement practitioners, it helps turn body conditioning into a more effective, performance-focused, and sustainable training routine.",
+    categories: ["Mobile App", "UI/UX Design", "Wellness Platform"],
+    bgColor: "#FFF4F8",
+    label: "PBT Classes",
+    accentColor: "#C54B80",
+    mockup: {
+      main: "/assets/images/home/mockups/pbt/pbt-main.webp",
+      mainSm: "/assets/images/home/mockups/pbt/pbt-main.webp",
+      mainVideo: "/assets/videos/home/mockups/pbt/pbt-main.webm",
+      video: "/assets/videos/home/mockups/pbt/pbt-scroll.webm",
+      poster: "/assets/images/home/mockups/pbt/pbt-scroll-poster.webp",
+      bot: "/assets/images/home/mockups/pbt/pbt-music-player.webp",
+      botSm: "/assets/images/home/mockups/pbt/pbt-music-player.webp",
+    },
+  }
 ];
 
 export default function FeaturedProjects() {
@@ -228,7 +253,11 @@ export default function FeaturedProjects() {
                     className="h-[256px] md:h-[550px] mx-auto text-center rounded-xl overflow-hidden block lg:hidden mb-10"
                     style={{ backgroundColor: project.bgColor }}
                   >
-                    <ProjectMockup project={project} isActive={true} />
+                    <ProjectMockup
+                      project={project}
+                      isActive={true}
+                      isSticky={false}
+                    />
                   </div>
 
                   {/* Project Info */}
@@ -238,14 +267,25 @@ export default function FeaturedProjects() {
                     }}
                     className="max-w-[50ch]"
                   >
-                    <Image
-                      src={project.logo}
-                      alt={project.title}
-                      width={150}
-                      height={50}
-                      className="object-contain"
-                    />
-                    <h1 className="text-primary text-2xl md:text-4xl font-semibold rtl:font-bold mt-10 leading-normal md:leading-[42px] lg:leading-[48px]">
+                    {project.logo ? (
+                      <Image
+                        src={project.logo}
+                        alt={project.title}
+                        width={150}
+                        height={50}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <div
+                        className="inline-flex items-center rounded-full border border-white/70 bg-white/85 px-4 py-2 text-sm font-semibold tracking-wide shadow-[0_16px_32px_rgba(197,75,128,0.12)] backdrop-blur-sm"
+                        style={{ color: project.accentColor ?? "#111827" }}
+                      >
+                        {project.label ?? project.title}
+                      </div>
+                    )}
+                    <h1
+                      className={`text-primary text-2xl md:text-4xl font-semibold rtl:font-bold leading-normal md:leading-[42px] lg:leading-[48px] ${project.logo ? "mt-10" : "mt-6"}`}
+                    >
                       {project.title}
                     </h1>
                     <p className="font-normal text-base mt-4 text-content-secondary leading-normal">
@@ -289,6 +329,7 @@ export default function FeaturedProjects() {
                     <ProjectMockup
                       project={project}
                       isActive={activeProject === index}
+                      isSticky={true}
                     />
                   </div>
                 ))}
@@ -301,41 +342,127 @@ export default function FeaturedProjects() {
   );
 }
 
+const ProjectVideoCard = ({
+  src,
+  poster,
+  title,
+  isActive,
+  className,
+}: {
+  src: string;
+  poster?: string;
+  title: string;
+  isActive: boolean;
+  className?: string;
+}) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    if (isActive) {
+      const playPromise = video.play();
+      playPromise?.catch(() => undefined);
+      return;
+    }
+
+    video.pause();
+    video.currentTime = 0;
+  }, [isActive]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className={className ?? "block h-auto w-full"}
+      aria-label={`${title} product walkthrough`}
+    />
+  );
+};
+
 // Separate component for project mockup display
 const ProjectMockup = ({
   project,
   isActive,
+  isSticky,
 }: {
   project: Project;
   isActive: boolean;
+  isSticky: boolean;
 }) => {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Main Device Mockup */}
-      <Image
-        src={project.mockup.main}
-        alt={project.title}
-        width={295}
-        height={485}
-        className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 hidden absolute md:block"
-        style={{
-          bottom:
-            project.id === "al-yusr"
-              ? "45px"
-              : project.id === "ifit"
-                ? "40px"
-                : 0,
-          left: "50%",
-          transform: `translateX(-50%)${project.id === "al-yusr" ? " scaleY(1.2) scaleX(1.15)" : project.id === "ifit" ? " scaleX(1.15) scaleY(1.2)" : project.id === "fantasy" ? " scaleX(1.25) scaleY(1.25)" : ""}`,
-        }}
-      />
-      <Image
-        src={project.mockup.mainSm}
-        alt={project.title}
-        width={138}
-        height={227}
-        className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 absolute md:hidden"
-      />
+      {project.id === "pbt" ? (
+        <>
+          <div
+            className="bottom-0 left-[50%] z-20 hidden absolute md:block"
+            style={{
+              bottom: "-134px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <ProjectVideoCard
+              src={project.mockup.mainVideo!}
+              poster={project.mockup.main}
+              title={project.title}
+              isActive={isActive}
+              className="block h-[624px] w-[351px] max-w-none"
+            />
+          </div>
+          <div
+            className="bottom-0 left-[50%] z-20 absolute md:hidden"
+            style={{
+              bottom: "-100px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <ProjectVideoCard
+              src={project.mockup.mainVideo!}
+              poster={project.mockup.mainSm}
+              title={project.title}
+              isActive={isActive}
+              className="block h-[296px] w-[167px] max-w-none"
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <Image
+            src={project.mockup.main}
+            alt={project.title}
+            width={295}
+            height={485}
+            className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 hidden absolute md:block"
+            style={{
+              bottom:
+                project.id === "al-yusr"
+                  ? "45px"
+                  : project.id === "ifit"
+                    ? "40px"
+                    : 0,
+              left: "50%",
+              transform: `translateX(-50%)${project.id === "al-yusr" ? " scaleY(1.2) scaleX(1.15)" : project.id === "ifit" ? " scaleX(1.15) scaleY(1.2)" : project.id === "fantasy" ? " scaleX(1.25) scaleY(1.25)" : ""}`,
+            }}
+          />
+          <Image
+            src={project.mockup.mainSm}
+            alt={project.title}
+            width={138}
+            height={227}
+            className="object-contain bottom-0 left-[50%] translate-x-[-50%] z-10 absolute md:hidden"
+          />
+        </>
+      )}
 
       {/* Additional Elements Based on Project */}
       {project.id === "bapco" && (
@@ -606,6 +733,68 @@ const ProjectMockup = ({
               height={41}
               className="object-contain md:hidden rounded-xl"
             />
+          </div>
+        </>
+      )}
+
+      {project.id === "pbt" && (
+        <>
+          <div
+            className="absolute left-10 top-8 h-28 w-28 rounded-full bg-white/65 blur-3xl md:left-16 md:top-10 md:h-44 md:w-44"
+            style={{
+              transform: isActive ? "scale(1)" : "scale(0.7)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.5s ease-out",
+            }}
+          />
+          <div
+            className="absolute bottom-[-36px] left-1/2 z-30 h-[119px] w-[210px] -translate-x-1/2 md:bottom-[-100px] md:h-[226px] md:w-[400px]"
+            style={{
+              transform: isActive
+                ? "translate3d(-50%,0,0) scale(1)"
+                : "translate3d(-50%,32px,0) scale(0.72)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.55s ease-out 0.22s",
+            }}
+          >
+            <div className="overflow-hidden rounded-[6px] shadow-[0_28px_55px_rgba(197,75,128,0.22)] md:rounded-[8px]">
+              <Image
+                src={project.mockup.bot!}
+                alt={`${project.title} music player`}
+                width={1181}
+                height={834}
+                className="block h-full w-full object-fill"
+              />
+            </div>
+          </div>
+          <div
+            className="absolute bottom-[120px] right-3 z-10 w-[188px] md:bottom-[148px] md:right-6 md:w-[340px]"
+            style={{
+              transform: isActive
+                ? "translate3d(0,0,0) rotate(-7deg) scale(1)"
+                : "translate3d(36px,36px,0) rotate(-10deg) scale(0.78)",
+              opacity: isActive ? 1 : 0,
+              transition: "all 0.55s ease-out 0.15s",
+            }}
+          >
+            <div className="overflow-hidden rounded-[18px] border border-white/80 bg-white/95 shadow-[0_24px_70px_rgba(197,75,128,0.18)] md:rounded-[28px]">
+              {isSticky ? (
+                <ProjectVideoCard
+                  src={project.mockup.video!}
+                  poster={project.mockup.poster}
+                  title={project.title}
+                  isActive={isActive}
+                />
+              ) : (
+                <Image
+                  src={project.mockup.poster!}
+                  alt={`${project.title} class preview`}
+                  width={886}
+                  height={480}
+                  className="block h-auto w-full"
+                />
+              )}
+            </div>
           </div>
         </>
       )}
