@@ -1,0 +1,38 @@
+name: CI
+on:
+  pull_request:
+    branches: [development]
+  push:
+    branches: [development]
+
+jobs:
+  # 1) Build gate — `next build` also type-checks, so a green build is the bar.
+  #    No test runner exists yet; add a `test` step here when one is introduced.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+
+  # 2) DO-NOT-TOUCH guard — fail closed if a PR touches a hard-blocked (secret) path.
+  #    Patterns mirror agent-autonomy/sensitive-paths.json (secrets only: .env* and *.pem).
+  guard:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Block sensitive-path changes
+        run: |
+          git diff --name-only "origin/${{ github.base_ref }}...HEAD" \
+            | grep -E '(^|/)\.env|\.pem$' \
+            && { echo "::error::PR touches a DO-NOT-TOUCH (secret) path"; exit 1; } \
+            || echo "clean — no sensitive paths touched"
