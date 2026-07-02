@@ -1,52 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Workflow, Database, Shield, Zap, MessageSquare } from 'lucide-react';
-
-const capabilities = [
-  {
-    icon: Brain,
-    title: 'Cognitive Reasoning',
-    description: 'Advanced reasoning capabilities for complex decision-making and problem-solving',
-    features: ['Chain of Thought', 'Multi-step Planning', 'Context Understanding', 'Learning from Experience'],
-    color: 'from-purple-500 to-pink-500',
-  },
-  {
-    icon: Workflow,
-    title: 'Workflow Automation',
-    description: 'Automate end-to-end business processes with intelligent orchestration',
-    features: ['Process Mining', 'Task Scheduling', 'Dynamic Adaptation', 'Error Handling'],
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    icon: Database,
-    title: 'Knowledge Integration',
-    description: 'Connect and leverage multiple data sources for informed decisions',
-    features: ['Data Aggregation', 'Real-time Updates', 'Multi-source Fusion', 'Knowledge Graphs'],
-    color: 'from-green-500 to-emerald-500',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Natural Communication',
-    description: 'Interact naturally through conversation and understand context',
-    features: ['NLP Processing', 'Intent Recognition', 'Multi-turn Dialogue', 'Sentiment Analysis'],
-    color: 'from-orange-500 to-red-500',
-  },
-  {
-    icon: Zap,
-    title: 'Real-time Execution',
-    description: 'Execute tasks instantly with high-performance infrastructure',
-    features: ['Low Latency', 'Parallel Processing', 'Auto-scaling', 'Load Balancing'],
-    color: 'from-indigo-500 to-purple-500',
-  },
-  {
-    icon: Shield,
-    title: 'Security & Compliance',
-    description: 'Enterprise-grade security with compliance built-in',
-    features: ['Data Encryption', 'Access Control', 'Audit Logging', 'GDPR Compliant'],
-    color: 'from-pink-500 to-rose-500',
-  },
-];
+import { getIcon } from '@/lib/icons';
+import { aiAgentDevelopmentContent } from '@/data/ai-agent-development';
 
 export default function AIAgentCapabilitiesSection() {
   return (
@@ -70,8 +26,8 @@ export default function AIAgentCapabilitiesSection() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {capabilities.map((capability, index) => {
-            const Icon = capability.icon;
+          {aiAgentDevelopmentContent.capabilities.map((capability, index) => {
+            const Icon = getIcon(capability.icon);
             return (
               <motion.div
                 key={index}
