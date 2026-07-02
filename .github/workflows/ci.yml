@@ -21,7 +21,19 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: '1'
 
-  # 2) DO-NOT-TOUCH guard — fail closed if a PR touches a hard-blocked (secret) path.
+  # 2) Test gate — Vitest unit tests (content contract + valid icon keys).
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+
+  # 3) DO-NOT-TOUCH guard — fail closed if a PR touches a hard-blocked (secret) path.
   #    Patterns mirror agent-autonomy/sensitive-paths.json (secrets only: .env* and *.pem).
   guard:
     runs-on: ubuntu-latest

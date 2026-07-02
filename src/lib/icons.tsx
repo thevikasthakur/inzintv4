@@ -185,6 +185,8 @@ export const iconMap = {
   cog: Settings,
 };
 
+export type IconKey = keyof typeof iconMap;
+
 export function getIcon(iconName: string) {
   return iconMap[iconName as keyof typeof iconMap] || Circle;
 }
