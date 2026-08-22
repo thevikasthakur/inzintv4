@@ -207,3 +207,162 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Long-form case studies: restrained, Medium-inspired editorial typography. */
+.case-study-title,
+.case-study-prose h2,
+.case-study-prose h3 {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.case-study-prose {
+  color: #242424;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.18rem;
+  line-height: 1.85;
+}
+
+.case-study-prose > :first-child {
+  margin-top: 0;
+}
+
+.case-study-prose h2 {
+  margin: 4.5rem 0 1.5rem;
+  color: #171717;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.case-study-prose h3 {
+  margin: 3.25rem 0 1rem;
+  color: #171717;
+  font-size: clamp(1.45rem, 3vw, 1.8rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.case-study-prose p {
+  margin: 1.75rem 0;
+}
+
+.case-study-prose strong {
+  color: #171717;
+  font-weight: 700;
+}
+
+.case-study-prose blockquote {
+  margin: 2.75rem 0;
+  border-left: 3px solid #171717;
+  padding-left: 1.5rem;
+  color: #4b5563;
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.case-study-prose blockquote p {
+  margin: 0;
+}
+
+.case-study-prose ul,
+.case-study-prose ol {
+  margin: 1.75rem 0;
+  padding-left: 1.7rem;
+}
+
+.case-study-prose ul {
+  list-style: disc;
+}
+
+.case-study-prose ol {
+  list-style: decimal;
+}
+
+.case-study-prose li {
+  margin: 0.7rem 0;
+  padding-left: 0.35rem;
+}
+
+.case-study-prose pre {
+  margin: 2.5rem 0;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: #171717;
+  padding: 1.5rem;
+  color: #f5f5f5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.case-study-prose :not(pre) > code {
+  border-radius: 0.25rem;
+  background: #f3f4f6;
+  padding: 0.15rem 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.case-study-prose table {
+  display: block;
+  width: 100%;
+  margin: 2.5rem 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.case-study-prose th,
+.case-study-prose td {
+  min-width: 11rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.9rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.case-study-prose th {
+  background: #f7f7f5;
+  color: #171717;
+  font-weight: 650;
+}
+
+.case-study-prose img {
+  width: 100%;
+  height: auto;
+  margin: 3rem 0 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+}
+
+.case-study-prose em {
+  color: #6b7280;
+}
+
+.case-study-prose a {
+  color: #0051d4;
+  text-decoration: underline;
+  text-decoration-color: #99c7ff;
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 640px) {
+  .case-study-prose {
+    font-size: 1.08rem;
+    line-height: 1.78;
+  }
+
+  .case-study-prose h2 {
+    margin-top: 3.5rem;
+  }
+
+  .case-study-prose blockquote {
+    padding-left: 1rem;
+    font-size: 1.2rem;
+  }
+}
