@@ -86,7 +86,7 @@ export const company = {
 
   portfolioHighlights: [
     {
-      title: 'Hospitality web portfolio revamp (Australia)',
+      title: 'Hospitality web portfolio revamp',
       impact: 'Reusable components across 10+ venues; faster publishing, unique SEO per site.',
       stack: 'WordPress/Headless + Next.js; analytics & booking integrations.',
     },
@@ -115,7 +115,7 @@ export const company = {
     ],
     metrics: [
       'Upwork track record: $100K+ earned, 34 jobs, 11,602+ hours (as of Oct 2025).',
-      'Multi-country delivery: India base, projects across India/Australia/MENA.',
+      'Multi-country delivery: India base, projects across India, MENA, and global markets.',
     ],
   },
 

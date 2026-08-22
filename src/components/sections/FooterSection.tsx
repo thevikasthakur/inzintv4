@@ -35,14 +35,6 @@ const offices = [
     email: 'contact@inzint.om',
   },
   {
-    id: 3,
-    city: 'Sydney',
-    country: 'Australia',
-    address: '7 Danks Street, Waterloo, NSW 2017, Australia',
-    phone: '+61 481 835 357',
-    email: 'contact@inzint.com',
-  },
-  {
     id: 4,
     city: 'St. Louis',
     country: 'USA',
@@ -280,7 +272,7 @@ export default function FooterSection() {
             <p className="text-gray-400">Connect with us at any of our worldwide locations</p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {offices.map((office, index) => (
               <motion.div
                 key={office.id}

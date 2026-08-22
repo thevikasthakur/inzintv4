@@ -129,7 +129,7 @@ With Next.js Static Site Generation, page HTML is generated ahead of requests ra
 
 For a content-heavy recipe platform, that is a particularly natural fit.
 
-A chocolate cake recipe does not need its complete editorial content reconstructed from scratch every time somebody in Paris, London or Sydney opens it.
+A chocolate cake recipe does not need its complete editorial content reconstructed from scratch every time somebody opens it.
 
 The expensive work can happen earlier.
 

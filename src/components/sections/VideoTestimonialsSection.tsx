@@ -1,208 +1,133 @@
-'use client';
+import Link from 'next/link';
+import { ArrowUpRight, ChevronDown, Quote } from 'lucide-react';
+import TestimonialVideoPlayer from './TestimonialVideoPlayer';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Play, Volume2, VolumeX, Quote } from 'lucide-react';
-
-const testimonials = [
-  {
-    id: 1,
-    client: 'Sarah Johnson',
-    role: 'CEO, TechCorp',
-    company: 'TechCorp Inc.',
-    quote: 'Working with Inzint transformed our business. Their engineering-first approach delivered a production-ready app that exceeded all expectations.',
-    videoUrl: '/testimonials/video1.mp4',
-    thumbnail: '/testimonials/thumb1.jpg',
-    rating: 5,
-  },
-  {
-    id: 2,
-    client: 'Michael Chen',
-    role: 'CTO, InnovateLabs',
-    company: 'InnovateLabs',
-    quote: 'The AI solutions they built for us reduced operational costs by 40% and improved efficiency dramatically.',
-    videoUrl: '/testimonials/video2.mp4',
-    thumbnail: '/testimonials/thumb2.jpg',
-    rating: 5,
-  },
-  {
-    id: 3,
-    client: 'Emily Rodriguez',
-    role: 'Product Manager, RetailX',
-    company: 'RetailX',
-    quote: 'Outstanding work! They understood our vision and delivered a product that our customers absolutely love.',
-    videoUrl: '/testimonials/video3.mp4',
-    thumbnail: '/testimonials/thumb3.jpg',
-    rating: 5,
-  },
-  {
-    id: 4,
-    client: 'David Park',
-    role: 'Founder, HealthTech Solutions',
-    company: 'HealthTech Solutions',
-    quote: 'Professional, responsive, and highly skilled. The app they built is now used by millions of users daily.',
-    videoUrl: '/testimonials/video4.mp4',
-    thumbnail: '/testimonials/thumb4.jpg',
-    rating: 5,
-  },
-];
+const transcript =
+  'We interviewed multiple companies for this project and Inzint were by far the most capable and the most proactive, and the pricing was also excellent. We started work around 2.5 years ago, and since then we have built not one, not two, but three different products with Inzint. Three quite different products, and we\'re still finalising two of them now. One of them has been completed. My experience with the company has been superb. The communication is excellent, the attention to detail is excellent, the cooperation and general expertise and technicality of the company has been beyond my expectations. I have no hesitation in recommending Inzint to any company that is looking for any development on the technical side whatsoever. Superb experience.';
 
 export default function VideoTestimonialsSection() {
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-  const [mutedVideos, setMutedVideos] = useState<Set<number>>(new Set());
-
-  const toggleMute = (id: number) => {
-    setMutedVideos((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };
-
   return (
-    <section className="py-20 lg:py-32 bg-white">
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-semibold mb-4"
+    <section
+      aria-labelledby="client-testimonial-heading"
+      className="relative isolate overflow-hidden bg-[#07142d] py-20 text-white sm:py-24 lg:py-32"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(0,105,255,0.28),transparent_30%),radial-gradient(circle_at_92%_88%,rgba(124,58,237,0.2),transparent_27%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+      />
+
+      <div className="container relative z-10">
+        <header className="max-w-3xl">
+          <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-blue-300">
+            <span className="h-px w-10 bg-blue-400" />
+            Client story
+          </div>
+          <h2
+            id="client-testimonial-heading"
+            className="text-4xl font-bold tracking-[-0.035em] sm:text-5xl lg:text-6xl"
           >
-            CLIENT TESTIMONIALS
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
-          >
-            What Our Clients Say
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 max-w-2xl mx-auto"
-          >
-            Don't just take our word for it. Hear from leaders who've transformed their businesses with us.
-          </motion.p>
-        </div>
+            What our clients say
+          </h2>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300 sm:text-xl">
+            The clearest measure of our work is the trust that grows from one
+            product into the next.
+          </p>
+        </header>
 
-        {/* Video Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                {/* Video Container */}
-                <div className="relative aspect-video bg-gray-900">
-                  {playingVideo === testimonial.id ? (
-                    <div className="relative w-full h-full bg-gray-800 flex items-center justify-center">
-                      {/* Video Player Placeholder */}
-                      <div className="text-white text-center">
-                        <Play className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                        <p className="text-sm opacity-75">Video Player</p>
-                      </div>
+        <div className="mt-14 grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.65fr)] lg:gap-16">
+          <article className="relative order-2 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.055] p-7 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:p-10 lg:order-1 lg:p-12">
+            <div
+              aria-hidden="true"
+              className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary-500/15 blur-3xl"
+            />
 
-                      {/* Mute Control */}
-                      <button
-                        onClick={() => toggleMute(testimonial.id)}
-                        className="absolute bottom-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-all"
-                        aria-label={mutedVideos.has(testimonial.id) ? 'Unmute' : 'Mute'}
-                      >
-                        {mutedVideos.has(testimonial.id) ? (
-                          <VolumeX className="w-5 h-5 text-white" />
-                        ) : (
-                          <Volume2 className="w-5 h-5 text-white" />
-                        )}
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      {/* Thumbnail */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-purple-500/20" />
+            <Quote
+              aria-hidden="true"
+              className="relative mb-8 h-10 w-10 text-blue-300"
+              strokeWidth={1.5}
+            />
 
-                      {/* Play Button */}
-                      <button
-                        onClick={() => setPlayingVideo(testimonial.id)}
-                        className="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition-all"
-                        aria-label={`Play testimonial from ${testimonial.client}`}
-                      >
-                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                          <Play className="w-8 h-8 text-primary-500 ml-1" fill="currentColor" />
-                        </div>
-                      </button>
+            <blockquote className="relative">
+              <p className="text-2xl font-semibold leading-[1.3] tracking-[-0.025em] text-white sm:text-3xl lg:text-[2.45rem]">
+                “We interviewed multiple companies. Inzint were by far the most
+                capable and the most proactive. Since then, we have built{' '}
+                <span className="text-blue-300">
+                  not one, not two, but three different products
+                </span>{' '}
+                with Inzint.”
+              </p>
 
-                      {/* Company Badge */}
-                      <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-gray-900">
-                        {testimonial.company}
-                      </div>
-                    </>
-                  )}
-                </div>
+              <footer className="mt-9 border-t border-white/10 pt-7">
+                <p className="text-base font-semibold text-white">
+                  Chief Executive Officer
+                </p>
+                <p className="mt-1 text-sm text-slate-400">
+                  TALEER LLC <span aria-hidden="true">·</span> Sharjah, UAE
+                </p>
+              </footer>
+            </blockquote>
 
-                {/* Content */}
-                <div className="p-6">
-                  {/* Quote */}
-                  <div className="mb-4">
-                    <Quote className="w-8 h-8 text-primary-500 opacity-50 mb-2" />
-                    <p className="text-gray-700 leading-relaxed italic">
-                      "{testimonial.quote}"
-                    </p>
-                  </div>
-
-                  {/* Client Info */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div>
-                      <div className="font-semibold text-gray-900">{testimonial.client}</div>
-                      <div className="text-sm text-gray-600">{testimonial.role}</div>
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex gap-1">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <svg
-                          key={i}
-                          className="w-5 h-5 text-yellow-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+            <dl className="mt-9 grid grid-cols-2 gap-4 border-t border-white/10 pt-7">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  Partnership
+                </dt>
+                <dd className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                  2.5+ years
+                </dd>
               </div>
-            </motion.div>
-          ))}
-        </div>
+              <div className="border-l border-white/10 pl-5 sm:pl-7">
+                <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  Built together
+                </dt>
+                <dd className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                  3 products
+                </dd>
+              </div>
+            </dl>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <button className="px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40">
-            See More Success Stories
-          </button>
-        </motion.div>
+            <details className="group mt-8 border-t border-white/10 pt-6">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-slate-200 outline-none transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-4 focus-visible:ring-offset-[#07142d] [&::-webkit-details-marker]:hidden">
+                Read the complete transcript
+                <ChevronDown
+                  aria-hidden="true"
+                  className="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                />
+              </summary>
+              <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300">
+                {transcript}
+              </p>
+            </details>
+
+            <Link
+              href="/contact"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary-950/30 transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#07142d]"
+            >
+              Start a conversation
+              <ArrowUpRight
+                aria-hidden="true"
+                className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+          </article>
+
+          <div className="order-1 mx-auto w-full max-w-[370px] lg:order-2">
+            <div className="relative">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-4 rotate-2 rounded-[2.5rem] border border-blue-300/15 bg-gradient-to-b from-blue-400/10 to-purple-400/5"
+              />
+              <TestimonialVideoPlayer />
+            </div>
+            <p className="mt-6 text-center text-sm leading-relaxed text-slate-400">
+              A 55-second account of a multi-product partnership.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

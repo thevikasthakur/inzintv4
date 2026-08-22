@@ -296,9 +296,9 @@ export const navigationData: NavItem[] = [
       type: 'grid',
       items: [
         {
-          id: 'hospitality-australia',
+          id: 'hospitality-web-revamp',
           label: 'Hospitality Web Revamp',
-          href: '/portfolio/hospitality-australia',
+          href: '/portfolio/hospitality-web-revamp',
           description: '10+ venues, headless CMS, faster publishing',
           icon: 'globe',
         },
@@ -326,7 +326,7 @@ export const navigationData: NavItem[] = [
       ],
       cta: {
         title: `See What We've Built`,
-        description: 'Real projects, real impact. From Australia to MENA.',
+        description: 'Real projects, real impact. From India to MENA and beyond.',
         buttonText: 'View All Case Studies',
         buttonLink: '/portfolio',
       },
@@ -391,7 +391,7 @@ export const navigationData: NavItem[] = [
               id: 'locations',
               label: 'Global Presence',
               href: '/locations',
-              description: 'India HQ, serving Australia, MENA, global',
+              description: 'India HQ, serving MENA and global markets',
             },
             {
               id: 'contact',
