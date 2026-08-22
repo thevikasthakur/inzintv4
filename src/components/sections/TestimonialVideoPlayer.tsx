@@ -5,6 +5,7 @@ import { Play } from 'lucide-react';
 import { useState } from 'react';
 
 const VIDEO_URL = '/videos/Taleer.webm';
+const VIDEO_FALLBACK_URL = '/videos/taleer-testimonial.mp4';
 const POSTER_URL = '/videos/taleer-testimonial-poster.webp';
 
 export default function TestimonialVideoPlayer() {
@@ -26,6 +27,7 @@ export default function TestimonialVideoPlayer() {
           className="absolute inset-0 h-full w-full bg-black object-contain"
         >
           <source src={VIDEO_URL} type="video/webm" />
+          <source src={VIDEO_FALLBACK_URL} type="video/mp4" />
           Your browser does not support embedded video.
         </video>
       ) : (
