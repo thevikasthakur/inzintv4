@@ -7,7 +7,6 @@ import {
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
-  Check,
   Database,
   FileStack,
   Languages,
@@ -26,6 +25,16 @@ const featuredStudy = {
     'We transformed a plugin-heavy WordPress archive into a fast, structured and multilingual publishing platform—without losing the content readers already loved.',
   href: '/case-studies/la-cuisine-de-bernard-wordpress-nextjs-payload-mongodb-migration',
   stack: ['Next.js', 'Payload CMS', 'MongoDB', 'DeepL'],
+};
+
+const latestStudy = {
+  company: 'Thotis IA',
+  industry: 'AI education platform',
+  title: 'From connected AI tools to a coherent product platform.',
+  description:
+    'How we reworked personas, data migration, provider boundaries, real-time voice and automated QA inside a live multi-vendor product.',
+  href: '/case-studies/thotis-ai-platform-rearchitecture',
+  stack: ['Next.js', 'NestJS', 'PostgreSQL', 'LiveKit'],
 };
 
 const proofPoints = [
@@ -57,13 +66,6 @@ const transformation = [
     description:
       'The new stack replaced the old platform with near-zero downtime and a calmer publishing workflow.',
   },
-];
-
-const endorsements = [
-  'Solution oriented',
-  'Clear communicator',
-  'Accountable for outcomes',
-  'Detail oriented',
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -105,7 +107,7 @@ export default function CaseStudiesSection() {
                 <span className="text-white/35" aria-hidden="true">
                   /
                 </span>
-                <span>01 published story</span>
+                <span>02 published stories</span>
               </div>
 
               <h1 className="max-w-4xl text-[clamp(3.35rem,7.2vw,7.25rem)] font-semibold leading-[0.91] tracking-[-0.065em] text-white">
@@ -281,6 +283,65 @@ export default function CaseStudiesSection() {
             </div>
           </motion.article>
 
+          <motion.article
+            initial={{ opacity: 0, y: lift }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.16 }}
+            transition={{ duration, ease }}
+            className="group mt-10 overflow-hidden rounded-[2rem] border border-[#0b2037]/10 bg-[#071523] text-white shadow-[0_28px_80px_rgba(20,43,66,0.12)] sm:rounded-[2.5rem]"
+          >
+            <div className="grid lg:grid-cols-[1.06fr_0.94fr]">
+              <div className="relative min-h-[320px] overflow-hidden bg-[#0b153b] lg:min-h-[520px]">
+                <Image
+                  src="/assets/images/case-studies/thotis-ia/product-screenshots/2-home.png"
+                  alt="The persona-aware Thotis IA home and AI tools experience"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 52vw"
+                  className="object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.015]"
+                />
+                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#071523]/80 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.17em] text-white backdrop-blur sm:left-8 sm:top-8 sm:text-[11px]">
+                  <span className="h-2 w-2 rounded-full bg-[#67dbaa]" aria-hidden="true" />
+                  Latest case study
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12 xl:p-16">
+                <div>
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-blue-200">
+                      {latestStudy.industry}
+                    </span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">02 / 02</span>
+                  </div>
+                  <p className="mt-10 text-sm font-semibold text-blue-300">{latestStudy.company}</p>
+                  <h3 className="mt-4 max-w-xl text-4xl font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-5xl">
+                    {latestStudy.title}
+                  </h3>
+                  <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+                    {latestStudy.description}
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-2.5" aria-label="Technology stack">
+                    {latestStudy.stack.map((technology) => (
+                      <span
+                        key={technology}
+                        className="rounded-full border border-white/10 bg-white/[0.05] px-3.5 py-2 text-xs font-semibold text-slate-200"
+                      >
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <Link
+                  href={latestStudy.href}
+                  className="mt-12 inline-flex w-fit items-center gap-3 border-b border-white pb-2 text-sm font-bold text-white transition-colors hover:border-blue-300 hover:text-blue-300"
+                >
+                  Read the full engineering story
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </motion.article>
+
           <div className="mt-20 sm:mt-24">
             <motion.div
               initial={{ opacity: 0, y: lift }}
@@ -346,19 +407,11 @@ export default function CaseStudiesSection() {
 
             <div>
               <blockquote className="max-w-4xl text-3xl font-medium leading-[1.18] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.15rem]">
-                “Thank you, Vika took this project very seriously; he managed to find the right solutions.”
+                “Inzint took this project very seriously and managed to find the right solutions.”
               </blockquote>
-              <div className="mt-10 flex flex-wrap gap-2.5">
-                {endorsements.map((endorsement) => (
-                  <span
-                    key={endorsement}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.05] px-3.5 py-2 text-xs font-medium text-slate-300"
-                  >
-                    <Check className="h-3.5 w-3.5 text-[#67dbaa]" aria-hidden="true" />
-                    {endorsement}
-                  </span>
-                ))}
-              </div>
+              <p className="mt-9 max-w-3xl border-l-2 border-[#67dbaa] pl-5 text-base leading-8 text-slate-300 sm:text-lg">
+                The client described Inzint as solution oriented, clear in communication, accountable for outcomes and attentive to detail.
+              </p>
             </div>
           </motion.div>
         </div>

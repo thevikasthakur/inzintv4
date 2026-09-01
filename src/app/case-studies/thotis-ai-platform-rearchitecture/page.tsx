@@ -7,35 +7,28 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { FooterSection } from '@/components/sections';
 
-const slug = '/case-studies/la-cuisine-de-bernard-wordpress-nextjs-payload-mongodb-migration';
-const title = 'From WordPress Gridlock to an AI-Readable Publishing Platform';
+const slug = '/case-studies/thotis-ai-platform-rearchitecture';
+const title = 'How Inzint Turned Thotis IA Into a Product Platform';
 const description =
-  'See how Inzint migrated La Cuisine de Bernard from a plugin-heavy WordPress site to Next.js, Payload CMS and MongoDB, preserving 1,300+ recipes with near-zero downtime.';
-const publishedDate = '2026-08-22';
+  'How Inzint helped re-engineer a live AI education platform across data, personas, conversational AI, voice, integrations, security and automated QA.';
+const publishedDate = '2026-09-01';
 
 function getArticleMarkdown() {
-  const source = fs.readFileSync(
-    path.join(process.cwd(), 'case-studies-md/bernard/bernard-case-study.md'),
-    'utf8'
-  );
-
-  return source
-    .split('\n## Publication and SEO package for Inzint.com')[0]
-    .replace(/^# .+\n+/, '')
-    .replace(/\s*cite[^]+/g, '')
-    .replace(
-      'sandbox:/mnt/data/Screenshot%202026-08-21%20at%2020.03.40.png',
-      '/assets/images/case-studies/bernard/client-testimonial.svg'
+  return fs
+    .readFileSync(
+      path.join(process.cwd(), 'case-studies-md/thotis/thotis-case-study.md'),
+      'utf8'
     )
+    .replace(/^# .+\n+/, '')
     .trim();
 }
 
 export const metadata: Metadata = {
-  title: 'How Inzint Rebuilt La Cuisine de Bernard',
+  title: 'Thotis AI Platform Re-architecture | Inzint Case Study',
   description,
   alternates: { canonical: slug },
   openGraph: {
-    title: `${title}: La Cuisine de Bernard × Inzint`,
+    title,
     description,
     type: 'article',
     url: slug,
@@ -43,22 +36,22 @@ export const metadata: Metadata = {
     authors: ['Inzint'],
     images: [
       {
-        url: '/assets/images/case-studies/bernard/client-testimonial.svg',
-        width: 1600,
-        height: 900,
-        alt: 'Client feedback for the La Cuisine de Bernard platform rebuild',
+        url: '/assets/images/case-studies/thotis-ia/product-screenshots/1-welcome.png',
+        width: 1908,
+        height: 953,
+        alt: 'Thotis IA conversational education platform',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${title}: La Cuisine de Bernard × Inzint`,
+    title,
     description,
-    images: ['/assets/images/case-studies/bernard/client-testimonial.svg'],
+    images: ['/assets/images/case-studies/thotis-ia/product-screenshots/1-welcome.png'],
   },
 };
 
-export default function BernardCaseStudyPage() {
+export default function ThotisCaseStudyPage() {
   const article = getArticleMarkdown();
   const wordCount = article.split(/\s+/).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 225));
@@ -71,23 +64,16 @@ export default function BernardCaseStudyPage() {
     dateModified: publishedDate,
     wordCount,
     mainEntityOfPage: `https://inzint.com${slug}`,
-    image: 'https://inzint.com/assets/images/case-studies/bernard/client-testimonial.svg',
-    author: {
-      '@type': 'Organization',
-      name: 'Inzint',
-      url: 'https://inzint.com',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Inzint',
-      url: 'https://inzint.com',
-    },
+    image:
+      'https://inzint.com/assets/images/case-studies/thotis-ia/product-screenshots/1-welcome.png',
+    author: { '@type': 'Organization', name: 'Inzint', url: 'https://inzint.com' },
+    publisher: { '@type': 'Organization', name: 'Inzint', url: 'https://inzint.com' },
     about: [
-      'WordPress migration',
-      'Next.js development',
-      'Payload CMS',
-      'MongoDB content migration',
-      'Multilingual publishing',
+      'AI platform engineering',
+      'Conversational AI',
+      'AI product re-architecture',
+      'Next.js and NestJS',
+      'Voice AI',
     ],
   };
 
@@ -110,13 +96,13 @@ export default function BernardCaseStudyPage() {
             </Link>
 
             <div className="mb-6 text-sm font-semibold uppercase tracking-[0.16em] text-primary-600">
-              La Cuisine de Bernard · Platform modernisation
+              Thotis IA · AI platform engineering
             </div>
             <h1 className="case-study-title text-balance text-[2.65rem] font-semibold leading-[1.08] tracking-[-0.035em] text-gray-950 sm:text-6xl lg:text-[4.25rem]">
               {title}
             </h1>
             <p className="mt-7 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
-              How Inzint preserved 1,300+ recipes while rebuilding a decade-old publishing platform with Next.js, Payload CMS and MongoDB.
+              Reworking data, personas, conversational AI, voice and quality systems inside a live, multi-vendor education platform.
             </p>
 
             <div className="mt-9 flex items-center gap-4 border-t border-gray-200 pt-7">
@@ -126,7 +112,7 @@ export default function BernardCaseStudyPage() {
               <div className="text-sm leading-6">
                 <p className="font-medium text-gray-950">Inzint</p>
                 <p className="flex flex-wrap items-center gap-x-2 text-gray-500">
-                  <time dateTime={publishedDate}>August 22, 2026</time>
+                  <time dateTime={publishedDate}>September 1, 2026</time>
                   <span aria-hidden="true">·</span>
                   <span className="inline-flex items-center gap-1.5">
                     <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
@@ -146,10 +132,10 @@ export default function BernardCaseStudyPage() {
       <section className="border-t border-gray-200 bg-[#f7f7f5] px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-[760px] text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary-600">
-            Have valuable content trapped in a legacy platform?
+            Has your AI prototype become a production platform?
           </p>
           <h2 className="case-study-title mt-4 text-3xl font-semibold tracking-tight text-gray-950 sm:text-4xl">
-            Let&apos;s give it a foundation worthy of it.
+            Let&apos;s make the next release safer than the last.
           </h2>
           <Link
             href="/contact"

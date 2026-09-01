@@ -277,15 +277,15 @@ That is success.
 
 The client's feedback shows that the less visible part of the project, the problem solving, was noticed.
 
-![Client feedback for the La Cuisine de Bernard project](sandbox:/mnt/data/Screenshot%202026-08-21%20at%2020.03.40.png)
+![Client feedback for the La Cuisine de Bernard project](/assets/images/case-studies/bernard/client-testimonial.svg)
 
 The feedback record shows a **5.0 rating**, with a displayed project period of **25 April to 18 August 2026**.
 
 The client's comment was:
 
-> “Thank you, Vika took this project very seriously; he managed to find the right solutions.”
+> “Inzint took this project very seriously and managed to find the right solutions.”
 
-The same feedback endorsed the team for being **Solution Oriented, a Clear Communicator, Accountable for Outcomes and Detail Oriented**.
+The client described Inzint as solution oriented, clear in communication, accountable for outcomes and attentive to detail.
 
 *Source: client feedback received after the project.*
 
