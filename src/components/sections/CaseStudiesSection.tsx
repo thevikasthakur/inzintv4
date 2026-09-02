@@ -1,460 +1,653 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import {
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUpRight,
-  Database,
-  FileStack,
-  Languages,
-  Quote,
-  Sparkles,
-  Star,
-  Waypoints,
-  Zap,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Clock3, Star } from 'lucide-react';
+import type { CaseStudy } from '@/data/case-studies';
+import { cn } from '@/lib/utils';
 
-const featuredStudy = {
-  company: 'La Cuisine de Bernard',
-  industry: 'Digital publishing',
-  title: 'A decade of recipes, rebuilt for the next decade.',
-  description:
-    'We transformed a plugin-heavy WordPress archive into a fast, structured and multilingual publishing platform—without losing the content readers already loved.',
-  href: '/case-studies/la-cuisine-de-bernard-wordpress-nextjs-payload-mongodb-migration',
-  stack: ['Next.js', 'Payload CMS', 'MongoDB', 'DeepL'],
-};
+const BOOKING_URL =
+  'https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true';
 
-const latestStudy = {
-  company: 'Thotis IA',
-  industry: 'AI education platform',
-  title: 'From connected AI tools to a coherent product platform.',
-  description:
-    'How we reworked personas, data migration, provider boundaries, real-time voice and automated QA inside a live multi-vendor product.',
-  href: '/case-studies/thotis-ai-platform-rearchitecture',
-  stack: ['Next.js', 'NestJS', 'PostgreSQL', 'LiveKit'],
-};
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const proofPoints = [
-  { value: '1,300+', label: 'recipes preserved' },
-  { value: '2 GB', label: 'legacy data decoded' },
-  { value: 'Near-zero', label: 'launch downtime' },
-  { value: '5.0', label: 'client rating' },
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
-const transformation = [
+const PRINCIPLES = [
   {
     number: '01',
-    icon: FileStack,
-    title: 'Preserve the value',
-    description:
-      'Years of recipes, media and editorial context were treated as an asset—not baggage to discard.',
+    title: 'Decisions, not just deliverables',
+    body: 'Why each architecture choice was made, what it replaced and what the trade-off cost.',
   },
   {
     number: '02',
-    icon: Waypoints,
-    title: 'Structure the system',
-    description:
-      'Inconsistent content became a clear model that editors, search engines and AI systems can understand.',
+    title: 'The hard parts stay in',
+    body: 'Messy migrations, production incidents and vendor boundaries are part of the story, not edited out of it.',
   },
   {
     number: '03',
-    icon: Zap,
-    title: 'Launch with care',
-    description:
-      'The new stack replaced the old platform with near-zero downtime and a calmer publishing workflow.',
+    title: 'Figures the client signed off',
+    body: "Every number comes from the project record or the client's own review. Nothing is rounded up for effect.",
   },
 ];
 
-const ease = [0.22, 1, 0.36, 1] as const;
+const WAYS_OF_WORKING = ['Founder-led squads', 'Weekly demos', 'Documented decisions'];
 
-export default function CaseStudiesSection() {
+function formatDate(iso: string, style: 'long' | 'short' = 'long') {
+  const [year, month, day] = iso.split('-').map(Number);
+  const name = MONTHS[(month ?? 1) - 1] ?? '';
+
+  return style === 'short' ? `${name.slice(0, 3)} ${year}` : `${name} ${day}, ${year}`;
+}
+
+const pad = (value: number) => String(value).padStart(2, '0');
+
+/* ------------------------------------------------------------------ */
+/* Primitives                                                          */
+/* ------------------------------------------------------------------ */
+
+interface RevealProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}
+
+function Reveal({ children, className, delay = 0 }: RevealProps) {
   const reduceMotion = useReducedMotion();
-  const duration = reduceMotion ? 0 : 0.7;
-  const lift = reduceMotion ? 0 : 24;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.6,
+        delay: reduceMotion ? 0 : delay,
+        ease: EASE,
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <p
+      className={cn(
+        'flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500',
+        className
+      )}
+    >
+      <span aria-hidden="true" className="h-px w-8 bg-primary-600" />
+      {children}
+    </p>
+  );
+}
+
+interface CoverProps {
+  study: CaseStudy;
+  size: 'large' | 'small';
+  sizes: string;
+  priority?: boolean;
+}
+
+/**
+ * Visual for a study. Screenshots sit inside a browser-window frame that
+ * bleeds off the bottom edge; illustrations are shown whole on a tinted
+ * backdrop. The parent must be `relative` with a fixed aspect or height.
+ */
+function Cover({ study, size, sizes, priority = false }: CoverProps) {
+  const { cover } = study;
+  const large = size === 'large';
+
+  if (cover.kind === 'illustration') {
+    return (
+      <div className="absolute inset-0" style={{ background: cover.backdrop }}>
+        <Image
+          src={cover.src}
+          alt={cover.alt}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className={cn('object-contain', large ? 'p-6 sm:p-10' : 'p-2')}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute inset-0 overflow-hidden" style={{ background: cover.backdrop }}>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:22px_22px]"
+      />
+      <div
+        className={cn(
+          'absolute bottom-0 overflow-hidden border border-white/10 bg-[#0d1130] shadow-[0_30px_80px_rgba(2,6,23,0.55)]',
+          large
+            ? 'inset-x-[8%] top-[14%] rounded-t-xl sm:rounded-t-2xl'
+            : 'inset-x-[10%] top-[18%] rounded-t-lg'
+        )}
+      >
+        <div
+          aria-hidden="true"
+          className={cn(
+            'flex items-center gap-1.5 border-b border-white/10',
+            large ? 'h-7 px-3 sm:h-8 sm:px-4' : 'h-4 px-2'
+          )}
+        >
+          {[0, 1, 2].map((dot) => (
+            <span
+              key={dot}
+              className={cn('rounded-full bg-white/20', large ? 'h-2 w-2' : 'h-1 w-1')}
+            />
+          ))}
+        </div>
+        <div className={cn('absolute inset-x-0 bottom-0', large ? 'top-7 sm:top-8' : 'top-4')}>
+          <Image
+            src={cover.src}
+            alt={cover.alt}
+            fill
+            sizes={sizes}
+            priority={priority}
+            className="object-cover object-left-top"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Sections                                                            */
+/* ------------------------------------------------------------------ */
+
+function Intro({ studies }: { studies: CaseStudy[] }) {
+  const sectors = Array.from(new Set(studies.map((study) => study.sector)));
+  const averageRating = (
+    studies.reduce((sum, study) => sum + Number.parseFloat(study.verdict.rating), 0) /
+    Math.max(studies.length, 1)
+  ).toFixed(1);
+  const latest = studies[0];
+
+  const facts = [
+    { label: 'Published stories', value: pad(studies.length) },
+    { label: 'Sectors', value: sectors.join(' · ') },
+    { label: 'Average client rating', value: `${averageRating} / 5` },
+    { label: 'Latest', value: latest ? formatDate(latest.publishedDate, 'short') : '—' },
+  ];
+
+  return (
+    <section
+      aria-labelledby="case-studies-heading"
+      className="border-b border-gray-200 px-5 pb-10 pt-10 sm:px-8 sm:pt-14 lg:pb-11 lg:pt-16"
+    >
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal>
+          <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+            Resources
+            <span aria-hidden="true" className="text-gray-300">
+              /
+            </span>
+            <span className="text-primary-600">Case studies</span>
+          </p>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end lg:gap-16">
+            <h1
+              id="case-studies-heading"
+              className="case-study-title text-balance text-[clamp(2.75rem,6.6vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-gray-950"
+            >
+              The work behind the outcome.
+            </h1>
+            <p className="max-w-xl text-lg leading-8 text-gray-600 sm:text-xl sm:leading-9 lg:pb-2">
+              Long-form engineering stories about migrations, re-architectures and the decisions
+              inside them. Written from the project record, with outcomes the client signed off.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-gray-200 pt-6 lg:grid-cols-4">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+                  {fact.label}
+                </dt>
+                <dd className="mt-2 text-lg font-semibold tracking-tight text-gray-950 sm:text-xl">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedStudy({ study }: { study: CaseStudy }) {
+  return (
+    <section aria-labelledby="latest-story-heading" className="px-5 pt-12 sm:px-8 lg:pt-16">
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <h2
+              id="latest-story-heading"
+              className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500"
+            >
+              <span aria-hidden="true" className="h-px w-8 bg-primary-600" />
+              Latest story
+            </h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+              Published{' '}
+              <time dateTime={study.publishedDate} className="text-gray-500">
+                {formatDate(study.publishedDate)}
+              </time>
+            </p>
+          </div>
+
+          <article className="group grid overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white shadow-[0_28px_70px_-40px_rgba(15,23,42,0.25)] lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+            <Link
+              href={study.slug}
+              aria-label={`Read the ${study.client} case study`}
+              className="relative block aspect-[4/3] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600 lg:aspect-auto lg:min-h-[560px]"
+            >
+              <Cover
+                study={study}
+                size="large"
+                sizes="(max-width: 1024px) 100vw, 640px"
+                priority
+              />
+            </Link>
+
+            <div className="flex flex-col p-7 sm:p-10 lg:p-12">
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-500">
+                <span className="font-semibold text-gray-950">{study.client}</span>
+                <span aria-hidden="true">·</span>
+                <span>{study.industry}</span>
+                <span aria-hidden="true">·</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
+                  {study.readTime} min read
+                </span>
+              </p>
+
+              <h3 className="case-study-title mt-6 text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.03em] text-gray-950 sm:text-4xl lg:text-[2.75rem]">
+                <Link
+                  href={study.slug}
+                  className="transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4"
+                >
+                  {study.title}
+                </Link>
+              </h3>
+
+              <p className="mt-5 max-w-xl text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">
+                {study.dek}
+              </p>
+
+              <dl className="mt-8 grid grid-cols-3 divide-x divide-gray-200 border-y border-gray-200">
+                {study.proof.map((item) => (
+                  <div key={item.label} className="flex flex-col-reverse py-5 pl-4 first:pl-0 sm:pr-4">
+                    <dt className="mt-1.5 text-xs leading-5 text-gray-500">{item.label}</dt>
+                    <dd className="text-xl font-semibold tracking-tight text-gray-950 sm:text-2xl lg:text-[1.7rem]">
+                      {item.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technology stack">
+                {study.stack.map((technology) => (
+                  <li
+                    key={technology}
+                    className="rounded-full border border-gray-200 bg-[#f7f7f5] px-3 py-1.5 text-xs font-medium text-gray-700"
+                  >
+                    {technology}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-auto pt-10">
+                <Link
+                  href={study.slug}
+                  className="group/cta inline-flex items-center gap-2.5 rounded-full bg-gray-950 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+                >
+                  Read the case study
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform group-hover/cta:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function StudyIndex({ studies }: { studies: CaseStudy[] }) {
+  return (
+    <section
+      aria-labelledby="index-heading"
+      className="mt-16 border-t border-gray-200 bg-[#f7f7f5] px-5 py-16 sm:px-8 lg:mt-24 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <Eyebrow>Index</Eyebrow>
+            <h2
+              id="index-heading"
+              className="case-study-title mt-4 text-3xl font-semibold tracking-[-0.02em] text-gray-950 sm:text-4xl"
+            >
+              All case studies
+            </h2>
+          </div>
+          <p className="text-sm text-gray-500">
+            {pad(studies.length)} {studies.length === 1 ? 'story' : 'stories'}
+            <span aria-hidden="true"> · </span>
+            newest first
+          </p>
+        </Reveal>
+
+        <ol className="mt-8 border-t border-gray-200">
+          {studies.map((study, index) => (
+            <li key={study.id} className="border-b border-gray-200">
+              <Reveal delay={index * 0.05}>
+                <Link
+                  href={study.slug}
+                  className="group -mx-3 grid gap-5 rounded-2xl px-3 py-7 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 sm:py-8 md:grid-cols-[9.5rem_minmax(0,1fr)_auto] md:items-center md:gap-6 lg:grid-cols-[3rem_13rem_minmax(0,1.2fr)_minmax(0,0.8fr)_auto] lg:gap-7"
+                >
+                  <span
+                    className="hidden font-mono text-sm text-gray-400 lg:block"
+                    aria-hidden="true"
+                  >
+                    {pad(index + 1)}
+                  </span>
+
+                  <div className="relative aspect-[4/3] w-full max-w-[340px] overflow-hidden rounded-xl border border-gray-200 md:max-w-none">
+                    <Cover study={study} size="small" sizes="(max-width: 768px) 90vw, 220px" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+                      {study.client}
+                      <span aria-hidden="true" className="mx-2 text-gray-300">
+                        ·
+                      </span>
+                      {study.industry}
+                    </p>
+                    <h3 className="case-study-title mt-2.5 text-2xl font-semibold leading-[1.15] tracking-[-0.02em] text-gray-950 transition-colors group-hover:text-primary-700 sm:text-[1.75rem]">
+                      {study.title}
+                    </h3>
+                    <p className="mt-2.5 max-w-xl text-sm leading-6 text-gray-600 lg:hidden">
+                      {study.engagement}
+                    </p>
+                  </div>
+
+                  <div className="hidden text-sm leading-6 lg:block">
+                    <p className="text-gray-950">
+                      <span className="font-semibold">{study.highlight.value}</span>{' '}
+                      <span className="text-gray-600">{study.highlight.label}</span>
+                    </p>
+                    <p className="mt-1.5 text-gray-500">{study.stack.join(' · ')}</p>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4 md:flex-col md:items-end md:justify-center md:gap-3">
+                    <p className="whitespace-nowrap text-sm text-gray-500">
+                      <time dateTime={study.publishedDate}>
+                        {formatDate(study.publishedDate, 'short')}
+                      </time>
+                      <span aria-hidden="true"> · </span>
+                      {study.readTime} min
+                    </p>
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-700 transition-colors group-hover:border-primary-600 group-hover:bg-primary-600 group-hover:text-white"
+                    >
+                      <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Principles() {
+  return (
+    <section
+      aria-labelledby="principles-heading"
+      className="border-t border-gray-200 px-5 py-16 sm:px-8 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>How these are written</Eyebrow>
+          <h2
+            id="principles-heading"
+            className="case-study-title mt-4 text-3xl font-semibold tracking-[-0.02em] text-gray-950 sm:text-4xl"
+          >
+            Case studies you can check.
+          </h2>
+        </Reveal>
+
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200 md:grid-cols-3">
+          {PRINCIPLES.map((principle, index) => (
+            <Reveal key={principle.number} delay={index * 0.06} className="bg-white p-7 sm:p-8">
+              <span className="font-mono text-xs text-primary-600">{principle.number}</span>
+              <h3 className="mt-10 text-xl font-semibold tracking-tight text-gray-950">
+                {principle.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-gray-600">{principle.body}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VerdictCard({ study }: { study: CaseStudy }) {
+  const { verdict } = study;
+
+  return (
+    <article className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-7 sm:p-8">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <span
+            role="img"
+            aria-label={`${verdict.rating} out of 5 client rating`}
+            className="flex gap-0.5"
+          >
+            {[0, 1, 2, 3, 4].map((star) => (
+              <Star key={star} className="h-4 w-4 fill-amber-500 text-amber-500" aria-hidden="true" />
+            ))}
+          </span>
+          <span className="text-sm font-semibold text-gray-950" aria-hidden="true">
+            {verdict.rating}
+          </span>
+        </div>
+        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+          {study.period}
+        </span>
+      </div>
+
+      <blockquote className="case-study-title mt-6 text-xl font-medium leading-snug tracking-[-0.01em] text-gray-950 sm:text-[1.35rem]">
+        “{verdict.quote}”
+      </blockquote>
+
+      <ul className="mt-6 flex flex-wrap gap-2" aria-label="Client endorsements">
+        {verdict.endorsements.map((endorsement) => (
+          <li
+            key={endorsement}
+            className="rounded-full bg-[#eef1f4] px-3 py-1.5 text-xs font-medium text-gray-700"
+          >
+            {endorsement}
+          </li>
+        ))}
+      </ul>
+
+      <footer className="mt-auto flex items-center justify-between gap-4 border-t border-gray-200 pt-5">
+        <div>
+          <p className="text-sm font-semibold text-gray-950">{study.client}</p>
+          <p className="mt-0.5 text-xs text-gray-500">{study.engagement}</p>
+        </div>
+        <Link
+          href={study.slug}
+          className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary-700 transition-colors hover:text-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+        >
+          Read the story
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </Link>
+      </footer>
+    </article>
+  );
+}
+
+function Verdicts({ studies }: { studies: CaseStudy[] }) {
+  return (
+    <section
+      aria-labelledby="verdicts-heading"
+      className="border-t border-gray-200 bg-[#f7f7f5] px-5 py-16 sm:px-8 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+          <div>
+            <Eyebrow>Client verdicts</Eyebrow>
+            <h2
+              id="verdicts-heading"
+              className="case-study-title mt-4 text-3xl font-semibold tracking-[-0.02em] text-gray-950 sm:text-4xl"
+            >
+              Rated on completion, not on the pitch.
+            </h2>
+          </div>
+          <p className="text-base leading-7 text-gray-600 sm:text-lg sm:leading-8 lg:max-w-xl lg:justify-self-end">
+            Ratings and endorsements are taken from the client&apos;s own review at the close of
+            each engagement.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {studies.map((study, index) => (
+            <Reveal key={study.id} delay={index * 0.06} className="h-full">
+              <VerdictCard study={study} />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClosingCta() {
+  return (
+    <section
+      aria-labelledby="cta-heading"
+      className="relative isolate overflow-hidden bg-[#07142d] px-5 py-20 text-white sm:px-8 lg:py-28"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(0,105,255,0.3),transparent_34%),radial-gradient(circle_at_6%_92%,rgba(0,105,255,0.14),transparent_28%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+      />
+
+      <div className="relative mx-auto max-w-[1200px]">
+        <Reveal className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end">
+          <div>
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+              <span aria-hidden="true" className="h-px w-8 bg-blue-400" />
+              Have a system with history?
+            </p>
+            <h2
+              id="cta-heading"
+              className="case-study-title mt-5 text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl lg:text-6xl"
+            >
+              Modernise it without losing what already works.
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              A 30-minute call is enough to tell you whether your migration, re-architecture or AI
+              product is a fit for how we work.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-gray-950 transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#07142d]"
+            >
+              Book a 30-minute call
+              <ArrowUpRight
+                className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white/50 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#07142d]"
+            >
+              Start a conversation
+            </Link>
+          </div>
+        </Reveal>
+
+        <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/10 pt-6 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+          {WAYS_OF_WORKING.map((item) => (
+            <li key={item} className="inline-flex items-center gap-2.5">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Page section                                                        */
+/* ------------------------------------------------------------------ */
+
+export default function CaseStudiesSection({ studies }: { studies: CaseStudy[] }) {
+  const [latest] = studies;
 
   return (
     <>
-      <section className="relative isolate min-h-[calc(100svh-5rem)] overflow-hidden bg-[#061321] text-white">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-80"
-          aria-hidden="true"
-          style={{
-            background:
-              'radial-gradient(circle at 76% 34%, rgba(0,105,255,0.28), transparent 29%), radial-gradient(circle at 8% 92%, rgba(44,128,255,0.14), transparent 24%)',
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:linear-gradient(to_bottom,black,transparent_88%)]"
-          aria-hidden="true"
-        />
-
-        <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-[1440px] flex-col px-5 pb-8 pt-14 sm:px-8 sm:pt-20 lg:px-12 lg:pt-10 xl:px-16">
-          <div className="grid flex-1 items-center gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-7">
-            <motion.div
-              initial={{ opacity: 0, y: lift }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration, ease }}
-              className="relative z-10 max-w-3xl"
-            >
-              <div className="mb-7 flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-200/80 sm:text-xs">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 backdrop-blur">
-                  <Sparkles className="h-3.5 w-3.5 text-blue-300" aria-hidden="true" />
-                  Selected engineering stories
-                </span>
-                <span className="text-white/35" aria-hidden="true">
-                  /
-                </span>
-                <span>02 published stories</span>
-              </div>
-
-              <h1 className="max-w-4xl text-[clamp(3.35rem,7.2vw,7.25rem)] font-semibold leading-[0.91] tracking-[-0.065em] text-white">
-                The work behind
-                <span className="block text-[#75b7ff]">the outcome.</span>
-              </h1>
-
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-                Deep dives into the decisions, migrations and systems behind durable digital products—where the hard parts are the story.
-              </p>
-
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a
-                  href="#featured-work"
-                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#071523] transition-colors hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#061321]"
-                >
-                  Explore the story
-                  <ArrowDownRight
-                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                </a>
-                <Link
-                  href="/contact"
-                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white/40 hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#061321]"
-                >
-                  Start a conversation
-                  <ArrowUpRight
-                    className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 0.12, ease }}
-              className="relative mx-auto w-full max-w-[650px] lg:max-w-none"
-            >
-              <div className="absolute inset-x-[12%] bottom-[8%] h-1/3 rounded-full bg-blue-500/25 blur-3xl" aria-hidden="true" />
-              <Image
-                src="/assets/images/case-studies/case-studies-hero-architecture.svg"
-                alt="Diagram showing legacy records transformed into a structured digital platform"
-                width={720}
-                height={560}
-                priority
-                sizes="(max-width: 1024px) 92vw, 48vw"
-                className="relative h-auto w-full"
-              />
-            </motion.div>
-          </div>
-
-          <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45 sm:text-xs">
-            <span>Strategy / engineering / delivery</span>
-            <span className="hidden items-center gap-2 sm:inline-flex">
-              Scroll to inspect
-              <span className="h-px w-8 bg-white/25" aria-hidden="true" />
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section id="featured-work" className="scroll-mt-24 bg-[#f3f0e8] px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-        <div className="mx-auto max-w-[1360px]">
-          <motion.div
-            initial={{ opacity: 0, y: lift }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration, ease }}
-            className="mb-12 grid gap-6 border-t border-[#0b2037]/20 pt-5 md:grid-cols-[0.7fr_1.3fr] lg:mb-16"
-          >
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary-600">Featured transformation</p>
-            <div>
-              <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.045em] text-[#091827] sm:text-5xl lg:text-6xl">
-                Complex history. Clearer future.
-              </h2>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-[#526274]">
-                A closer look at what it takes to modernise a platform without erasing the value that made it successful.
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.article
-            initial={{ opacity: 0, y: lift }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.16 }}
-            transition={{ duration, ease }}
-            className="group overflow-hidden rounded-[2rem] border border-[#0b2037]/10 bg-white shadow-[0_28px_80px_rgba(20,43,66,0.10)] sm:rounded-[2.5rem]"
-          >
-            <div className="grid lg:grid-cols-[1.06fr_0.94fr]">
-              <div className="relative flex min-h-[390px] items-center overflow-hidden bg-[#dfe8f3] p-4 sm:min-h-[520px] sm:p-8 lg:min-h-[620px]">
-                <div className="absolute -left-20 top-1/4 h-56 w-56 rounded-full bg-blue-300/50 blur-3xl" aria-hidden="true" />
-                <div className="absolute -right-16 bottom-8 h-64 w-64 rounded-full bg-white/70 blur-3xl" aria-hidden="true" />
-                <motion.div
-                  whileHover={reduceMotion ? undefined : { scale: 1.015 }}
-                  transition={{ duration: 0.45, ease }}
-                  className="relative w-full"
-                >
-                  <Image
-                    src="/assets/images/case-studies/bernard-migration-map.svg"
-                    alt="Diagram of La Cuisine de Bernard's legacy archive becoming a structured multilingual platform"
-                    width={960}
-                    height={720}
-                    sizes="(max-width: 1024px) 92vw, 52vw"
-                    className="h-auto w-full drop-shadow-[0_24px_32px_rgba(20,43,66,0.14)]"
-                  />
-                </motion.div>
-                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/75 bg-white/80 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.17em] text-[#0b2037] shadow-sm backdrop-blur sm:left-8 sm:top-8 sm:text-[11px]">
-                  <span className="h-2 w-2 rounded-full bg-[#1bb978]" aria-hidden="true" />
-                  Live platform
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12 xl:p-16">
-                <div>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <span className="inline-flex items-center rounded-full border border-primary-200 bg-primary-50 px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-primary-700">
-                      {featuredStudy.industry}
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#718094]">01 / 01</span>
-                  </div>
-
-                  <p className="mt-10 text-sm font-semibold text-primary-600">{featuredStudy.company}</p>
-                  <h3 className="mt-4 max-w-xl text-4xl font-semibold leading-[1.02] tracking-[-0.045em] text-[#081726] sm:text-5xl">
-                    {featuredStudy.title}
-                  </h3>
-                  <p className="mt-6 max-w-xl text-base leading-8 text-[#5b6a7a] sm:text-lg">
-                    {featuredStudy.description}
-                  </p>
-
-                  <div className="mt-8 flex flex-wrap gap-2.5" aria-label="Technology stack">
-                    {featuredStudy.stack.map((technology) => (
-                      <span
-                        key={technology}
-                        className="rounded-full border border-[#0b2037]/10 bg-[#f7f7f4] px-3.5 py-2 text-xs font-semibold text-[#294057]"
-                      >
-                        {technology}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <Link
-                  href={featuredStudy.href}
-                  className="mt-12 inline-flex w-fit items-center gap-3 border-b border-[#0b2037] pb-2 text-sm font-bold text-[#081726] transition-colors hover:border-primary-600 hover:text-primary-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4"
-                >
-                  Read the full engineering story
-                  <ArrowUpRight
-                    className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid border-t border-[#0b2037]/10 sm:grid-cols-2 lg:grid-cols-4">
-              {proofPoints.map((item, index) => (
-                <div
-                  key={item.label}
-                  className={`px-7 py-7 sm:px-8 lg:py-8 ${[
-                    '',
-                    'border-t border-[#0b2037]/10 sm:border-l sm:border-t-0',
-                    'border-t border-[#0b2037]/10 sm:border-t lg:border-l lg:border-t-0',
-                    'border-t border-[#0b2037]/10 sm:border-l sm:border-t lg:border-t-0',
-                  ][index]}`}
-                >
-                  <p className="text-2xl font-semibold tracking-[-0.035em] text-[#081726] sm:text-3xl">{item.value}</p>
-                  <p className="mt-1.5 text-sm text-[#6c7a89]">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.article>
-
-          <motion.article
-            initial={{ opacity: 0, y: lift }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.16 }}
-            transition={{ duration, ease }}
-            className="group mt-10 overflow-hidden rounded-[2rem] border border-[#0b2037]/10 bg-[#071523] text-white shadow-[0_28px_80px_rgba(20,43,66,0.12)] sm:rounded-[2.5rem]"
-          >
-            <div className="grid lg:grid-cols-[1.06fr_0.94fr]">
-              <div className="relative min-h-[320px] overflow-hidden bg-[#0b153b] lg:min-h-[520px]">
-                <Image
-                  src="/assets/images/case-studies/thotis-ia/product-screenshots/2-home.png"
-                  alt="The persona-aware Thotis IA home and AI tools experience"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 52vw"
-                  className="object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.015]"
-                />
-                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#071523]/80 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.17em] text-white backdrop-blur sm:left-8 sm:top-8 sm:text-[11px]">
-                  <span className="h-2 w-2 rounded-full bg-[#67dbaa]" aria-hidden="true" />
-                  Latest case study
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12 xl:p-16">
-                <div>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-blue-200">
-                      {latestStudy.industry}
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">02 / 02</span>
-                  </div>
-                  <p className="mt-10 text-sm font-semibold text-blue-300">{latestStudy.company}</p>
-                  <h3 className="mt-4 max-w-xl text-4xl font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-5xl">
-                    {latestStudy.title}
-                  </h3>
-                  <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
-                    {latestStudy.description}
-                  </p>
-                  <div className="mt-8 flex flex-wrap gap-2.5" aria-label="Technology stack">
-                    {latestStudy.stack.map((technology) => (
-                      <span
-                        key={technology}
-                        className="rounded-full border border-white/10 bg-white/[0.05] px-3.5 py-2 text-xs font-semibold text-slate-200"
-                      >
-                        {technology}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <Link
-                  href={latestStudy.href}
-                  className="mt-12 inline-flex w-fit items-center gap-3 border-b border-white pb-2 text-sm font-bold text-white transition-colors hover:border-blue-300 hover:text-blue-300"
-                >
-                  Read the full engineering story
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
-          </motion.article>
-
-          <div className="mt-20 sm:mt-24">
-            <motion.div
-              initial={{ opacity: 0, y: lift }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration, ease }}
-              className="mb-9 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
-            >
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary-600">How the change happened</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#081726] sm:text-4xl">Three moves. One careful rebuild.</h2>
-              </div>
-              <p className="max-w-md text-sm leading-7 text-[#607080]">
-                The technology mattered. The sequence—and the decisions inside it—mattered more.
-              </p>
-            </motion.div>
-
-            <div className="grid gap-px overflow-hidden rounded-[1.75rem] border border-[#0b2037]/10 bg-[#0b2037]/10 lg:grid-cols-3">
-              {transformation.map((item, index) => (
-                <motion.div
-                  key={item.number}
-                  initial={{ opacity: 0, y: lift }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration, delay: reduceMotion ? 0 : index * 0.08, ease }}
-                  className="bg-[#faf9f5] p-7 sm:p-9"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold tracking-[0.18em] text-primary-600">{item.number}</span>
-                    <item.icon className="h-5 w-5 text-[#21415f]" strokeWidth={1.7} aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-14 text-2xl font-semibold tracking-[-0.03em] text-[#081726]">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[#607080]">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[#071523] px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-12 lg:py-28">
-        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary-600/20 blur-3xl" aria-hidden="true" />
-        <div className="relative mx-auto max-w-[1220px]">
-          <motion.div
-            initial={{ opacity: 0, y: lift }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration, ease }}
-            className="grid gap-12 lg:grid-cols-[0.32fr_0.68fr] lg:gap-20"
-          >
-            <div className="flex flex-col justify-between gap-10 border-b border-white/10 pb-10 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-14">
-              <Quote className="h-10 w-10 text-primary-400" strokeWidth={1.4} aria-hidden="true" />
-              <div>
-                <div className="flex gap-1.5" aria-label="5 out of 5 client rating">
-                  {[0, 1, 2, 3, 4].map((star) => (
-                    <Star key={star} className="h-4 w-4 fill-[#ffb252] text-[#ffb252]" aria-hidden="true" />
-                  ))}
-                </div>
-                <p className="mt-3 text-sm font-semibold text-white">5.0 client rating</p>
-                <p className="mt-1 text-xs text-slate-400">La Cuisine de Bernard</p>
-              </div>
-            </div>
-
-            <div>
-              <blockquote className="max-w-4xl text-3xl font-medium leading-[1.18] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.15rem]">
-                “Inzint took this project very seriously and managed to find the right solutions.”
-              </blockquote>
-              <p className="mt-9 max-w-3xl border-l-2 border-[#67dbaa] pl-5 text-base leading-8 text-slate-300 sm:text-lg">
-                The client described Inzint as solution oriented, clear in communication, accountable for outcomes and attentive to detail.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="bg-[#f3f0e8] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: lift }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration, ease }}
-          className="relative mx-auto max-w-[1360px] overflow-hidden rounded-[2rem] bg-primary-600 px-7 py-12 text-white sm:rounded-[2.5rem] sm:px-12 sm:py-16 lg:px-16 lg:py-20"
-        >
-          <div className="absolute -right-24 -top-28 h-80 w-80 rounded-full border border-white/20" aria-hidden="true" />
-          <div className="absolute -right-10 -top-10 h-52 w-52 rounded-full border border-white/20" aria-hidden="true" />
-          <div className="absolute right-16 top-16 hidden h-3 w-3 rounded-full bg-[#ffb252] lg:block" aria-hidden="true" />
-
-          <div className="relative grid items-end gap-10 lg:grid-cols-[1fr_auto]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-100">Have a system with history?</p>
-              <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
-                Make that history an advantage.
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-blue-100 sm:text-lg">
-                Modernise the platform without losing the content, customers or operational knowledge you have already built.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-primary-700 transition-colors hover:bg-[#edf5ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-primary-600 sm:px-7"
-            >
-              Talk to our team
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="relative mt-12 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/20 pt-6 text-xs font-semibold uppercase tracking-[0.15em] text-blue-100">
-            <span className="inline-flex items-center gap-2"><Database className="h-4 w-4" aria-hidden="true" /> Data migration</span>
-            <span className="inline-flex items-center gap-2"><Languages className="h-4 w-4" aria-hidden="true" /> Multilingual systems</span>
-            <span className="inline-flex items-center gap-2"><Waypoints className="h-4 w-4" aria-hidden="true" /> Platform modernisation</span>
-          </div>
-        </motion.div>
-      </section>
+      <Intro studies={studies} />
+      {latest ? <FeaturedStudy study={latest} /> : null}
+      <StudyIndex studies={studies} />
+      <Principles />
+      <Verdicts studies={studies} />
+      <ClosingCta />
     </>
   );
 }
