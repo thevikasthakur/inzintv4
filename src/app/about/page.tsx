@@ -2,24 +2,21 @@ import {
   AboutHeroSection,
   AboutStorySection,
   AboutValuesSection,
-  SocialImpactSection,
-  DiversitySection,
   FooterSection
 } from '@/components/sections';
 
 export const metadata = {
+  alternates: { canonical: '/about' },
   title: 'About Us',
-  description: 'Learn about Inzint - an engineering-first software consultancy building AI-driven solutions that transform businesses.',
+  description: 'Inzint is a founder-led, engineering-first software consultancy founded in 2020, headquartered in Noida with an office in Muscat and a presence in the US.',
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main>
       <AboutHeroSection />
       <AboutStorySection />
       <AboutValuesSection />
-      <SocialImpactSection />
-      <DiversitySection />
       <FooterSection />
     </main>
   );

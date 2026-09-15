@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Backend Development Services | Node.js, Python, Java',
-  description: 'Robust backend development services. Build scalable APIs and server-side applications.',
+const data = servicePages['backend'];
+
+export const metadata: Metadata = {
+  title: 'Backend & API Development',
+  description:
+    'Node.js and NestJS backends on PostgreSQL and Redis with queues, integrations and authentication, deployed to AWS.',
+  alternates: { canonical: '/services/product-development/web-development/backend' },
 };
 
 export default function BackendDevelopmentPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'server', text: 'Backend Development' }}
-        title="Scalable Backend"
-        highlightedTitle="Solutions"
-        description="Build robust, scalable backend systems with Node.js, Python, and Java. Our backend experts create powerful APIs and server-side applications."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

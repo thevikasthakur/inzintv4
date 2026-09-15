@@ -6,6 +6,7 @@ import GenerativeAITechStackSection from '@/components/sections/ai/GenerativeAIT
 import { FAQSection, FooterSection } from '@/components/sections';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/inzint-ai/ai-tech-solutions/generative-ai-development-company' },
   title: 'Generative AI Development Company | GPT & LLM Solutions',
   description: 'Build next-generation applications with GPT, LLMs, and generative AI models. Expert generative AI development services for innovative business solutions.',
   keywords: ['generative AI development', 'GPT integration', 'LLM development', 'AI application development', 'ChatGPT development'],

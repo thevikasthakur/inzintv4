@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Real Estate App Development | Property Management Solutions | Inzint',
+  alternates: { canonical: '/industries/real-estate-app-development' },
+  title: 'Real Estate App Development | Property Management Solutions',
   description: 'Build innovative real estate platforms. Property listings, virtual tours, CRM systems, and property management solutions for buyers, sellers, and agents.',
   keywords: ['real estate app development', 'property management', 'real estate CRM', 'property listing', 'virtual tours', 'PropTech'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Digital Innovation',
     description: 'Build comprehensive real estate platforms that connect buyers, sellers, and agents. From property listings to virtual tours and smart property management.',
     stats: [
-      { value: '100K+', label: 'Properties Listed' },
-      { value: '3D', label: 'Virtual Tours' },
-      { value: 'AI', label: 'Price Predictions' },
-      { value: '24/7', label: 'Support' },
+      { value: 'Maps', label: 'Search and geolocation' },
+      { value: 'Tours', label: '3D and video walkthroughs' },
+      { value: 'Portals', label: 'Buyer, tenant and investor roles' },
+      { value: 'Next.js', label: 'Listing sites that load fast' },
     ],
     gradient: 'from-cyan-600 to-blue-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Faster Sales',
-      description: 'Virtual tours and AI matching accelerate property transactions',
-      metric: '50%',
+      title: 'Listings that rank',
+      description: 'Static generation, structured data and image pipelines for large catalogues.',
+      metric: 'Indexed',
     },
     {
-      title: 'Wider Reach',
-      description: 'Digital platforms expand market reach and visibility',
-      metric: '10x',
+      title: 'Portals on one backend',
+      description: 'Roles, documents and payments handled in one NestJS backend.',
+      metric: 'One backend',
     },
     {
-      title: 'Reduced Costs',
-      description: 'Automation and digital processes cut operational expenses',
-      metric: '40%',
+      title: 'Built for regional markets',
+      description: 'Arabic and English interfaces with local payment and identity providers.',
+      metric: 'Regional',
     },
   ],
   technologies: [

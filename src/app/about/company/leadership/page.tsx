@@ -5,6 +5,7 @@ import {
 } from '@/components/sections';
 
 export const metadata = {
+  alternates: { canonical: '/about/company/leadership' },
   title: 'Leadership Team',
   description: 'Meet the experienced leadership team driving innovation and excellence at Inzint.',
 };

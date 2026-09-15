@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'MVP Development Services | Rapid Product Launch',
-  description: 'Build and launch your MVP quickly. Validate your idea with a minimum viable product.',
+const data = servicePages['mvp-development'];
+
+export const metadata: Metadata = {
+  title: 'MVP Development',
+  description:
+    'Rapid prototypes in about two weeks and production-ready MVPs in four to twelve weeks, with weekly demos and a documented handover.',
+  alternates: { canonical: '/services/product-development/mvp-development' },
 };
 
 export default function MVPDevelopmentPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'rocket', text: 'MVP Development' }}
-        title="Launch Your"
-        highlightedTitle="MVP Fast"
-        description="Validate your business idea quickly with a minimum viable product. Our agile team helps you build, test, and iterate faster."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

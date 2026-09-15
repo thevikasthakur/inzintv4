@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Travel & Hospitality App Development | Booking Solutions | Inzint',
+  alternates: { canonical: '/industries/travel-app-development' },
+  title: 'Travel & Hospitality App Development | Booking Solutions',
   description: 'Build innovative travel and hospitality platforms. Flight booking, hotel reservations, travel planning, and tourism management solutions.',
   keywords: ['travel app development', 'hotel booking', 'flight reservation', 'tourism app', 'hospitality solutions', 'travel management'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Digital Solutions',
     description: 'Create comprehensive travel platforms that make trip planning seamless. From booking engines to personalized itineraries and travel management.',
     stats: [
-      { value: '1M+', label: 'Bookings/Month' },
-      { value: '200+', label: 'Destinations' },
-      { value: 'AI', label: 'Recommendations' },
-      { value: '24/7', label: 'Support' },
+      { value: '10+ venues', label: 'Hospitality web portfolio delivered' },
+      { value: 'Bookings', label: 'Engine and channel integrations' },
+      { value: 'VoxReception', label: 'Voice bookings in English and Arabic' },
+      { value: 'Headless', label: 'Publishing across many properties' },
     ],
     gradient: 'from-sky-600 to-blue-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Booking Conversion',
-      description: 'Streamlined booking flow increases conversion rates',
-      metric: '55%',
+      title: 'Hospitality work we have shipped',
+      description: 'A reusable component system across 10+ venues, with faster publishing and unique SEO per site.',
+      metric: 'Shipped',
     },
     {
-      title: 'Customer Engagement',
-      description: 'Personalized recommendations boost user engagement',
-      metric: '70%',
+      title: 'Voice that takes bookings',
+      description: 'VoxReception answers, routes and follows up bilingually for hotels and restaurants.',
+      metric: 'Bilingual',
     },
     {
-      title: 'Revenue Growth',
-      description: 'Upselling and cross-selling opportunities increase revenue',
-      metric: '40%',
+      title: 'Booking integrations',
+      description: 'Reservation engines and payment providers wired into fast, multilingual sites.',
+      metric: 'Integrated',
     },
   ],
   technologies: [

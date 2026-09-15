@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Fintech App Development | Digital Banking & Payment Solutions | Inzint',
+  alternates: { canonical: '/industries/fintech-app-development' },
+  title: 'Fintech App Development | Digital Banking & Payment Solutions',
   description: 'Build secure fintech applications with our expert development services. Digital banking, payment gateways, trading platforms, and financial management solutions.',
   keywords: ['fintech app development', 'digital banking', 'payment solutions', 'financial services', 'trading platform', 'mobile banking'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Digital Innovation',
     description: 'Build secure, scalable fintech applications that revolutionize banking, payments, and financial services. From digital wallets to trading platforms, we deliver cutting-edge solutions.',
     stats: [
-      { value: '99.9%', label: 'Uptime Guarantee' },
-      { value: 'PCI DSS', label: 'Compliant' },
-      { value: '256-bit', label: 'Encryption' },
-      { value: '24/7', label: 'Security Monitoring' },
+      { value: 'PCI-aware', label: 'Payment flows designed to reduce scope' },
+      { value: 'Deterministic', label: 'Tests for every money path' },
+      { value: 'Audit trail', label: 'Every transaction logged' },
+      { value: 'AWS', label: 'Serverless, scalable backends' },
     ],
     gradient: 'from-green-600 to-emerald-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Regulatory Compliance',
-      description: 'Built-in compliance with financial regulations including PCI DSS, GDPR, and local banking laws',
-      metric: '100%',
+      title: 'Money paths are tested deterministically',
+      description: 'Ledger, refund and payout logic gets exact tests before release; it is one of our written quality bars.',
+      metric: 'Tested',
     },
     {
-      title: 'Enterprise Security',
-      description: 'Bank-grade security with encryption, multi-factor authentication, and continuous monitoring',
-      metric: 'Bank-Grade',
+      title: 'Security basics, always',
+      description: 'Secrets management, roles and PII handling are set up in sprint one, not audited in later.',
+      metric: 'Sprint one',
     },
     {
-      title: 'Scalable Infrastructure',
-      description: 'Handle millions of transactions with auto-scaling cloud architecture',
-      metric: '10M+',
+      title: 'Integrations we know',
+      description: 'Payment gateways and account aggregators wired through typed NestJS services.',
+      metric: 'Typed',
     },
   ],
   technologies: [

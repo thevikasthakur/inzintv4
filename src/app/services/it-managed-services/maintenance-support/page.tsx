@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'App Maintenance & Support Services | 24/7 Technical Support',
-  description: 'Comprehensive maintenance and support services. Keep your applications running smoothly 24/7.',
+const data = servicePages['maintenance-support'];
+
+export const metadata: Metadata = {
+  title: 'Maintenance & Support',
+  description:
+    'Monthly maintenance and managed hosting with a 30-day warranty on delivery, published response targets and monthly reporting.',
+  alternates: { canonical: '/services/it-managed-services/maintenance-support' },
 };
 
 export default function MaintenanceSupportPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'wrench', text: 'Maintenance & Support' }}
-        title="24/7 App Maintenance"
-        highlightedTitle="& Support"
-        description="Keep your applications running smoothly with our comprehensive maintenance and support services. Proactive monitoring, bug fixes, and performance optimization."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

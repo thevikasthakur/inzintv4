@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Technology Consulting Services | Tech Strategy',
-  description: 'Expert technology consulting. Choose the right tech stack and architecture for your business.',
+const data = servicePages['technology-consulting'];
+
+export const metadata: Metadata = {
+  title: 'Technology Consulting & Audits',
+  description:
+    'Architecture reviews, migration planning and AI readiness audits that end in a written, prioritised plan.',
+  alternates: { canonical: '/services/consulting/technology-consulting' },
 };
 
 export default function TechnologyConsultingPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'settings', text: 'Technology Consulting' }}
-        title="Technology Strategy"
-        highlightedTitle="& Architecture"
-        description="Make informed technology decisions with our expert consultants. We help you choose the right tech stack, architecture, and tools for your business."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

@@ -1,5 +1,6 @@
 // Inzint Company Profile Data
 // Source: company_profile.yaml
+// This file is the single source of truth for offices, contact details, clients and positioning.
 
 export const company = {
   name: 'Inzint Private Limited',
@@ -107,6 +108,33 @@ export const company = {
     },
   ],
 
+  // Clients that are already public on the site: published case studies,
+  // the recorded video testimonial, and the live featured projects.
+  clients: [
+    {
+      name: 'La Cuisine de Bernard',
+      sector: 'Digital publishing platform',
+      href: '/case-studies/la-cuisine-de-bernard-wordpress-nextjs-payload-mongodb-migration',
+    },
+    {
+      name: 'Thotis IA',
+      sector: 'AI education platform',
+      href: '/case-studies/thotis-ai-platform-rearchitecture',
+    },
+    {
+      name: 'TALEER LLC',
+      sector: 'Three products over 2.5 years, Sharjah, UAE',
+    },
+    {
+      name: 'PBT Classes',
+      sector: 'Guided ballet training platform',
+    },
+    {
+      name: 'Fantasy sports platform',
+      sector: 'Cricket, football and basketball contests',
+    },
+  ],
+
   proofPoints: {
     culture: [
       'Founder-led engagement with direct access to decision makers.',
@@ -175,17 +203,59 @@ export const company = {
 
   contact: {
     email: 'hello@inzint.com',
+    supportEmail: 'support@inzint.com',
     phone: '+91 92899 09174',
-    phoneUS: '+1 206 796 4306',
-    phoneJobs: '+91 9289704058',
+    phoneHref: 'tel:+919289909174',
+    phoneUS: '+1 (206) 796 4306',
+    phoneUSHref: 'tel:+12067964306',
+    phoneJobs: '+91 92897 04058',
+    phoneJobsHref: 'tel:+919289704058',
+    hrEmails: ['adarshmishra@inzint.com', 'twinkle@inzint.com'],
+    businessHours: 'Monday to Friday, 10:00 to 19:00 IST',
+    // The three real offices. Every office listing on the site reads from here.
     locations: [
       {
-        country: 'India',
+        id: 'noida',
         city: 'Noida',
-        address: 'B-111, Second Floor, Sector 65, Noida, UP 201301, India',
+        country: 'India',
+        label: 'Headquarters',
+        address: 'B-111, Second Floor, Sector 65, Noida, Uttar Pradesh 201301, India',
+        addressLines: ['B-111, Second Floor, Sector 65', 'Noida, Uttar Pradesh 201301, India'],
+        phone: '+91 92899 09174',
+        phoneHref: 'tel:+919289909174',
+        email: 'contact@inzint.com',
+        timezone: 'IST (UTC+5:30)',
+        mapQuery: 'B-111, Sector 65, Noida, Uttar Pradesh 201301, India',
         isHQ: true,
       },
-      // Add other locations if needed
+      {
+        id: 'muscat',
+        city: 'Muscat',
+        country: 'Oman',
+        label: 'Oman office',
+        address: '31, Building 13, 6125 Way, Muscat, Oman',
+        addressLines: ['31, Building 13, 6125 Way', 'Muscat, Oman'],
+        phone: '+968 7272 4832',
+        phoneHref: 'tel:+96872724832',
+        email: 'contact@inzint.om',
+        timezone: 'GST (UTC+4)',
+        mapQuery: '31, Building 13, 6125 Way, Muscat, Oman',
+        isHQ: false,
+      },
+      {
+        id: 'ofallon',
+        city: "O'Fallon",
+        country: 'USA',
+        label: 'US office',
+        address: "214 Fairway Green Dr, O'Fallon, MO 63368, USA",
+        addressLines: ['214 Fairway Green Dr', "O'Fallon, MO 63368, USA"],
+        phone: '+1 (206) 796 4306',
+        phoneHref: 'tel:+12067964306',
+        email: 'contact@inzint.com',
+        timezone: 'CT (UTC-6)',
+        mapQuery: "214 Fairway Green Dr, O'Fallon, MO 63368",
+        isHQ: false,
+      },
     ],
   },
 
@@ -197,5 +267,8 @@ export const company = {
     youtube: 'https://www.youtube.com/@inzint',
   },
 };
+
+export type Office = (typeof company.contact.locations)[number];
+export type Client = (typeof company.clients)[number];
 
 export default company;

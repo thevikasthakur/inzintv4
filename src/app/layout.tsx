@@ -37,9 +37,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL("https://inzint.com"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Inzint | AI-Driven Software Development | India",
     description: "Founder-led engineering team building production-ready software: AI voice bots, web/mobile apps, and cloud backends. From rapid prototypes to enterprise solutions.",
@@ -73,9 +70,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    google: "google-site-verification-code",
   },
 };
 

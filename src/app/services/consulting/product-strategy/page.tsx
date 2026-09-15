@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Product Strategy Consulting | Product Management',
-  description: 'Strategic product consulting services. Define roadmaps, prioritize features, and validate ideas.',
+const data = servicePages['product-strategy'];
+
+export const metadata: Metadata = {
+  title: 'Product Strategy & Discovery',
+  description:
+    'Discovery workshops, roadmaps and success metrics that turn an idea into a scoped, sequenced plan engineers can start on.',
+  alternates: { canonical: '/services/consulting/product-strategy' },
 };
 
 export default function ProductStrategyPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'target', text: 'Product Strategy' }}
-        title="Strategic Product"
-        highlightedTitle="Consulting"
-        description="Define winning product strategies with our expert consultants. From market research to roadmap planning and feature prioritization."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

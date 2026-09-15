@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Web Development Services | Modern Web Applications',
-  description: 'Professional web development services. Build scalable, responsive web applications with modern technologies.',
+const data = servicePages['web-development'];
+
+export const metadata: Metadata = {
+  title: 'Web Development',
+  description:
+    'Next.js and React web platforms with headless CMS, multilingual publishing and migrations off legacy stacks, built by a founder-led team.',
+  alternates: { canonical: '/services/product-development/web-development' },
 };
 
 export default function WebDevelopmentPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'globe', text: 'Web Development' }}
-        title="Modern Web"
-        highlightedTitle="Applications"
-        description="Build scalable, responsive web applications with cutting-edge technologies. Our expert team delivers high-performance web solutions that drive business growth."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

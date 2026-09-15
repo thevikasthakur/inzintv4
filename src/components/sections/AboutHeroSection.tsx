@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Building2, Users, Target, Sparkles } from 'lucide-react';
+import { Building2, MapPin, Briefcase, BookOpen } from 'lucide-react';
 
+// Verifiable facts only: company profile (founded, offices, Upwork record) and published case studies.
 const stats = [
   { label: 'Founded', value: '2020', icon: Building2 },
-  { label: 'Team Members', value: '50+', icon: Users },
-  { label: 'Projects Delivered', value: '200+', icon: Target },
-  { label: 'Client Satisfaction', value: '98%', icon: Sparkles },
+  { label: 'Offices (Noida, Muscat, US)', value: '3', icon: MapPin },
+  { label: 'Upwork contracts, 11,600+ hours', value: '34', icon: Briefcase },
+  { label: 'Published case studies', value: '2', icon: BookOpen },
 ];
 
 export default function AboutHeroSection() {
@@ -30,7 +31,9 @@ export default function AboutHeroSection() {
               About Inzint
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              An engineering-first software consultancy building AI-driven solutions that transform businesses.
+              A founder-led, engineering-first software consultancy headquartered in Noida, with an
+              office in Muscat and a presence in the US. We build AI, web, mobile and cloud systems
+              that have to work in production.
             </p>
           </motion.div>
         </div>
@@ -55,6 +58,7 @@ export default function AboutHeroSection() {
             </motion.div>
           ))}
         </div>
+        <p className="mt-8 text-center text-sm text-gray-500">Upwork figures as of October 2025.</p>
       </div>
     </section>
   );

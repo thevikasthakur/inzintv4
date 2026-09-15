@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Entertainment App Development | Media & Streaming Solutions | Inzint',
+  alternates: { canonical: '/industries/entertainment-app-development' },
+  title: 'Entertainment App Development | Media & Streaming Solutions',
   description: 'Build engaging entertainment platforms. Video streaming, music apps, gaming platforms, and content management solutions.',
   keywords: ['entertainment app development', 'video streaming', 'music app', 'OTT platform', 'media app', 'content delivery'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Entertainment Experiences',
     description: 'Build next-generation entertainment platforms that captivate audiences. From streaming services to gaming and interactive content.',
     stats: [
-      { value: '10M+', label: 'Active Users' },
-      { value: '4K', label: 'Streaming Quality' },
-      { value: '99.9%', label: 'Uptime' },
-      { value: '<2s', label: 'Load Time' },
+      { value: 'PBT Classes', label: 'Guided video training platform' },
+      { value: 'Streaming', label: 'Adaptive video delivery' },
+      { value: 'Subscriptions', label: 'Recurring billing and access' },
+      { value: 'React Native', label: 'Mobile apps for both stores' },
     ],
     gradient: 'from-pink-600 to-rose-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'User Engagement',
-      description: 'Personalized content and social features increase watch time',
-      metric: '3x',
+      title: 'A platform on our homepage',
+      description: 'PBT Classes: graded video sessions, a music player and progress tracking for dancers and practitioners.',
+      metric: 'Shipped',
     },
     {
-      title: 'Content Reach',
-      description: 'Multi-platform delivery expands audience reach',
-      metric: '250%',
+      title: 'Media pipelines',
+      description: 'Upload, transcode and deliver video in the right formats per device.',
+      metric: 'Optimised',
     },
     {
-      title: 'Revenue Growth',
-      description: 'Multiple monetization channels boost revenue',
-      metric: '60%',
+      title: 'Monetisation built in',
+      description: 'Subscriptions, one-off purchases and entitlement checks in one backend.',
+      metric: 'Monetised',
     },
   ],
   technologies: [

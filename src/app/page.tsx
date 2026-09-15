@@ -1,16 +1,20 @@
+import type { Metadata } from 'next';
 import {
   ServicesSection,
   VideoTestimonialsSection,
   ROISection,
   TechnologiesSection,
   PartnersSection,
-  AwardsSection,
   FAQSection,
   FooterSection
 } from '@/components/sections';
 import FeaturedProjects from '@/components/sections/FeaturedProjects';
 import HeroSectionV2 from '@/components/sections/HeroSectionV2';
 import HowWeDoItSection from '@/components/sections/HowWeDoItSection';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function Home() {
   return (
@@ -23,7 +27,6 @@ export default function Home() {
       <ROISection />
       <TechnologiesSection />
       <PartnersSection />
-      <AwardsSection />
       <FAQSection />
       <FooterSection />
     </main>

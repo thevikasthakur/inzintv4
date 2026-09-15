@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { AlertTriangle, Code2, Sparkles, Zap, ChevronDown, Clock, Laptop, Rocket, XCircle, CheckCircle, Users, Brain } from 'lucide-react';
+import Link from 'next/link';
 import { AnimatedCodeScreen } from '@/components/ui/AnimatedCodeScreen';
 
 // Story phases
@@ -578,18 +579,21 @@ export default function HeroSectionV2() {
                     transition={{ delay: 1 }}
                     className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
                   >
-                    <button
-                      className="px-8 py-4 text-white rounded-lg font-semibold transition-all transform hover:scale-105 hover:shadow-xl"
+                    <a
+                      href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-4 text-white rounded-lg font-semibold transition-all transform hover:scale-105 hover:shadow-xl text-center"
                       style={{
                         backgroundColor: 'rgb(237, 64, 59)',
                         boxShadow: '0 4px 14px 0 rgba(237, 64, 59, 0.25)'
                       }}
                     >
                       Let's Build Your App
-                    </button>
-                    <button className="px-8 py-4 bg-white text-black rounded-lg font-semibold hover:bg-gray-100 transition-all">
+                    </a>
+                    <Link href="/about/company/how-we-work" className="px-8 py-4 bg-white text-black rounded-lg font-semibold hover:bg-gray-100 transition-all text-center">
                       See Our Process
-                    </button>
+                    </Link>
                   </motion.div>
 
                   {/* Stats - Part of header content that fades with scroll */}
@@ -600,9 +604,9 @@ export default function HeroSectionV2() {
                     className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-12"
                   >
                     {[
-                      { label: 'AI Tools Mastered', value: '20+', color: 'text-white' },
-                      { label: 'Faster Than DIY', value: '10x', color: 'text-white' },
-                      { label: 'Production-Ready Code', value: '100%', color: 'text-white' },
+                      { label: 'Engineers per founder-led squad', value: '3–5', color: 'text-white' },
+                      { label: 'Pilot sprint before you commit', value: '2 weeks', color: 'text-white' },
+                      { label: 'Warranty after delivery', value: '30 days', color: 'text-white' },
                     ].map((stat, index) => (
                       <motion.div
                         key={stat.label}

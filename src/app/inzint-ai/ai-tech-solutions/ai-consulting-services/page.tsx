@@ -3,7 +3,8 @@ import { FAQSection, FooterSection } from '@/components/sections';
 import AIServiceTemplate from '@/components/sections/ai/AIServiceTemplate';
 
 export const metadata: Metadata = {
-  title: 'AI Consulting Services | Strategic AI Transformation | Inzint',
+  alternates: { canonical: '/inzint-ai/ai-tech-solutions/ai-consulting-services' },
+  title: 'AI Consulting Services | Strategic AI Transformation',
   description: 'Strategic AI consulting to transform your business. Expert guidance on AI strategy, implementation, and optimization for measurable ROI.',
   keywords: ['AI consulting', 'AI strategy', 'AI transformation', 'AI implementation', 'enterprise AI consulting'],
 };
@@ -50,19 +51,19 @@ const pageData = {
   ],
   useCases: [
     {
-      title: 'Digital Transformation',
-      description: 'Complete AI-driven digital transformation strategy',
-      results: ['3-year roadmap', '5x ROI projection', 'Risk mitigation'],
+      title: 'AI readiness and roadmap',
+      description: 'Where AI helps in your product and operations, what data you actually have, and what to build first.',
+      results: ['Discovery workshop', 'Prioritised use cases', 'Architecture decision records'],
     },
     {
-      title: 'Process Automation',
-      description: 'Identify and automate key business processes with AI',
-      results: ['60% cost savings', '10x productivity', 'Error reduction'],
+      title: 'Platform review (Thotis IA)',
+      description: 'We joined a live AI education platform in 2026 and re-architected personas, data and quality systems without stopping releases.',
+      results: ['Evidence-based migration plan', 'Clear provider boundaries', 'Automated QA before release'],
     },
     {
-      title: 'AI Center of Excellence',
-      description: 'Build internal AI capabilities and governance',
-      results: ['Team upskilling', 'Best practices', 'Governance framework'],
+      title: 'Voice AI feasibility',
+      description: 'Assessing telephony, languages and hand-offs before building a voice agent such as VoxReception.',
+      results: ['Call-flow design', 'Bilingual requirements', 'Data residency plan'],
     },
   ],
 };

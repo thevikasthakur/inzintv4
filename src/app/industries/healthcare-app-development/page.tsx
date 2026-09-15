@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Healthcare App Development | Medical Software Solutions | Inzint',
+  alternates: { canonical: '/industries/healthcare-app-development' },
+  title: 'Healthcare App Development | Medical Software Solutions',
   description: 'HIPAA-compliant healthcare applications for telemedicine, patient portals, EHR/EMR systems, and healthcare management. Expert medical software development.',
   keywords: ['healthcare app development', 'telemedicine', 'patient portal', 'EHR EMR', 'medical software', 'HIPAA compliant'],
 };
@@ -14,10 +16,10 @@ const pageData = {
     highlightedTitle: 'Digital Solutions',
     description: 'Build HIPAA-compliant healthcare applications that improve patient care, streamline operations, and enable remote healthcare delivery. From telemedicine to EHR systems.',
     stats: [
-      { value: 'HIPAA', label: 'Compliant' },
-      { value: '99.99%', label: 'Availability' },
-      { value: 'HL7/FHIR', label: 'Standards' },
-      { value: '24/7', label: 'Support' },
+      { value: 'HIPAA-ready', label: 'Architecture and access controls' },
+      { value: 'HL7 / FHIR', label: 'Interoperability standards' },
+      { value: 'Bilingual', label: 'Patient and clinic apps' },
+      { value: 'In-region', label: 'Data stays where you need it' },
     ],
     gradient: 'from-blue-600 to-cyan-600',
   },
@@ -67,19 +69,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'HIPAA Compliance',
-      description: 'Full compliance with healthcare data privacy and security regulations',
-      metric: '100%',
+      title: 'Compliance by design',
+      description: 'Encryption in transit and at rest, role-based access and audit logging from the first sprint.',
+      metric: 'Built in',
     },
     {
-      title: 'Improved Patient Care',
-      description: 'Enhanced patient outcomes through better access and care coordination',
-      metric: '40%',
+      title: 'A pattern we have shipped',
+      description: 'A modular clinic appointment system with patient web and mobile apps and a clinic console.',
+      metric: 'Shipped',
     },
     {
-      title: 'Cost Reduction',
-      description: 'Reduced operational costs through automation and efficiency',
-      metric: '35%',
+      title: 'Your data stays yours',
+      description: 'Health data is stored in the region you choose and is never used to train AI models.',
+      metric: 'Your region',
     },
   ],
   technologies: [
@@ -100,6 +102,26 @@ export default function HealthcarePage() {
   return (
     <main className="min-h-screen">
       <IndustryTemplate data={pageData} />
+      <section className="border-y border-gray-200 bg-white px-5 py-14 sm:px-8">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary-600">
+            Engineering case study
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-gray-950">
+            See how a specialised clinic workflow became one connected platform.
+          </h2>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
+            The ZoeyMed case study covers the system boundaries, workflow model, state management,
+            data decisions and testing behind an IVF clinic management platform.
+          </p>
+          <Link
+            href="/case-studies/zoeymed-ivf-clinic-management-platform"
+            className="mt-6 inline-flex font-semibold text-primary-700 underline decoration-primary-200 underline-offset-4"
+          >
+            Read the ZoeyMed healthcare software engineering case study
+          </Link>
+        </div>
+      </section>
       <FAQSection />
       <FooterSection />
     </main>

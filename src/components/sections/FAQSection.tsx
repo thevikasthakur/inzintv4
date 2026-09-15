@@ -9,54 +9,60 @@ const faqs = [
   {
     id: 1,
     category: 'General',
-    question: 'What services does Inzint offer?',
-    answer: 'We offer AI-driven software development including AI rapid prototypes, AI MVP development, AI voice bots (VoxReception), full privacy chatbots, web/mobile MVP development, custom ERP/CRM systems, and cloud/DevOps services. Our end-to-end services cover everything from strategy and consulting to development, deployment, and ongoing support.',
+    question: 'What does Inzint build?',
+    answer: 'Production software for companies that need it to work on day one: AI voice and chat systems (including our own VoxReception receptionist), web applications in Next.js and React, React Native mobile apps, Node.js and NestJS backends, AWS serverless infrastructure and the data pipelines behind them. We also take over live platforms that have become hard to change.',
   },
   {
     id: 2,
-    category: 'General',
-    question: 'How long does it take to develop a mobile app?',
-    answer: 'The timeline varies based on complexity and requirements. A simple app typically takes 3-4 months, while more complex applications with advanced features may take 6-12 months. We provide detailed project timelines during the initial consultation phase and keep you updated throughout the development process.',
+    category: 'Process',
+    question: 'How does an engagement start?',
+    answer: 'With a 30-minute discovery call. From there we send a scoped proposal and, for most new clients, propose a two-week pilot sprint so you can judge the working relationship on real output before committing to a longer plan. Every engagement runs on weekly demos or recorded updates.',
   },
   {
     id: 3,
-    category: 'Pricing',
-    question: 'What is the cost of developing an app?',
-    answer: 'Project costs depend on various factors including complexity, features, platforms, design requirements, and timeline. We offer flexible pricing models including fixed price, time & material, and dedicated team models. Contact us for a detailed quote tailored to your specific requirements.',
+    category: 'Process',
+    question: 'How long does a first release take?',
+    answer: 'A rapid prototype takes about two weeks. A standard MVP with authentication, a backend and deployment takes four to six weeks. Larger first releases with payments, roles and reporting take eight to twelve weeks. Anything bigger is broken into milestones during discovery so you always know what ships next.',
   },
   {
     id: 4,
-    category: 'Process',
-    question: 'What is your development process?',
-    answer: 'We follow an agile development methodology with regular sprints and milestone deliveries. Our process includes: Discovery & Planning, UI/UX Design, Development, Quality Assurance, Deployment, and Post-Launch Support. We maintain transparent communication throughout with regular updates and demos.',
+    category: 'Pricing',
+    question: 'How do you price work?',
+    answer: 'Three ways: fixed-scope builds quoted per milestone and billed on acceptance, monthly product squads on a retainer you can scale up or down, and short architecture or audit engagements at a fixed fee. You receive the quote after the discovery call; the call itself is free.',
   },
   {
     id: 5,
     category: 'Technology',
-    question: 'Which technologies do you specialize in?',
-    answer: 'We have expertise across a wide range of technologies including React Native, Flutter, Swift, Kotlin for mobile; React, Angular, Vue.js for web; Python, Node.js, Java for backend; AWS, Azure, Google Cloud for infrastructure; and emerging technologies like AI/ML, Blockchain, and IoT.',
+    question: 'Which technologies do you work with?',
+    answer: 'Next.js, React and TypeScript on the web; React Native for iOS and Android; Node.js, NestJS, PostgreSQL and Redis for backends; AWS Lambda, API Gateway, S3 and CloudFront with infrastructure as code; Payload CMS and MongoDB for content platforms; and LLM, retrieval (RAG) and real-time voice tooling for AI features. We keep the stack small on purpose.',
   },
   {
     id: 6,
-    category: 'Support',
-    question: 'Do you provide post-launch support?',
-    answer: 'Yes, we provide comprehensive post-launch support including bug fixes, performance monitoring, feature updates, and maintenance. We offer flexible support packages tailored to your needs, ensuring your application stays up-to-date and performs optimally.',
+    category: 'Security',
+    question: 'How do you handle our data and AI privacy?',
+    answer: 'Data is encrypted in transit and at rest, access is role-based and logged, and we never use customer data to train AI models without written consent. VoxReception call recordings stay on servers in India. Credentials you share for integrations are stored securely and deleted when the project ends. The full detail is in our privacy policy.',
   },
   {
     id: 7,
-    category: 'Security',
-    question: 'How do you ensure data security?',
-    answer: 'Security is our top priority. We follow industry best practices including data encryption, secure APIs, regular security audits, compliance with regulations (GDPR, HIPAA, etc.), and secure coding standards. We also implement multi-factor authentication and regular penetration testing.',
+    category: 'Support',
+    question: 'What happens after launch?',
+    answer: 'Every development project carries a 30-day warranty during which we fix defects at no cost. After that, most clients move to a monthly maintenance or squad retainer. Support requests are acknowledged within two to four hours for critical issues and within one business day for routine ones, during business hours, as published on our support page.',
   },
   {
     id: 8,
     category: 'Process',
-    question: 'Can you help with app store submissions?',
-    answer: 'Absolutely! We handle the complete app store submission process for both Apple App Store and Google Play Store. This includes preparing all required assets, meeting store guidelines, managing the submission process, and addressing any review feedback to ensure successful publication.',
+    question: 'Can you take over an existing product or codebase?',
+    answer: 'Yes, and it is some of the work we document best. We joined Thotis IA, a live multi-vendor AI education platform, and re-architected its data, personas and quality systems without stopping releases. We moved La Cuisine de Bernard off a decade-old WordPress installation with near-zero downtime. Both usually start with a short architecture and audit engagement.',
+  },
+  {
+    id: 9,
+    category: 'General',
+    question: 'Where are you based and how do we work together?',
+    answer: 'Headquarters in Noida, India, an office in Muscat, Oman, and a presence in the US. Communication is in English, in writing, with minutes after every meeting and a weekly live demo or recorded walkthrough, so time zones are a scheduling detail rather than a risk.',
   },
 ];
 
-const categories = ['All', 'General', 'Pricing', 'Process', 'Technology', 'Support', 'Security'];
+const categories = ['All', 'General', 'Process', 'Pricing', 'Technology', 'Security', 'Support'];
 
 export default function FAQSection() {
   const [openId, setOpenId] = useState<number | null>(null);
@@ -99,7 +105,7 @@ export default function FAQSection() {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            Find answers to common questions about our services, process, and pricing
+            Straight answers about how we work, what we build, what it costs and what happens after launch
           </motion.p>
         </div>
 
@@ -195,7 +201,7 @@ export default function FAQSection() {
             Still Have Questions?
           </h3>
           <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            Our team is here to help! Get in touch with us for personalized answers to your questions.
+            Ask us directly. A founder replies within one business day.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg flex items-center justify-center">
@@ -215,10 +221,10 @@ export default function FAQSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
         >
           {[
-            { value: '24/7', label: 'Support Available' },
-            { value: '<2hr', label: 'Response Time' },
-            { value: '99%', label: 'Issue Resolution' },
-            { value: '1000+', label: 'Happy Clients' },
+            { value: '1 day', label: 'Reply to every inquiry (business days)' },
+            { value: '2–4 h', label: 'Critical issues acknowledged' },
+            { value: '30 days', label: 'Warranty after delivery' },
+            { value: 'Weekly', label: 'Demos during delivery' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

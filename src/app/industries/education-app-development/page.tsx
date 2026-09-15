@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Education App Development | E-Learning Solutions | Inzint',
+  alternates: { canonical: '/industries/education-app-development' },
+  title: 'Education App Development | E-Learning Solutions',
   description: 'Build engaging e-learning platforms and educational apps. LMS, virtual classrooms, student portals, and interactive learning solutions.',
   keywords: ['education app development', 'e-learning platform', 'LMS', 'virtual classroom', 'online learning', 'EdTech solutions'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Digital Education',
     description: 'Create innovative e-learning platforms that make education accessible, engaging, and effective. From K-12 to corporate training and online universities.',
     stats: [
-      { value: '10M+', label: 'Students Served' },
-      { value: '95%', label: 'Engagement Rate' },
-      { value: '50+', label: 'Integrations' },
-      { value: '24/7', label: 'Access' },
+      { value: 'Thotis IA', label: 'Live AI education platform, 2026' },
+      { value: 'Personas', label: 'Catalogue for four learner types' },
+      { value: 'Voice', label: 'Real-time voice with LiveKit' },
+      { value: 'Automated', label: 'QA suite before every release' },
     ],
     gradient: 'from-indigo-600 to-purple-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Student Engagement',
-      description: 'Interactive features and gamification increase student participation',
-      metric: '85%',
+      title: 'A published case study',
+      description: 'We re-architected Thotis IA, a live French education platform, across data, personas, voice and QA.',
+      metric: 'Shipped',
     },
     {
-      title: 'Learning Outcomes',
-      description: 'Personalized learning paths improve student performance',
-      metric: '40%',
+      title: 'Evidence-based migration',
+      description: 'Learner records were migrated from the data that existed, with conservative defaults and user correction.',
+      metric: 'Careful',
     },
     {
-      title: 'Administrative Efficiency',
-      description: 'Automated grading and reporting save educators time',
-      metric: '60%',
+      title: 'Multilingual',
+      description: 'Translated display names and content workflows for English, French and Arabic audiences.',
+      metric: 'Multilingual',
     },
   ],
   technologies: [

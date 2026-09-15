@@ -2,68 +2,23 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { MapPin, Clock, Briefcase, ArrowRight } from 'lucide-react';
+import { MapPin, Clock, Briefcase, ArrowRight, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import { company } from '@/data/company';
 
+// Only real postings belong here. Keep closed roles for a while so applicants
+// who bookmarked them see the outcome instead of a dead link.
 const jobs = [
   {
-    title: '🎓 Full Stack AI & ML Engineer - Trainee (2026 Batch)',
+    title: 'Full Stack AI & ML Engineer - Trainee (2026 Batch)',
     department: 'AI & ML Engineering',
-    location: 'Noida, Sector 65',
-    type: 'Full-time Trainee',
-    description: 'Join our 6-month training program for 2026 CS graduates. Work on cutting-edge AI/ML projects with comprehensive training in Data Science, DevOps, and AWS.',
+    location: 'Noida, Sector 65 (on-site)',
+    type: 'Full-time trainee',
+    status: 'Closed' as const,
+    description:
+      'A six-month training programme for 2026 graduates covering data science, AI/ML, DevOps and AWS. Applications are closed and the selected candidates joined in February 2026. Recruitment for the 2027 batch opens in November 2026.',
     skills: ['Python', 'ReactJS', 'Machine Learning', 'TensorFlow'],
-    isNew: true,
-    isFeatured: true,
     link: '/careers/ai-ml-engineer-trainee-2026',
-  },
-  {
-    title: 'Senior Full-Stack Engineer',
-    department: 'Engineering',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Build scalable web applications using Next.js, Node.js, and cloud technologies.',
-    skills: ['React', 'Node.js', 'TypeScript', 'AWS'],
-  },
-  {
-    title: 'AI/ML Engineer',
-    department: 'AI Research',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Develop and deploy AI models for voice recognition, NLP, and computer vision.',
-    skills: ['Python', 'TensorFlow', 'PyTorch', 'LLMs'],
-  },
-  {
-    title: 'Mobile App Developer',
-    department: 'Engineering',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Create native and cross-platform mobile applications for iOS and Android.',
-    skills: ['React Native', 'Swift', 'Kotlin', 'Flutter'],
-  },
-  {
-    title: 'DevOps Engineer',
-    department: 'Infrastructure',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Manage cloud infrastructure, CI/CD pipelines, and ensure system reliability.',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'],
-  },
-  {
-    title: 'Product Designer',
-    department: 'Design',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Design intuitive user experiences for web and mobile applications.',
-    skills: ['Figma', 'UI/UX', 'Prototyping', 'User Research'],
-  },
-  {
-    title: 'Backend Engineer',
-    department: 'Engineering',
-    location: 'Remote / India',
-    type: 'Full-time',
-    description: 'Build robust APIs and microservices using Node.js and NestJS.',
-    skills: ['Node.js', 'NestJS', 'PostgreSQL', 'Redis'],
   },
 ];
 
@@ -72,6 +27,8 @@ export default function JobListingsSection() {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const openRoles = jobs.filter((job) => job.status !== 'Closed').length;
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
@@ -87,7 +44,9 @@ export default function JobListingsSection() {
             Open Positions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore opportunities to work on cutting-edge projects with a talented team.
+            {openRoles === 0
+              ? 'We hire in small batches and list every opening on this page. Nothing is open right now, but we read every CV we receive.'
+              : 'We hire in small batches and list every opening on this page.'}
           </p>
         </motion.div>
 
@@ -98,17 +57,11 @@ export default function JobListingsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`${
-                job.isFeatured
-                  ? 'bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-400 shadow-lg'
-                  : 'bg-white border border-gray-200'
-              } rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group relative`}
+              className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group relative"
             >
-              {job.isNew && (
-                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-bold animate-pulse">
-                  NEW - 6 Positions
-                </div>
-              )}
+              <div className="absolute -top-3 -right-3 bg-gray-800 text-white px-4 py-1 rounded-full text-sm font-bold">
+                {job.status}
+              </div>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
@@ -147,14 +100,10 @@ export default function JobListingsSection() {
                 </div>
 
                 <Link
-                  href={job.link || "/contact"}
-                  className={`flex items-center gap-2 px-6 py-3 ${
-                    job.isFeatured
-                      ? 'bg-gradient-to-r from-orange-500 to-red-500 animate-pulse'
-                      : 'bg-gradient-to-r from-blue-600 to-purple-600'
-                  } text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 whitespace-nowrap self-start md:self-center`}
+                  href={job.link}
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 whitespace-nowrap self-start md:self-center"
                 >
-                  {job.isFeatured ? 'View Details' : 'Apply Now'}
+                  View Details
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -162,7 +111,7 @@ export default function JobListingsSection() {
           ))}
         </div>
 
-        {/* No Position Found CTA */}
+        {/* Speculative applications */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -170,17 +119,31 @@ export default function JobListingsSection() {
           className="mt-16 text-center bg-gradient-to-br from-gray-50 to-white rounded-2xl p-12 border border-gray-200"
         >
           <h3 className="text-2xl font-bold mb-4 text-gray-900">
-            Don't See the Right Position?
+            Want to work with us anyway?
           </h3>
-          <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
-            We're always interested in meeting talented people. Send us your resume and tell us about yourself.
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Send your CV and a short note about something you have built to our HR team. We reply
+            to every application.
           </p>
-          <Link
-            href="/contact"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
-          >
-            Get in Touch
-          </Link>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+            {company.contact.hrEmails.map((email) => (
+              <a
+                key={email}
+                href={`mailto:${email}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+              >
+                <Mail className="w-4 h-4" />
+                {email}
+              </a>
+            ))}
+            <a
+              href={company.contact.phoneJobsHref}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 text-gray-900 font-semibold rounded-xl hover:border-gray-300 transition-all duration-300"
+            >
+              <Phone className="w-4 h-4" />
+              {company.contact.phoneJobs}
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>

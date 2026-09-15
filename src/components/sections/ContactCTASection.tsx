@@ -27,10 +27,10 @@ export default function ContactCTASection() {
               Schedule a Call
             </Link>
             <Link
-              href="/portfolio"
+              href="/resources/tools/case-studies"
               className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors inline-block"
             >
-              View Portfolio
+              View Case Studies
             </Link>
           </div>
         </motion.div>

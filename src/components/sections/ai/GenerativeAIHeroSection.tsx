@@ -5,17 +5,18 @@ import { Sparkles, ArrowRight, CheckCircle, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GenerativeAIHeroSection() {
-  const stats = [
-    { value: '50+', label: 'AI Projects Delivered' },
-    { value: '98%', label: 'Client Satisfaction' },
-    { value: '10x', label: 'Faster Development' },
+  // Facts about work that is live, not projections.
+  const facts = [
+    { value: 'EN / AR', label: 'Bilingual voice AI in production (VoxReception)' },
+    { value: 'RAG', label: 'Chatbots grounded in your own documents, with citations' },
+    { value: '2026', label: 'Re-architected a live AI education platform (Thotis IA)' },
   ];
 
   const benefits = [
-    'GPT-4 & Advanced LLM Integration',
-    'Custom Model Training & Fine-tuning',
-    'Enterprise-grade AI Solutions',
-    'Scalable & Secure Architecture',
+    'OpenAI, Anthropic and open-weight models',
+    'Retrieval over your own data (RAG)',
+    'Bilingual English and Arabic voice agents',
+    'No training on your data; in-region storage',
   ];
 
   return (
@@ -63,25 +64,27 @@ export default function GenerativeAIHeroSection() {
               className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6"
             >
               <Sparkles className="w-4 h-4" />
-              <span>Leading Generative AI Development Company</span>
+              <span>Generative AI development</span>
             </motion.div>
 
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Build Next-Gen Apps with{' '}
+              Generative AI features that{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Generative AI
+                hold up in production
               </span>
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Transform your business with cutting-edge generative AI solutions. We build intelligent applications powered by GPT, LLMs, and custom AI models that deliver exceptional user experiences.
+              LLM features, retrieval-augmented chatbots and bilingual voice agents, built into
+              products that are already live. We handle evaluation, data residency and the
+              unglamorous plumbing that makes AI features dependable.
             </p>
 
             {/* Benefits List */}
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
               {benefits.map((benefit, index) => (
                 <motion.div
-                  key={index}
+                  key={benefit}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
@@ -111,7 +114,7 @@ export default function GenerativeAIHeroSection() {
             </div>
           </motion.div>
 
-          {/* Right Content - Stats */}
+          {/* Right Content - Facts */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -119,23 +122,23 @@ export default function GenerativeAIHeroSection() {
             className="relative"
           >
             <div className="grid gap-6">
-              {stats.map((stat, index) => (
+              {facts.map((fact, index) => (
                 <motion.div
-                  key={index}
+                  key={fact.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
                   className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow border border-gray-100"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Zap className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        {stat.value}
+                        {fact.value}
                       </div>
-                      <div className="text-gray-600 mt-1">{stat.label}</div>
+                      <div className="text-gray-600 mt-1">{fact.label}</div>
                     </div>
                   </div>
                 </motion.div>

@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Rocket, Heart, Zap } from 'lucide-react';
+import { MapPin, Users, Zap, GraduationCap } from 'lucide-react';
 
 const perks = [
-  { label: 'Remote-First', icon: Users },
-  { label: 'Fast Growth', icon: Rocket },
-  { label: 'Great Culture', icon: Heart },
-  { label: 'Cutting-Edge Tech', icon: Zap },
+  { label: 'Noida, Sector 65', icon: MapPin },
+  { label: 'Founder-led squads', icon: Users },
+  { label: 'AI-first engineering', icon: Zap },
+  { label: 'Structured training', icon: GraduationCap },
 ];
 
 export default function CareersHeroSection() {
@@ -27,10 +27,11 @@ export default function CareersHeroSection() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Build the Future With Us
+              Build Production Software With Us
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Join a team of passionate engineers building AI-driven solutions that make a real impact.
+              A small, founder-led engineering team in Noida building AI voice systems, web and
+              mobile products and cloud backends for clients in India, the Gulf and Europe.
             </p>
           </motion.div>
         </div>

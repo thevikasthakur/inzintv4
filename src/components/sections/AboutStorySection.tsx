@@ -18,9 +18,9 @@ const milestones = [
     icon: Target,
   },
   {
-    year: '2025',
-    title: 'Global Reach',
-    description: 'Serving clients worldwide with a team of senior engineers and proven methodologies.',
+    year: '2026',
+    title: 'Case studies and a new batch',
+    description: 'Published engineering case studies for La Cuisine de Bernard and Thotis IA, and welcomed the 2026 trainee batch to the Noida office.',
     icon: TrendingUp,
   },
 ];
@@ -56,8 +56,8 @@ export default function AboutStorySection() {
                 line of code meets production standards.
               </p>
               <p>
-                Today, we serve clients across industries—from healthcare and logistics to fintech and e-commerce—
-                helping them leverage cutting-edge technology to solve real business problems.
+                Today we work with clients in publishing, education, hospitality, logistics and healthcare across
+                India, the Gulf and Europe, from a headquarters in Noida, an office in Muscat and a presence in the US.
               </p>
             </div>
           </motion.div>

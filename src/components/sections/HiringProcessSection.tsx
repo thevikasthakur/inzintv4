@@ -1,32 +1,32 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageSquare, Users, CheckCircle, Rocket } from 'lucide-react';
+import { MessageSquare, FileText, Rocket, Repeat } from 'lucide-react';
 
 const steps = [
   {
     icon: MessageSquare,
-    title: 'Share Requirements',
-    description: 'Tell us about your project needs, tech stack, and timeline',
-    duration: '15 mins',
+    title: 'Discovery call',
+    description: 'Thirty minutes on your roadmap, stack and constraints, with a founder.',
+    duration: '30 minutes',
   },
   {
-    icon: Users,
-    title: 'Get Matched',
-    description: 'We match you with pre-vetted developers from our talent pool',
-    duration: '48 hours',
-  },
-  {
-    icon: CheckCircle,
-    title: 'Interview & Select',
-    description: 'Interview candidates and select the best fit for your team',
-    duration: '1 week',
+    icon: FileText,
+    title: 'Proposal and squad',
+    description: 'A written scope, the squad composition and a monthly plan you can compare.',
+    duration: 'Written proposal',
   },
   {
     icon: Rocket,
-    title: 'Start Building',
-    description: 'Onboard developers and start your project immediately',
-    duration: 'Same day',
+    title: 'Pilot sprint',
+    description: 'Two weeks of real work in your repositories, ending in a demo you can judge.',
+    duration: '2 weeks',
+  },
+  {
+    icon: Repeat,
+    title: 'Monthly squad',
+    description: 'Continue on a retainer with weekly demos; scale the squad up or down month to month.',
+    duration: 'Month to month',
   },
 ];
 
@@ -43,14 +43,14 @@ export default function HiringProcessSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Simple, fast, and transparent hiring process
+            Four steps, and you can stop after the pilot sprint if the fit is not right.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <motion.div
-              key={index}
+              key={step.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -62,7 +62,7 @@ export default function HiringProcessSection() {
                 <div className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 -translate-x-1/2 z-0" />
               )}
 
-              <div className="relative z-10 bg-white p-6 rounded-2xl shadow-lg">
+              <div className="relative z-10 bg-white p-6 rounded-2xl shadow-lg h-full">
                 <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl mb-4 mx-auto">
                   <step.icon className="w-8 h-8 text-white" />
                 </div>
@@ -87,8 +87,8 @@ export default function HiringProcessSection() {
           className="text-center mt-12"
         >
           <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 p-8 rounded-2xl text-white">
-            <p className="text-2xl font-bold mb-2">Average Time to Hire</p>
-            <p className="text-5xl font-bold">48 Hours</p>
+            <p className="text-2xl font-bold mb-2">Time to first demo</p>
+            <p className="text-5xl font-bold">2 weeks</p>
           </div>
         </motion.div>
       </div>

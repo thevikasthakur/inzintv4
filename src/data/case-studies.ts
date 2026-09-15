@@ -72,7 +72,8 @@ export interface CaseStudyRecord {
   proof: CaseStudyProof[];
   /** One figure for the compact index row. */
   highlight: CaseStudyProof;
-  verdict: CaseStudyVerdict;
+  /** Present only when a publishable client review is part of the project record. */
+  verdict?: CaseStudyVerdict;
 }
 
 export type CaseStudy = CaseStudyRecord & {
@@ -81,6 +82,35 @@ export type CaseStudy = CaseStudyRecord & {
 };
 
 export const caseStudyRecords: CaseStudyRecord[] = [
+  {
+    id: 'zoeymed',
+    slug: '/case-studies/zoeymed-ivf-clinic-management-platform',
+    client: 'ZoeyMed',
+    sector: 'Healthcare operations',
+    industry: 'Fertility clinic software',
+    engagement: 'Clinic management platform design and build',
+    title: 'An IVF HMIS built around the couple’s treatment journey.',
+    headline: 'How Inzint Built ZoeyMed for Couples, Donors and Treatment Cycles',
+    dek:
+      'Connecting distinct patient records through shared treatment cycles, clinical workflows, laboratory work and inventory without flattening specialised fertility care.',
+    services: ['Product engineering', 'Workflow modelling', 'Full-stack development', 'Automated QA'],
+    stack: ['React', 'Redux', 'Fastify', 'MongoDB', 'AWS'],
+    period: 'August–December 2025',
+    publishedDate: '2026-09-15',
+    markdownPath: 'case-studies-md/zoeymed/zoeymed-case-study.md',
+    cover: {
+      kind: 'illustration',
+      src: '/assets/images/case-studies/zoeymed/zoeymed-architecture.svg',
+      alt: 'Diagram of the ZoeyMed clinic management platform architecture',
+      backdrop: 'linear-gradient(135deg, #ecfeff 0%, #ecfdf5 100%)',
+    },
+    proof: [
+      { value: '5 months', label: 'documented delivery window' },
+      { value: '5', label: 'connected workflow areas' },
+      { value: '1', label: 'shared operational platform' },
+    ],
+    highlight: { value: '5', label: 'clinic workflow areas connected' },
+  },
   {
     id: 'thotis-ia',
     slug: '/case-studies/thotis-ai-platform-rearchitecture',

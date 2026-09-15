@@ -3,7 +3,8 @@ import { FAQSection, FooterSection } from '@/components/sections';
 import AIServiceTemplate from '@/components/sections/ai/AIServiceTemplate';
 
 export const metadata: Metadata = {
-  title: 'Machine Learning Development | ML Solutions & Services | Inzint',
+  alternates: { canonical: '/inzint-ai/ai-tech-solutions/machine-learning-development' },
+  title: 'Machine Learning Development | ML Solutions & Services',
   description: 'ML solutions for predictive analytics and automation. Expert machine learning development services for intelligent business applications.',
   keywords: ['machine learning development', 'ML services', 'predictive analytics', 'ML automation', 'AI ML solutions'],
 };
@@ -50,19 +51,19 @@ const pageData = {
   ],
   useCases: [
     {
-      title: 'Customer Churn Prediction',
-      description: 'Identify at-risk customers before they leave',
-      results: ['85% prediction accuracy', '30% churn reduction', 'Proactive retention'],
+      title: 'Forecasting and anomaly detection',
+      description: 'Time-series models for demand, usage and productivity data, as in our PeopleParity tracker.',
+      results: ['Baseline before ML', 'Explainable alerts', 'Retraining schedule'],
     },
     {
-      title: 'Demand Forecasting',
-      description: 'Optimize inventory with accurate demand predictions',
-      results: ['92% forecast accuracy', '40% cost reduction', 'Better stock management'],
+      title: 'Classification and extraction',
+      description: 'Turn documents, tickets and forms into structured data with confidence scores and review thresholds.',
+      results: ['Human review thresholds', 'Deterministic tests', 'Monitoring for drift'],
     },
     {
-      title: 'Fraud Detection',
-      description: 'Real-time fraud detection and prevention',
-      results: ['99.5% accuracy', 'Real-time detection', '80% fraud reduction'],
+      title: 'Recommendation and ranking',
+      description: 'Personalised ordering of content or products, evaluated offline before anyone sees it.',
+      results: ['Offline evaluation', 'Staged rollout', 'Cold-start fallbacks'],
     },
   ],
 };

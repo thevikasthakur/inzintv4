@@ -1,49 +1,33 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
+// Tools we use in live AI work (VoxReception, Thotis IA, RAG chatbots).
 const techStack = [
   {
-    category: 'LLM Platforms',
-    technologies: [
-      { name: 'OpenAI GPT-4', logo: '🤖' },
-      { name: 'Anthropic Claude', logo: '🧠' },
-      { name: 'Google PaLM', logo: '🔍' },
-      { name: 'Meta LLaMA', logo: '🦙' },
-      { name: 'Cohere', logo: '💬' },
-    ],
+    category: 'Model providers',
+    technologies: ['OpenAI', 'Anthropic Claude', 'Google Gemini', 'Meta Llama', 'Mistral'],
   },
   {
-    category: 'Frameworks & Tools',
-    technologies: [
-      { name: 'LangChain', logo: '⛓️' },
-      { name: 'LlamaIndex', logo: '📚' },
-      { name: 'Hugging Face', logo: '🤗' },
-      { name: 'TensorFlow', logo: '🔥' },
-      { name: 'PyTorch', logo: '🔦' },
-    ],
+    category: 'Orchestration & frameworks',
+    technologies: ['LangChain', 'LlamaIndex', 'Langflow', 'Chatbase', 'Hugging Face'],
   },
   {
-    category: 'Vector Databases',
-    technologies: [
-      { name: 'Pinecone', logo: '🌲' },
-      { name: 'Weaviate', logo: '🔷' },
-      { name: 'Milvus', logo: '🎯' },
-      { name: 'ChromaDB', logo: '🎨' },
-      { name: 'Qdrant', logo: '⚡' },
-    ],
+    category: 'Retrieval & data',
+    technologies: ['PostgreSQL + pgvector', 'MongoDB', 'Pinecone', 'Qdrant', 'Redis'],
   },
   {
-    category: 'Cloud & Infrastructure',
-    technologies: [
-      { name: 'AWS Bedrock', logo: '☁️' },
-      { name: 'Azure OpenAI', logo: '🔵' },
-      { name: 'Google Cloud AI', logo: '🌐' },
-      { name: 'Replicate', logo: '🔄' },
-      { name: 'Modal', logo: '📦' },
-    ],
+    category: 'Voice, infrastructure & delivery',
+    technologies: ['LiveKit', 'AWS Bedrock', 'AWS Lambda', 'BullMQ', 'Playwright (automated QA)'],
   },
+];
+
+const whyInzint = [
+  'Generative AI already running in live products: VoxReception and Thotis IA',
+  'Evaluation, guardrails and automated QA before every release',
+  'Your data stays yours: no model training on customer data, in-region storage',
+  'Weekly demos and written architecture decisions',
+  'Founder-led squads that also build the surrounding web, mobile and cloud',
 ];
 
 export default function GenerativeAITechStackSection() {
@@ -61,11 +45,11 @@ export default function GenerativeAITechStackSection() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Our{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Tech Stack
+              AI Stack
             </span>
           </h2>
           <p className="text-xl text-gray-600">
-            We leverage the latest and most powerful generative AI technologies to build cutting-edge solutions
+            Providers and tools we have used in production. We pick per project and write down why.
           </p>
         </motion.div>
 
@@ -73,7 +57,7 @@ export default function GenerativeAITechStackSection() {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {techStack.map((stack, stackIndex) => (
             <motion.div
-              key={stackIndex}
+              key={stack.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -86,15 +70,17 @@ export default function GenerativeAITechStackSection() {
               <div className="space-y-3">
                 {stack.technologies.map((tech, techIndex) => (
                   <motion.div
-                    key={techIndex}
+                    key={tech}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: stackIndex * 0.1 + techIndex * 0.05 }}
                     className="flex items-center gap-4 bg-white rounded-lg p-4 hover:shadow-md transition-shadow"
                   >
-                    <span className="text-3xl">{tech.logo}</span>
-                    <span className="text-gray-900 font-medium">{tech.name}</span>
+                    <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+                      {tech.charAt(0)}
+                    </span>
+                    <span className="text-gray-900 font-medium">{tech}</span>
                   </motion.div>
                 ))}
               </div>
@@ -102,7 +88,7 @@ export default function GenerativeAITechStackSection() {
           ))}
         </div>
 
-        {/* Why Choose Us */}
+        {/* Why Inzint */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -113,20 +99,15 @@ export default function GenerativeAITechStackSection() {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="text-white">
               <h3 className="text-3xl font-bold mb-4">
-                Why Choose Inzint for Generative AI Development?
+                Why Inzint for generative AI work
               </h3>
               <p className="text-blue-100 text-lg mb-6">
-                Our team of AI experts has extensive experience building production-ready generative AI applications that scale.
+                We build AI features the way we build everything else: with tests, documentation and a
+                weekly demo, inside products people already depend on.
               </p>
               <ul className="space-y-3">
-                {[
-                  'Expert team with 5+ years of AI/ML experience',
-                  'End-to-end development from ideation to deployment',
-                  'Cost-effective solutions with proven ROI',
-                  'Ongoing support and optimization',
-                  'Enterprise-grade security and compliance',
-                ].map((point, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {whyInzint.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full" />
                     </div>
@@ -140,7 +121,7 @@ export default function GenerativeAITechStackSection() {
                 href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-lg"
               >
-                Let's Build Together
+                Let&apos;s Build Together
               </a>
             </div>
           </div>

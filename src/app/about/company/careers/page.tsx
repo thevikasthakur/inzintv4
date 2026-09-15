@@ -6,6 +6,7 @@ import {
 } from '@/components/sections';
 
 export const metadata = {
+  alternates: { canonical: '/about/company/careers' },
   title: 'Careers',
   description: 'Join Inzint and build the future with a team of passionate engineers working on AI-driven solutions.',
 };

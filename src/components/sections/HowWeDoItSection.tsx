@@ -114,10 +114,15 @@ export default function HowWeDoItSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-16"
         >
-          <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors transform hover:scale-105 transition-transform">
+          <a
+            href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors transform hover:scale-105 transition-transform"
+          >
             Start Your Project
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </a>
           <p className="mt-4 text-gray-600">
             Ready to build something amazing? Let's talk.
           </p>

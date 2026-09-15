@@ -1,47 +1,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { getIcon } from '@/lib/icons';
+import type { ServicePageData } from '@/data/services';
 
-interface ServiceTemplateProps {
-  data: {
-    hero: {
-      badge: { icon: string; text: string };
-      title: string;
-      highlightedTitle: string;
-      description: string;
-      stats: Array<{ value: string; label: string }>;
-      gradient: string;
-    };
-    services: Array<{
-      icon: string;
-      title: string;
-      description: string;
-      features: string[];
-      color: string;
-    }>;
-    benefits: Array<{
-      title: string;
-      description: string;
-      metric: string;
-    }>;
-    technologies: string[];
-  };
-}
+const BOOKING_URL =
+  'https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true';
 
-export default function ServiceTemplate({ data }: ServiceTemplateProps) {
-  const { hero, services, benefits, technologies } = data;
+export default function ServiceTemplate({ data }: { data: ServicePageData }) {
+  const { hero, offerings, approach, technologies, related, engagement } = data;
   const BadgeIcon = getIcon(hero.badge.icon);
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-24 pb-20">
+      {/* Hero */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-24 pb-20">
         <div className="container relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -51,13 +28,13 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${hero.gradient} bg-opacity-10 rounded-full text-sm font-medium mb-6`}
+                className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${hero.gradient} text-white rounded-full text-sm font-medium mb-6`}
               >
                 <BadgeIcon className="w-4 h-4" />
                 <span>{hero.badge.text}</span>
               </motion.div>
 
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
                 {hero.title}{' '}
                 <span className={`bg-gradient-to-r ${hero.gradient} bg-clip-text text-transparent`}>
                   {hero.highlightedTitle}
@@ -70,40 +47,41 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/contact"
+                  href={BOOKING_URL}
+                  target="_blank"
                   className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r ${hero.gradient} text-white rounded-lg font-semibold hover:shadow-xl transition-all`}
                 >
-                  Get Started
+                  Book a Discovery Call
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="#services"
+                  href="#included"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 rounded-lg font-semibold hover:border-gray-400 transition-all"
                 >
-                  View Services
+                  What&apos;s Included
                 </Link>
               </div>
             </motion.div>
 
-            {/* Right Content - Stats */}
+            {/* Facts */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="grid grid-cols-2 gap-6"
             >
-              {hero.stats.map((stat, index) => (
+              {hero.facts.map((fact, index) => (
                 <motion.div
-                  key={stat.label}
+                  key={fact.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                   className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  <div className={`text-4xl font-bold bg-gradient-to-r ${hero.gradient} bg-clip-text text-transparent mb-2`}>
-                    {stat.value}
+                  <div className={`text-3xl font-bold bg-gradient-to-r ${hero.gradient} bg-clip-text text-transparent mb-2`}>
+                    {fact.value}
                   </div>
-                  <div className="text-gray-600 text-sm">{stat.label}</div>
+                  <div className="text-gray-600 text-sm">{fact.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -111,8 +89,8 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+      {/* What's included */}
+      <section id="included" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -121,32 +99,32 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Our Services
+              What&apos;s included
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive solutions tailored to your business needs
+              The work we take on under this service, and what each part covers.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => {
-              const Icon = getIcon(service.icon);
+            {offerings.map((offering, index) => {
+              const Icon = getIcon(offering.icon);
               return (
                 <motion.div
-                  key={service.title}
+                  key={offering.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className="group bg-white border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-xl transition-all"
                 >
-                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${service.color} bg-opacity-10 mb-4`}>
-                    <Icon className={`w-8 h-8 ${service.color}`} />
+                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${hero.gradient} mb-4`}>
+                    <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{offering.title}</h3>
+                  <p className="text-gray-600 mb-6">{offering.description}</p>
                   <ul className="space-y-3">
-                    {service.features.map((feature) => (
+                    {offering.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2">
                         <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700">{feature}</span>
@@ -160,7 +138,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* How we work on it */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -170,35 +148,35 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Why Choose Us
+              How we work on it
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Proven results that drive business growth
+              The habits that keep this kind of work predictable.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
+            {approach.map((item, index) => (
               <motion.div
-                key={benefit.title}
+                key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
               >
-                <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-                  {benefit.metric}
+                <div className="text-sm font-semibold uppercase tracking-wider text-blue-600 mb-3">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Technologies Section */}
+      {/* Technologies */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -208,10 +186,10 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Technologies We Use
+              Technologies we use
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Cutting-edge tools and frameworks for modern solutions
+              The tools this work is usually built with. We keep the stack small on purpose.
             </p>
           </motion.div>
 
@@ -233,7 +211,59 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Related work */}
+      {related && (
+        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white border border-gray-200 rounded-3xl p-8 lg:p-12 shadow-lg"
+            >
+              <div className="text-sm font-semibold uppercase tracking-wider text-blue-600 mb-3">
+                {related.eyebrow}
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{related.title}</h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-3xl">{related.summary}</p>
+              <Link
+                href={related.href}
+                className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
+              >
+                {related.cta}
+                <ArrowUpRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Engagement models */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ways to engage</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Every engagement starts with a free 30-minute discovery call. The quote follows the call.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {engagement.map((model) => (
+              <div key={model.title} className="rounded-2xl border border-gray-200 p-6 hover:border-blue-300 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
+                <p className="text-gray-600">{model.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -242,25 +272,25 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Get Started?
+              Ready to talk it through?
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Let's discuss how we can help transform your business with our expert services.
+              Thirty minutes with a founder. You leave with a clear next step, whether or not that step is us.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true"
+                href={BOOKING_URL}
                 target="_blank"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:shadow-xl transition-all"
               >
-                Schedule a Consultation
+                Book a Discovery Call
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                href="/hire-developers"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
               >
-                Hire Developers
+                Send a Message
               </Link>
             </div>
           </motion.div>

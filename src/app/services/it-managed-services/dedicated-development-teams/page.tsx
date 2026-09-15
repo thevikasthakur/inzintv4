@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Dedicated Development Teams | Remote Development Teams',
-  description: 'Get a dedicated development team that works exclusively for you. Full control and transparency.',
+const data = servicePages['dedicated-development-teams'];
+
+export const metadata: Metadata = {
+  title: 'Dedicated Engineering Squads',
+  description:
+    'A founder-led squad of three to five Inzint engineers on a monthly retainer, starting with a two-week pilot sprint.',
+  alternates: { canonical: '/services/it-managed-services/dedicated-development-teams' },
 };
 
 export default function DedicatedDevelopmentTeamsPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'users', text: 'Dedicated Teams' }}
-        title="Your Dedicated"
-        highlightedTitle="Development Team"
-        description="Build your extended team with our dedicated developers who work exclusively on your projects. Full control, transparency, and seamless integration."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

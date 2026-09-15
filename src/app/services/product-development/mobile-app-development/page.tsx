@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Mobile App Development Services | iOS & Android Apps',
-  description: 'Build powerful mobile applications with our expert development team. Native iOS, Android, and cross-platform solutions.',
+const data = servicePages['mobile-app-development'];
+
+export const metadata: Metadata = {
+  title: 'Mobile App Development',
+  description:
+    'React Native apps for iOS and Android from one codebase, backed by NestJS and AWS services and shipped to both stores.',
+  alternates: { canonical: '/services/product-development/mobile-app-development' },
 };
 
 export default function MobileAppDevelopmentPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'smartphone', text: 'Mobile App Development' }}
-        title="Build Powerful"
-        highlightedTitle="Mobile Applications"
-        description="Create exceptional mobile experiences with our expert development team. From iOS to Android, we deliver high-performance, scalable mobile applications that engage users and drive business growth."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

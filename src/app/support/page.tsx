@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { Headset, Mail, Phone, MapPin, Clock, AlertTriangle, HelpCircle, Globe, Bot, Server, Code } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Customer Support | Inzint',
+  alternates: { canonical: '/support' },
+  title: 'Customer Support',
   description: 'Get help with Inzint services. Find support contacts, report issues, and get answers to frequently asked questions.',
 };
 

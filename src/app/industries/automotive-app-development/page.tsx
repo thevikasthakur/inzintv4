@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Automotive App Development | Connected Car Solutions | Inzint',
+  alternates: { canonical: '/industries/automotive-app-development' },
+  title: 'Automotive App Development | Connected Car Solutions',
   description: 'Build innovative automotive applications. Car sharing, EV charging, fleet management, and connected vehicle solutions.',
   keywords: ['automotive app development', 'connected car', 'car sharing', 'EV charging', 'fleet management', 'vehicle telematics'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Smart Mobility',
     description: 'Build cutting-edge automotive platforms for connected vehicles, car sharing, EV charging, and fleet management. Transform the driving experience.',
     stats: [
-      { value: '100K+', label: 'Vehicles Connected' },
-      { value: 'Real-time', label: 'Telematics' },
-      { value: 'IoT', label: 'Integration' },
-      { value: '24/7', label: 'Monitoring' },
+      { value: 'Telematics', label: 'MQTT and AWS IoT integration' },
+      { value: 'Fleet', label: 'Dashboards and maintenance workflows' },
+      { value: 'Maps', label: 'Navigation and geofencing' },
+      { value: 'React Native', label: 'Driver and owner apps' },
     ],
     gradient: 'from-slate-600 to-gray-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Operational Efficiency',
-      description: 'Automated fleet management reduces operational costs',
-      metric: '30%',
+      title: 'Data pipelines for vehicles',
+      description: 'Ingest telemetry, store it cheaply and surface what operators need.',
+      metric: 'Streamed',
     },
     {
-      title: 'Vehicle Utilization',
-      description: 'Car sharing and rentals maximize asset utilization',
-      metric: '2x',
+      title: 'Operations software',
+      description: 'Approvals, maintenance schedules and reporting drawn from our ERP work.',
+      metric: 'Workflow',
     },
     {
-      title: 'Customer Satisfaction',
-      description: 'Connected features improve user experience',
-      metric: '85%',
+      title: 'Mobile for the road',
+      description: 'Offline-tolerant React Native apps for drivers and technicians.',
+      metric: 'Offline-ready',
     },
   ],
   technologies: [

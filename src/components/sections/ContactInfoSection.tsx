@@ -2,31 +2,35 @@
 
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { company } from '@/data/company';
+
+const headquarters =
+  company.contact.locations.find((office) => office.isHQ) ?? company.contact.locations[0];
 
 const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    details: ['hello@inzint.com', 'support@inzint.com'],
-    description: 'Send us an email anytime!',
+    details: [company.contact.email, company.contact.supportEmail],
+    description: 'New projects go to hello@, existing customers to support@',
   },
   {
     icon: Phone,
     title: 'Call Us',
-    details: ['+1 (206) 796 4306', '+91 92899 09174'],
-    description: 'Mon-Fri from 9am to 6pm',
+    details: [company.contact.phone, company.contact.phoneUS],
+    description: 'India and US numbers, during business hours',
   },
   {
     icon: MapPin,
     title: 'Visit Us',
-    details: ['214 Fairway green dr', "O'fallon, MO 63368"],
-    description: 'Come say hello at our office',
+    details: headquarters.addressLines,
+    description: "Headquarters. We also have an office in Muscat and a presence in O'Fallon, MO",
   },
   {
     icon: Clock,
     title: 'Working Hours',
-    details: ['Monday - Friday: 9:00 AM - 6:00 PM', 'Saturday: 10:00 AM - 4:00 PM'],
-    description: 'We are here to help',
+    details: [company.contact.businessHours],
+    description: 'We reply to every inquiry within one business day',
   },
 ];
 
@@ -37,7 +41,7 @@ export default function ContactInfoSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {contactInfo.map((info, index) => (
             <motion.div
-              key={index}
+              key={info.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

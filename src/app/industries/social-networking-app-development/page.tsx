@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Social Networking App Development | Community Platform Solutions | Inzint',
+  alternates: { canonical: '/industries/social-networking-app-development' },
+  title: 'Social Networking App Development | Community Platform Solutions',
   description: 'Build engaging social networking platforms. Community features, real-time messaging, content sharing, and social commerce solutions.',
   keywords: ['social networking app', 'community platform', 'social media app', 'messaging app', 'content sharing', 'social commerce'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Social Communities',
     description: 'Create engaging social networking platforms that connect people and build communities. From messaging to content sharing and social commerce.',
     stats: [
-      { value: '50M+', label: 'Users Connected' },
-      { value: '<100ms', label: 'Message Latency' },
-      { value: 'Real-time', label: 'Updates' },
-      { value: '99.99%', label: 'Uptime' },
+      { value: 'Real-time', label: 'Messaging and presence' },
+      { value: 'Moderation', label: 'Reporting and safety tooling' },
+      { value: 'Search', label: 'Elasticsearch-backed discovery' },
+      { value: 'GraphQL', label: 'APIs for web and mobile' },
     ],
     gradient: 'from-violet-600 to-purple-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'User Engagement',
-      description: 'Real-time features and personalized feeds boost daily active users',
-      metric: '75%',
+      title: 'Safety first',
+      description: 'Reporting, blocking and moderation queues are part of the first release.',
+      metric: 'First release',
     },
     {
-      title: 'Content Creation',
-      description: 'Creator tools increase user-generated content',
-      metric: '5x',
+      title: 'Feeds that stay fast',
+      description: 'Caching and pagination designed for growth and monitored against real budgets.',
+      metric: 'Measured',
     },
     {
-      title: 'Monetization',
-      description: 'Social commerce and ads drive platform revenue',
-      metric: '80%',
+      title: 'Community features you own',
+      description: 'Groups, events and creator tools on a typed backend in your repositories.',
+      metric: 'Owned',
     },
   ],
   technologies: [

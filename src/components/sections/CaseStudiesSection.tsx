@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Clock3, Star } from 'lucide-react';
-import type { CaseStudy } from '@/data/case-studies';
+import type { CaseStudy, CaseStudyVerdict } from '@/data/case-studies';
 import { cn } from '@/lib/utils';
 
 const BOOKING_URL =
@@ -181,9 +181,12 @@ function Cover({ study, size, sizes, priority = false }: CoverProps) {
 
 function Intro({ studies }: { studies: CaseStudy[] }) {
   const sectors = Array.from(new Set(studies.map((study) => study.sector)));
+  const ratedStudies = studies.filter((study) => study.verdict);
   const averageRating = (
-    studies.reduce((sum, study) => sum + Number.parseFloat(study.verdict.rating), 0) /
-    Math.max(studies.length, 1)
+    ratedStudies.reduce(
+      (sum, study) => sum + Number.parseFloat(study.verdict?.rating ?? '0'),
+      0
+    ) / Math.max(ratedStudies.length, 1)
   ).toFixed(1);
   const latest = studies[0];
 
@@ -469,7 +472,7 @@ function Principles() {
   );
 }
 
-function VerdictCard({ study }: { study: CaseStudy }) {
+function VerdictCard({ study }: { study: CaseStudy & { verdict: CaseStudyVerdict } }) {
   const { verdict } = study;
 
   return (
@@ -530,6 +533,12 @@ function VerdictCard({ study }: { study: CaseStudy }) {
 }
 
 function Verdicts({ studies }: { studies: CaseStudy[] }) {
+  const reviewedStudies = studies.filter(
+    (study): study is CaseStudy & { verdict: CaseStudyVerdict } => Boolean(study.verdict)
+  );
+
+  if (reviewedStudies.length === 0) return null;
+
   return (
     <section
       aria-labelledby="verdicts-heading"
@@ -553,7 +562,7 @@ function Verdicts({ studies }: { studies: CaseStudy[] }) {
         </Reveal>
 
         <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {studies.map((study, index) => (
+          {reviewedStudies.map((study, index) => (
             <Reveal key={study.id} delay={index * 0.06} className="h-full">
               <VerdictCard study={study} />
             </Reveal>

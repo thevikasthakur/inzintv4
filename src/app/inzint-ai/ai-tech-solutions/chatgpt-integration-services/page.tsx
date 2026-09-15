@@ -3,7 +3,8 @@ import { FAQSection, FooterSection } from '@/components/sections';
 import AIServiceTemplate from '@/components/sections/ai/AIServiceTemplate';
 
 export const metadata: Metadata = {
-  title: 'ChatGPT Integration Services | OpenAI API Development | Inzint',
+  alternates: { canonical: '/inzint-ai/ai-tech-solutions/chatgpt-integration-services' },
+  title: 'ChatGPT Integration Services | OpenAI API Development',
   description: 'Integrate ChatGPT capabilities into your applications. Expert ChatGPT integration services for enhanced user experiences and intelligent automation.',
   keywords: ['ChatGPT integration', 'OpenAI API', 'GPT-4 integration', 'conversational AI', 'chatbot development'],
 };
@@ -50,19 +51,19 @@ const pageData = {
   ],
   useCases: [
     {
-      title: 'Customer Support Chatbots',
-      description: 'Intelligent chatbots that provide 24/7 customer support',
-      results: ['80% cost reduction', '95% satisfaction', 'Instant responses'],
+      title: 'Assistant inside an existing app',
+      description: 'Add an LLM assistant to a live product behind feature flags, with evaluation and cost controls.',
+      results: ['Streaming responses', 'Prompt regression tests', 'Usage and cost dashboards'],
     },
     {
-      title: 'Content Generation',
-      description: 'Automate content creation for marketing and communications',
-      results: ['10x faster creation', 'SEO optimized', 'Multi-format support'],
+      title: 'Support and FAQ chatbot',
+      description: 'Answers grounded in your documentation, with citations and a hand-off to a person when confidence is low.',
+      results: ['Retrieval over your content', 'Citations on every answer', 'Escalation to email or CRM'],
     },
     {
-      title: 'Code Assistant',
-      description: 'AI-powered code completion and documentation',
-      results: ['50% faster development', 'Fewer bugs', 'Better documentation'],
+      title: 'Content drafting workflows',
+      description: 'Draft, translate and summarise with a human review step before anything is published.',
+      results: ['Review queues', 'Brand and tone constraints', 'Audit trail'],
     },
   ],
 };

@@ -16,43 +16,20 @@ import {
   Globe,
 } from 'lucide-react';
 import Link from 'next/link';
+import { company as companyProfile } from '@/data/company';
 
-const offices = [
-  {
-    id: 1,
-    city: 'Noida',
-    country: 'India',
-    address: 'B-111, Sector 65, Noida, National Capital Region, India',
-    phone: '+91 928 990 9174',
-    email: 'contact@inzint.com',
-  },
-  {
-    id: 2,
-    city: 'Muscat',
-    country: 'Oman',
-    address: '31, Building 13, 6125 Way, Muscat, Oman',
-    phone: '(+968) 7272 4832',
-    email: 'contact@inzint.om',
-  },
-  {
-    id: 4,
-    city: 'St. Louis',
-    country: 'USA',
-    address: "214 Fairway green dr, O'Fallon, MO 63368, USA",
-    phone: '+1 (206) 796 4306',
-    email: 'contact@inzint.com',
-  },
-];
+// Offices come from the company profile so every page shows the same three locations.
+const offices = companyProfile.contact.locations;
 
 const services = [
   { name: 'AI Consulting', href: '/inzint-ai/ai-tech-solutions/ai-consulting-services' },
   { name: 'Generative AI Development', href: '/inzint-ai/ai-tech-solutions/generative-ai-development-company' },
   { name: 'AI Agent Development', href: '/inzint-ai/ai-tech-solutions/ai-agent-development' },
   { name: 'Machine Learning', href: '/inzint-ai/ai-tech-solutions/machine-learning-development' },
-  { name: 'Mobile App Development', href: '/services/product-development/mobile-app-development' },
+  { name: 'Mobile Apps (React Native)', href: '/services/product-development/mobile-app-development' },
   { name: 'Web Development', href: '/services/product-development/web-development' },
-  { name: 'Cloud Services', href: '/services/digital-transformation/cloud-services' },
-  { name: 'DevOps Services', href: '/services/it-managed-services/devops-services' },
+  { name: 'Cloud & DevOps', href: '/services/digital-transformation/cloud-services' },
+  { name: 'Maintenance & Support', href: '/services/it-managed-services/maintenance-support' },
 ];
 
 const company = [
@@ -60,8 +37,7 @@ const company = [
   { name: 'Leadership', href: '/about/company/leadership' },
   { name: 'How We Work', href: '/about/company/how-we-work' },
   { name: 'Careers', href: '/about/company/careers' },
-  { name: 'Awards', href: '/about/recognition/awards' },
-  { name: 'Partnerships', href: '/about/recognition/partnerships' },
+  { name: 'Support', href: '/support' },
   { name: 'Locations', href: '/about/connect/locations' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -78,14 +54,11 @@ const industries = [
 ];
 
 const resources = [
-  { name: 'Blog', href: '/resources/learn/blog' },
-  { name: 'Guides', href: '/resources/learn/guides' },
-  { name: 'Whitepapers', href: '/resources/learn/whitepapers' },
-  { name: 'eBooks', href: '/resources/learn/ebooks' },
   { name: 'Case Studies', href: '/resources/tools/case-studies' },
-  { name: 'Events', href: '/resources/news-events/events' },
-  { name: 'Podcasts', href: '/resources/news-events/podcasts' },
+  { name: 'La Cuisine de Bernard rebuild', href: '/case-studies/la-cuisine-de-bernard-wordpress-nextjs-payload-mongodb-migration' },
+  { name: 'Thotis IA re-architecture', href: '/case-studies/thotis-ai-platform-rearchitecture' },
   { name: 'App Cost Calculator', href: '/resources/tools/app-cost-calculator' },
+  { name: 'Careers', href: '/about/company/careers' },
 ];
 
 const socialLinks = [
@@ -268,8 +241,8 @@ export default function FooterSection() {
             viewport={{ once: true }}
             className="mb-8"
           >
-            <h4 className="text-2xl font-bold text-white mb-2">Our Global Offices</h4>
-            <p className="text-gray-400">Connect with us at any of our worldwide locations</p>
+            <h4 className="text-2xl font-bold text-white mb-2">Our Offices</h4>
+            <p className="text-gray-400">Noida headquarters, an office in Muscat and a US presence in Missouri</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -284,7 +257,7 @@ export default function FooterSection() {
               >
                 <div className="mb-4">
                   <h5 className="text-white font-semibold text-lg mb-1">{office.city}</h5>
-                  <p className="text-sm text-gray-500">{office.country}</p>
+                  <p className="text-sm text-gray-500">{office.label} · {office.country}</p>
                 </div>
 
                 <div className="space-y-3">
@@ -295,7 +268,7 @@ export default function FooterSection() {
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-primary-400 flex-shrink-0" />
                     <a
-                      href={`tel:${office.phone}`}
+                      href={office.phoneHref}
                       className="text-sm hover:text-primary-400 transition-colors"
                     >
                       {office.phone}
@@ -345,9 +318,6 @@ export default function FooterSection() {
               </Link>
               <Link href="/support" className="hover:text-primary-400 transition-colors">
                 Support
-              </Link>
-              <Link href="/cookie-policy" className="hover:text-primary-400 transition-colors">
-                Cookie Policy
               </Link>
               <Link href="/sitemap.xml" className="hover:text-primary-400 transition-colors">
                 Sitemap

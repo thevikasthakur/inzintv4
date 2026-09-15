@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FileText, Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Inzint',
+  alternates: { canonical: '/terms-of-service' },
+  title: 'Terms of Service',
   description: 'Read the terms and conditions for using Inzint services, including software development, VoxReception AI, website hosting, and ERP subscriptions.',
 };
 

@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { Shield, Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Inzint',
+  alternates: { canonical: '/privacy-policy' },
+  title: 'Privacy Policy',
   description: 'Learn how Inzint collects, uses, and protects your personal information across our services including Website Hosting, VoxReception AI, Inzint ERP, and Software Development.',
 };
 

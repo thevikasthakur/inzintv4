@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { RotateCcw, Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Cancellation & Refund Policy | Inzint',
+  alternates: { canonical: '/cancellation-refund-policy' },
+  title: 'Cancellation & Refund Policy',
   description: 'Learn about the cancellation and refund terms for Inzint services, including recurring subscriptions and one-time project engagements.',
 };
 

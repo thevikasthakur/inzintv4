@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Food & Beverage App Development | Delivery Platform Solutions | Inzint',
+  alternates: { canonical: '/industries/food-delivery-app-development' },
+  title: 'Food & Beverage App Development | Delivery Platform Solutions',
   description: 'Build innovative food delivery and restaurant management platforms. Online ordering, delivery tracking, and restaurant operations solutions.',
   keywords: ['food delivery app', 'restaurant app', 'food ordering', 'delivery platform', 'restaurant management', 'cloud kitchen'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Digital Solutions',
     description: 'Build comprehensive food delivery platforms that connect restaurants, delivery partners, and hungry customers. From ordering to doorstep delivery.',
     stats: [
-      { value: '100K+', label: 'Orders/Day' },
-      { value: '<30min', label: 'Avg. Delivery' },
-      { value: '10K+', label: 'Restaurants' },
-      { value: '4.8/5', label: 'User Rating' },
+      { value: 'Live tracking', label: 'Orders and couriers in real time' },
+      { value: 'Maps', label: 'Routing and delivery zones' },
+      { value: 'Stripe', label: 'Payments, wallets and promotions' },
+      { value: '1,300+', label: 'Recipes preserved for a food publisher' },
     ],
     gradient: 'from-red-600 to-orange-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Order Volume',
-      description: 'Digital platform increases restaurant order capacity',
-      metric: '3x',
+      title: 'Three apps, one platform',
+      description: 'Customer, restaurant and courier experiences on one typed backend.',
+      metric: 'Unified',
     },
     {
-      title: 'Delivery Efficiency',
-      description: 'Smart routing reduces delivery time and costs',
-      metric: '40%',
+      title: 'Food content at scale',
+      description: 'We rebuilt La Cuisine de Bernard, a 1,300-recipe publishing platform, without losing a recipe.',
+      metric: 'Preserved',
     },
     {
-      title: 'Customer Retention',
-      description: 'Loyalty programs and seamless experience boost repeat orders',
-      metric: '65%',
+      title: 'Payments and promotions',
+      description: 'Wallets, promo codes and loyalty handled with tested money paths.',
+      metric: 'Tested',
     },
   ],
   technologies: [

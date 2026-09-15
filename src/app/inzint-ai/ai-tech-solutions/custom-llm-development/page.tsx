@@ -3,7 +3,8 @@ import { FAQSection, FooterSection } from '@/components/sections';
 import AIServiceTemplate from '@/components/sections/ai/AIServiceTemplate';
 
 export const metadata: Metadata = {
-  title: 'Custom LLM Development | Large Language Model Solutions | Inzint',
+  alternates: { canonical: '/inzint-ai/ai-tech-solutions/custom-llm-development' },
+  title: 'Custom LLM Development | Large Language Model Solutions',
   description: 'Build tailored large language models for your business. Expert custom LLM development services with fine-tuning and domain-specific training.',
   keywords: ['custom LLM', 'language model development', 'LLM fine-tuning', 'domain-specific AI', 'enterprise LLM'],
 };
@@ -50,19 +51,19 @@ const pageData = {
   ],
   useCases: [
     {
-      title: 'Legal Document Analysis',
-      description: 'LLM trained on legal documents for contract analysis',
-      results: ['95% accuracy', '10x faster review', 'Cost savings'],
+      title: 'Retrieval before training',
+      description: 'Most "custom LLM" needs are met with retrieval and strict context design rather than fine-tuning. We start there.',
+      results: ['pgvector or managed vector stores', 'Access control per document', 'Freshness pipelines'],
     },
     {
-      title: 'Medical Diagnosis Support',
-      description: 'Healthcare-specific LLM for clinical decision support',
-      results: ['HIPAA compliant', '98% diagnostic accuracy', 'Real-time insights'],
+      title: 'Domain-tuned models',
+      description: 'Fine-tune open-weight or hosted models on your data when prompting and retrieval are not enough.',
+      results: ['Data preparation and labelling', 'Evaluation set built before training', 'Rollback plan'],
     },
     {
-      title: 'Financial Analysis',
-      description: 'Custom LLM for financial data and market analysis',
-      results: ['Real-time predictions', 'Risk assessment', 'Automated reporting'],
+      title: 'Bilingual voice and text',
+      description: 'English and Arabic handling as built for VoxReception, including dialect and hand-off behaviour.',
+      results: ['Speech to text and text to speech', 'Dialect handling', 'In-region storage'],
     },
   ],
 };

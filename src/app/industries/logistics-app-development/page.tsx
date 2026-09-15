@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'Logistics App Development | Supply Chain Solutions | Inzint',
+  alternates: { canonical: '/industries/logistics-app-development' },
+  title: 'Logistics App Development | Supply Chain Solutions',
   description: 'Build powerful logistics and supply chain management apps. Fleet tracking, warehouse management, route optimization, and delivery solutions.',
   keywords: ['logistics app development', 'supply chain management', 'fleet tracking', 'warehouse management', 'delivery app', 'transportation'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Smart Logistics',
     description: 'Build comprehensive logistics platforms that streamline operations, reduce costs, and improve delivery efficiency. From fleet management to last-mile delivery.',
     stats: [
-      { value: '30%', label: 'Cost Reduction' },
-      { value: '99%', label: 'On-time Delivery' },
-      { value: 'Real-time', label: 'Tracking' },
-      { value: 'AI', label: 'Route Optimization' },
+      { value: 'ERP modules', label: 'Tracking, approvals and inventory' },
+      { value: 'Real-time', label: 'Status updates over WebSockets' },
+      { value: 'Maps', label: 'Routing and geofencing' },
+      { value: 'AWS', label: 'Backends that scale with volume' },
     ],
     gradient: 'from-orange-600 to-red-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Operational Efficiency',
-      description: 'Automated workflows and route optimization reduce operational costs',
-      metric: '35%',
+      title: 'We have built the modules',
+      description: 'Tracking, approvals and reporting modules for logistics and warehousing operations.',
+      metric: 'Shipped',
     },
     {
-      title: 'Delivery Speed',
-      description: 'Smart routing and real-time tracking improve delivery times',
-      metric: '45%',
+      title: 'Approvals with audit trails',
+      description: 'Every status change is recorded, so disputes are settled from the log, not from memory.',
+      metric: 'Traceable',
     },
     {
-      title: 'Customer Satisfaction',
-      description: 'Real-time updates and reliable delivery enhance customer experience',
-      metric: '90%',
+      title: 'Field-ready mobile',
+      description: 'React Native apps for drivers and warehouse staff, built on the same backend.',
+      metric: 'Mobile',
     },
   ],
   technologies: [

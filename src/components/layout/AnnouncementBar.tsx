@@ -13,9 +13,9 @@ interface AnnouncementBarProps {
 }
 
 export default function AnnouncementBar({
-  text = 'Were ranked as the #1 AI Development Company by Clutch 2024',
-  link = '/awards',
-  linkText = 'Learn More',
+  text = 'Inzint builds AI-driven software for startups and enterprises.',
+  link = '/about',
+  linkText = 'About us',
   onClose,
 }: AnnouncementBarProps) {
   const [isVisible, setIsVisible] = useState(true);

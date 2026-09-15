@@ -32,11 +32,11 @@ export default function AIAgentHeroSection() {
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Develop autonomous AI agents that can perceive, reason, and act independently to automate complex business workflows and decision-making processes.
+              Agents that read, decide and act inside your systems, with typed tools, approval steps and an evaluation harness, so autonomy stays within the limits you set.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
-              {['Task Automation', 'Decision Making', 'Learning & Adaptation', '24/7 Operation'].map((benefit, index) => (
+              {['Workflow automation with approvals', 'Tool use over your systems', 'Evaluation before release', 'Runs on your infrastructure'].map((benefit, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
@@ -64,29 +64,26 @@ export default function AIAgentHeroSection() {
             className="relative"
           >
             <div className="bg-white rounded-2xl p-8 shadow-xl">
-              <h3 className="text-2xl font-bold mb-6">AI Agent Capabilities</h3>
-              <div className="space-y-4">
+              <h3 className="text-2xl font-bold mb-2">What every agent ships with</h3>
+              <p className="text-gray-600 mb-6">
+                Autonomy is only useful when it is bounded. These are non-negotiable in our builds.
+              </p>
+              <ul className="space-y-4">
                 {[
-                  { label: 'Multi-step Reasoning', value: '95%' },
-                  { label: 'Task Completion', value: '92%' },
-                  { label: 'Accuracy Rate', value: '98%' },
-                ].map((stat, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-gray-700">{stat.label}</span>
-                      <span className="font-bold text-indigo-600">{stat.value}</span>
+                  { title: 'Typed tools with permission checks', detail: 'Every action the agent can take is a typed function with an allow-list.' },
+                  { title: 'Human-in-the-loop for consequential actions', detail: 'Payments, deletions and outbound messages wait for approval.' },
+                  { title: 'Evaluation harness', detail: 'Prompt and tool changes run against regression cases before release.' },
+                  { title: 'Tracing, cost limits and audit logs', detail: 'Every run is traceable and capped, so surprises show up in dashboards, not invoices.' },
+                ].map((item) => (
+                  <li key={item.title} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-1" />
+                    <div>
+                      <div className="font-semibold text-gray-900">{item.title}</div>
+                      <div className="text-sm text-gray-600">{item.detail}</div>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: stat.value }}
-                        transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
-                        className="bg-gradient-to-r from-indigo-600 to-cyan-600 h-2 rounded-full"
-                      />
-                    </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </motion.div>
         </div>

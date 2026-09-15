@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Data Engineering Services | ETL, Data Pipelines',
-  description: 'Build robust data infrastructure. ETL pipelines, data warehousing, and real-time processing.',
+const data = servicePages['data-engineering'];
+
+export const metadata: Metadata = {
+  title: 'Data Engineering',
+  description:
+    'ETL pipelines, legacy data decoding, migrations and reporting dashboards built on evidence from the data itself.',
+  alternates: { canonical: '/services/data-services/data-engineering' },
 };
 
 export default function DataEngineeringPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'activity', text: 'Data Engineering' }}
-        title="Data Engineering &"
-        highlightedTitle="Infrastructure"
-        description="Build robust data infrastructure with our engineering expertise. ETL pipelines, data warehousing, and real-time data processing solutions."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

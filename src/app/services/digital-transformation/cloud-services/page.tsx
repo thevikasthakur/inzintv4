@@ -1,22 +1,20 @@
-import ServiceHeroSection from '@/components/sections/services/ServiceHeroSection';
-import { FooterSection, ServicesSection, TechnologiesSection, FAQSection } from '@/components/sections';
+import type { Metadata } from 'next';
+import { FAQSection, FooterSection, ServiceTemplate } from '@/components/sections';
+import { servicePages } from '@/data/services';
 
-export const metadata = {
-  title: 'Cloud Services | AWS, Azure, Google Cloud',
-  description: 'Enterprise cloud solutions. Migrate, build, and optimize on AWS, Azure, and Google Cloud.',
+const data = servicePages['cloud-services'];
+
+export const metadata: Metadata = {
+  title: 'Cloud & DevOps on AWS',
+  description:
+    'Serverless AWS backends defined in code, CI/CD from the first sprint, monitoring, cost control and rescue of fragile platforms.',
+  alternates: { canonical: '/services/digital-transformation/cloud-services' },
 };
 
 export default function CloudServicesPage() {
   return (
-    <main className="min-h-screen bg-white pt-20">
-      <ServiceHeroSection
-        badge={{ icon: 'cloud', text: 'Cloud Services' }}
-        title="Enterprise Cloud"
-        highlightedTitle="Solutions"
-        description="Transform your business with cloud technology. We help you migrate, build, and optimize on AWS, Azure, and Google Cloud."
-      />
-      <ServicesSection />
-      <TechnologiesSection />
+    <main>
+      <ServiceTemplate data={data} />
       <FAQSection />
       <FooterSection />
     </main>

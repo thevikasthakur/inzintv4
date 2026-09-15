@@ -1,55 +1,57 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ShoppingCart, Stethoscope, GraduationCap, Building2, Briefcase, DollarSign } from 'lucide-react';
+import { Phone, GraduationCap, BookOpen, Building2, Workflow, Sparkles } from 'lucide-react';
 
+// Applications we have built or actively build. Each card lists what the work involves,
+// not a promised percentage.
 const useCases = [
   {
-    icon: ShoppingCart,
-    industry: 'E-commerce',
-    title: 'AI-Powered Product Recommendations',
-    description: 'Personalized shopping experiences with intelligent product suggestions and dynamic content generation',
-    results: ['40% increase in conversions', '60% better engagement', '3x ROI improvement'],
+    icon: Phone,
+    industry: 'Hospitality & SMBs',
+    title: 'Voice reception (VoxReception)',
+    description: 'A bilingual English and Arabic voice agent that answers calls, routes them, books and follows up, so fewer calls are missed.',
+    results: ['Telephony integration', 'LLM dialogue with hand-off rules', 'CRM and calendar actions', 'Call data stored in India'],
     gradient: 'from-blue-500 to-cyan-500',
-  },
-  {
-    icon: Stethoscope,
-    industry: 'Healthcare',
-    title: 'Medical Documentation Assistant',
-    description: 'Automated medical note-taking and patient documentation with HIPAA-compliant AI solutions',
-    results: ['70% time savings', '99% accuracy rate', 'HIPAA compliant'],
-    gradient: 'from-green-500 to-emerald-500',
   },
   {
     icon: GraduationCap,
     industry: 'Education',
-    title: 'Personalized Learning AI',
-    description: 'Adaptive learning platforms with AI-generated content and personalized tutoring',
-    results: ['50% faster learning', '85% student satisfaction', '2x retention rate'],
+    title: 'Persona-led AI tutors (Thotis IA)',
+    description: 'A live education platform re-architected from 13 separate agents into a persona-led catalogue with real-time voice.',
+    results: ['Persona and category catalogue', 'Retrieval over course content', 'LiveKit voice sessions', 'Automated QA suite'],
+    gradient: 'from-green-500 to-emerald-500',
+  },
+  {
+    icon: BookOpen,
+    industry: 'Publishing',
+    title: 'AI-readable structured content (La Cuisine de Bernard)',
+    description: 'Years of recipes remodelled into structured content that editors, search engines and AI systems can all read.',
+    results: ['Content model redesign', 'DeepL-assisted translation workflow', 'Structured data for search and AI', 'Near-zero-downtime launch'],
     gradient: 'from-purple-500 to-pink-500',
   },
   {
-    icon: DollarSign,
-    industry: 'Finance',
-    title: 'Intelligent Financial Analysis',
-    description: 'AI-powered financial insights, report generation, and investment recommendations',
-    results: ['Real-time insights', '90% accuracy', 'Risk reduction'],
+    icon: Building2,
+    industry: 'Enterprise',
+    title: 'Private knowledge chatbots',
+    description: 'Assistants that answer from your documents with citations and know when to escalate to a person.',
+    results: ['Ingestion pipelines', 'Citations on every answer', 'Access control per document', 'In-region or self-hosted options'],
     gradient: 'from-yellow-500 to-orange-500',
   },
   {
-    icon: Building2,
-    industry: 'Real Estate',
-    title: 'Property Description Generator',
-    description: 'Automated property listings and virtual tour descriptions powered by AI',
-    results: ['10x faster listings', '45% more inquiries', 'Professional quality'],
+    icon: Workflow,
+    industry: 'Operations',
+    title: 'Document and workflow automation',
+    description: 'Extraction, classification and drafting with a human review step before anything is committed.',
+    results: ['LLM extraction with confidence scores', 'Queue-based processing (BullMQ)', 'Review queues', 'Audit trail'],
     gradient: 'from-indigo-500 to-blue-500',
   },
   {
-    icon: Briefcase,
-    industry: 'Enterprise',
-    title: 'Business Process Automation',
-    description: 'Streamline operations with AI-driven document processing and workflow automation',
-    results: ['80% cost reduction', '5x productivity', 'Error-free processing'],
+    icon: Sparkles,
+    industry: 'Product teams',
+    title: 'AI features inside existing apps',
+    description: 'Summaries, search and assistants added to live products without destabilising them.',
+    results: ['Feature flags and staged rollout', 'Prompt regression tests', 'Cost and latency budgets', 'Usage analytics'],
     gradient: 'from-pink-500 to-rose-500',
   },
 ];
@@ -67,13 +69,13 @@ export default function GenerativeAIUseCasesSection() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Generative AI{' '}
+            Where we apply{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Use Cases
+              Generative AI
             </span>
           </h2>
           <p className="text-xl text-gray-600">
-            Real-world applications of generative AI across industries driving measurable business outcomes
+            Applications we have built or actively build. Each card lists what the work involves, not a promised percentage.
           </p>
         </motion.div>
 
@@ -112,7 +114,7 @@ export default function GenerativeAIUseCasesSection() {
 
                 {/* Results */}
                 <div className="space-y-2 pt-6 border-t border-gray-100">
-                  <p className="text-sm font-semibold text-gray-900 mb-3">Key Results:</p>
+                  <p className="text-sm font-semibold text-gray-900 mb-3">What it involves:</p>
                   {useCase.results.map((result, idx) => (
                     <div key={idx} className="flex items-center gap-2">
                       <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${useCase.gradient}`} />
@@ -134,10 +136,10 @@ export default function GenerativeAIUseCasesSection() {
           className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 lg:p-12 text-center text-white"
         >
           <h3 className="text-3xl font-bold mb-4">
-            Ready to Transform Your Business with Generative AI?
+            Have an AI feature that needs to become dependable?
           </h3>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our generative AI solutions can solve your unique business challenges
+            Bring the prototype, the data and the constraints. We will tell you what it takes to run it in production.
           </p>
           <a
             href="https://outlook.office.com/bookwithme/user/dca57ea980d34c5ba4dd0dac1c5617f7%40inzint.com?anonymous&ismsaljsauthenabled=true"

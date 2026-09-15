@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'On-Demand App Development | Service Marketplace Solutions | Inzint',
+  alternates: { canonical: '/industries/on-demand-app-development' },
+  title: 'On-Demand App Development | Service Marketplace Solutions',
   description: 'Build on-demand service platforms like Uber, TaskRabbit, or Airbnb. Multi-sided marketplaces with real-time matching and booking.',
   keywords: ['on-demand app development', 'service marketplace', 'gig economy', 'booking platform', 'peer-to-peer marketplace', 'sharing economy'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'On-Demand Platforms',
     description: 'Create scalable on-demand service marketplaces that connect service providers with customers. From ride-sharing to home services and everything in between.',
     stats: [
-      { value: '<30s', label: 'Avg. Match Time' },
-      { value: '99.9%', label: 'Uptime' },
-      { value: 'Real-time', label: 'Tracking' },
-      { value: '24/7', label: 'Support' },
+      { value: 'Real-time', label: 'Matching and live tracking' },
+      { value: 'Stripe Connect', label: 'Split payments and payouts' },
+      { value: 'React Native', label: 'Customer and provider apps' },
+      { value: 'Socket.io', label: 'Live status updates' },
     ],
     gradient: 'from-amber-600 to-orange-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Faster Matching',
-      description: 'AI algorithms connect users with providers in seconds',
-      metric: '30s',
+      title: 'Two apps, one backend',
+      description: 'Customer, provider and admin experiences share one typed API.',
+      metric: 'Unified',
     },
     {
-      title: 'Platform Revenue',
-      description: 'Automated commission and fee collection increases revenue',
-      metric: '25%',
+      title: 'Marketplace payments done right',
+      description: 'Escrow-style flows, refunds and payouts with deterministic tests.',
+      metric: 'Tested',
     },
     {
-      title: 'User Retention',
-      description: 'Seamless experience and quality service boost repeat usage',
-      metric: '80%',
+      title: 'Trust tooling designed in',
+      description: 'Two-way reviews, verification and dispute handling are part of the first release.',
+      metric: 'Designed in',
     },
   ],
   technologies: [

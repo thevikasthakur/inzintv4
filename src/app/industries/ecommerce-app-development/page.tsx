@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { FAQSection, FooterSection, IndustryTemplate } from '@/components/sections';
 
 export const metadata: Metadata = {
-  title: 'E-commerce App Development | Online Store Solutions | Inzint',
+  alternates: { canonical: '/industries/ecommerce-app-development' },
+  title: 'E-commerce App Development | Online Store Solutions',
   description: 'Build powerful e-commerce platforms with advanced features. Mobile shopping apps, B2B/B2C marketplaces, and omnichannel retail solutions.',
   keywords: ['ecommerce app development', 'online store', 'shopping app', 'marketplace', 'retail solutions', 'mobile commerce'],
 };
@@ -14,10 +15,10 @@ const pageData = {
     highlightedTitle: 'Shopping Experiences',
     description: 'Create scalable e-commerce platforms that drive sales and customer engagement. From mobile shopping apps to enterprise marketplaces with AI-powered personalization.',
     stats: [
-      { value: '3x', label: 'Conversion Rate' },
-      { value: '50K+', label: 'Products Supported' },
-      { value: '99.9%', label: 'Uptime' },
-      { value: '<2s', label: 'Page Load' },
+      { value: 'Next.js', label: 'Storefronts with static generation' },
+      { value: 'Headless', label: 'Payload and CMS-driven catalogues' },
+      { value: 'Stripe', label: 'Checkout and subscriptions' },
+      { value: 'React Native', label: 'Shopping apps for both stores' },
     ],
     gradient: 'from-purple-600 to-pink-600',
   },
@@ -67,19 +68,19 @@ const pageData = {
   ],
   benefits: [
     {
-      title: 'Higher Conversion',
-      description: 'Optimized checkout flow and personalization boost sales conversion rates',
-      metric: '45%',
+      title: 'Performance budgets',
+      description: 'Core Web Vitals targets are set before launch and monitored after it.',
+      metric: 'Measured',
     },
     {
-      title: 'Customer Retention',
-      description: 'Loyalty programs and personalized experiences increase repeat purchases',
-      metric: '60%',
+      title: 'Catalogue migrations',
+      description: 'We have decoded a 2 GB legacy content export; product data moves without loss.',
+      metric: 'Preserved',
     },
     {
-      title: 'Mobile Sales',
-      description: 'Mobile-first design captures growing mobile commerce market',
-      metric: '70%',
+      title: 'Multilingual by default',
+      description: 'Translation workflows and per-locale SEO are built into the content model.',
+      metric: 'Localised',
     },
   ],
   technologies: [

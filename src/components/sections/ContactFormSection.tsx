@@ -2,7 +2,20 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { company } from '@/data/company';
+
+const headquarters =
+  company.contact.locations.find((office) => office.isHQ) ?? company.contact.locations[0];
+
+// Real commitments from the company profile, not marketing statistics.
+const whyInzint = [
+  'A reply within one business day, from a founder',
+  'Founder-led engagement with direct access to decision makers',
+  'Weekly live demos or recorded updates throughout the project',
+  'Documented decisions: architecture records, runbooks, onboarding guides',
+  'Offices in Noida, Muscat and the US, working across India, the Gulf and Europe',
+];
 
 export default function ContactFormSection() {
   const [formData, setFormData] = useState({
@@ -15,8 +28,9 @@ export default function ContactFormSection() {
     message: '',
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [honeypot, setHoneypot] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -25,29 +39,51 @@ export default function ContactFormSection() {
     });
   };
 
+  const fallbackContact = `${company.contact.email} or ${company.contact.phone}`;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setStatus('sending');
+    setErrorMessage('');
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setIsSubmitting(false);
-    setSubmitted(true);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        budget: '',
-        message: '',
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, website: honeypot }),
       });
-    }, 3000);
+      const data: { error?: string; message?: string } = await response
+        .json()
+        .catch(() => ({}));
+
+      if (response.ok) {
+        setStatus('sent');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          service: '',
+          budget: '',
+          message: '',
+        });
+        return;
+      }
+
+      setStatus('error');
+      if (data.error === 'not_configured') {
+        setErrorMessage(
+          `Our form is not connected to email yet. Please write to ${fallbackContact} and we will get back to you.`
+        );
+      } else {
+        setErrorMessage(
+          data.message || `We could not send your message. Please email ${company.contact.email} instead.`
+        );
+      }
+    } catch {
+      setStatus('error');
+      setErrorMessage(`We could not reach the server. Please email ${company.contact.email} instead.`);
+    }
   };
 
   return (
@@ -184,19 +220,29 @@ export default function ContactFormSection() {
                 />
               </div>
 
+              {/* Honeypot: real visitors never see or fill this field */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               <button
                 type="submit"
-                disabled={isSubmitting || submitted}
+                disabled={status === 'sending'}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isSubmitting ? (
+                {status === 'sending' ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Sending...
-                  </>
-                ) : submitted ? (
-                  <>
-                    <span>Message Sent!</span>
                   </>
                 ) : (
                   <>
@@ -205,6 +251,19 @@ export default function ContactFormSection() {
                   </>
                 )}
               </button>
+
+              {status === 'sent' && (
+                <p role="status" className="flex items-start gap-2 text-green-700 bg-green-50 border border-green-200 rounded-lg p-4">
+                  <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <span>Thanks, your message is on its way. We reply within one business day.</span>
+                </p>
+              )}
+              {status === 'error' && (
+                <p role="alert" className="flex items-start gap-2 text-red-700 bg-red-50 border border-red-200 rounded-lg p-4">
+                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <span>{errorMessage}</span>
+                </p>
+              )}
             </form>
           </motion.div>
 
@@ -216,54 +275,32 @@ export default function ContactFormSection() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            {/* Map Placeholder */}
+            {/* Headquarters map */}
             <div className="bg-gray-200 rounded-2xl overflow-hidden h-96">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0977326165384!2d-122.41941968468186!3d37.77492977975903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sTwitter%20HQ!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(headquarters.mapQuery)}&output=embed`}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Office Location"
+                title={`Inzint headquarters, ${headquarters.city}`}
               />
             </div>
 
             {/* Why Choose Us */}
             <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-8 rounded-2xl text-white">
-              <h3 className="text-2xl font-bold mb-4">Why Choose Inzint?</h3>
+              <h3 className="text-2xl font-bold mb-4">What to expect</h3>
               <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    ✓
-                  </div>
-                  <span>500+ Successful Projects Delivered</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    ✓
-                  </div>
-                  <span>Expert Team of 200+ Developers</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    ✓
-                  </div>
-                  <span>24/7 Customer Support</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    ✓
-                  </div>
-                  <span>Global Presence in 15+ Countries</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    ✓
-                  </div>
-                  <span>98% Client Satisfaction Rate</span>
-                </li>
+                {whyInzint.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      ✓
+                    </div>
+                    <span>{point}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </motion.div>

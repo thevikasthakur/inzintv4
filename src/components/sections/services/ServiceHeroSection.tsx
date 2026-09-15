@@ -73,7 +73,7 @@ export default function ServiceHeroSection({
             href="/hire-developers"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 rounded-lg font-semibold hover:border-gray-400 transition-all"
           >
-            Hire Developers
+            Dedicated Squads
           </Link>
         </motion.div>
       </div>

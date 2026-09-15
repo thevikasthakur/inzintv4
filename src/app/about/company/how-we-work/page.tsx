@@ -6,6 +6,7 @@ import {
 } from '@/components/sections';
 
 export const metadata = {
+  alternates: { canonical: '/about/company/how-we-work' },
   title: 'How We Work',
   description: 'Learn about our agile development process and engineering culture that delivers quality software on time.',
 };
