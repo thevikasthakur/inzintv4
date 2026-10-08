@@ -208,9 +208,9 @@ export const company = {
     phoneHref: 'tel:+919289909174',
     phoneUS: '+1 (206) 796 4306',
     phoneUSHref: 'tel:+12067964306',
-    phoneJobs: '+91 92897 04058',
-    phoneJobsHref: 'tel:+919289704058',
-    hrEmails: ['adarshmishra@inzint.com', 'twinkle@inzint.com'],
+    phoneJobs: '+91 92899 09175',
+    phoneJobsHref: 'tel:+919289909175',
+    hrEmails: ['hr@inzint.com'],
     businessHours: 'Monday to Friday, 10:00 to 19:00 IST',
     // The three real offices. Every office listing on the site reads from here.
     locations: [
