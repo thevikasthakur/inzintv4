@@ -421,14 +421,11 @@ export default function AIMLEngineerTraineePage() {
               <div className="space-y-4">
                 <div className="flex items-center justify-center gap-3">
                   <Mail className="h-5 w-5" />
-                  <div>
-                    <p>adarshmishra@inzint.com</p>
-                    <p>twinkle@inzint.com</p>
-                  </div>
+                  <p>hr@inzint.com</p>
                 </div>
                 <div className="flex items-center justify-center gap-3">
                   <Phone className="h-5 w-5" />
-                  <p>+91 9289704058</p>
+                  <p>+91 92899 09175</p>
                 </div>
               </div>
             </div>
