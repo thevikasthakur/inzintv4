@@ -177,7 +177,7 @@ export const company = {
     email: 'hello@inzint.com',
     phone: '+91 92899 09174',
     phoneUS: '+1 206 796 4306',
-    phoneJobs: '+91 9289704058',
+    phoneJobs: '+91 92899 09175',
     locations: [
       {
         country: 'India',
